@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import Loading from "./Components/Loading/Loading";
 import Feeds from "./Pages/Feeds/Feeds";
 import ProfileEdit from "./Pages/Profile/ProfileEdit";
-import Check from "./Pages/check";
 
 function App() {
   return (
@@ -51,7 +50,6 @@ function MainLayout() {
         <Route path="/profile-edit" element={<ProfileEdit />} />
         <Route path="/feeds" element={<Feeds />} />
         <Route path="/history" element={<History />} />
-        <Route path="/check" element={<Check />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

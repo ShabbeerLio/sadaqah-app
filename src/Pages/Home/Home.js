@@ -10,7 +10,6 @@ const Home = () => {
       <div className="Home-main">
         <Banners />
         <Collection />
-        <Searchbox/>
       </div>
     </div>
   );

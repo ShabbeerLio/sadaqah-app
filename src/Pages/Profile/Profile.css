@@ -47,6 +47,14 @@
     margin-bottom: 20px;
 }
 
+.profile-details{
+    margin-bottom: 1rem;
+}
+.profile-details p{
+    margin: 0;
+
+}
+
 .highlight {
     width: 100%;
     padding: 8px;
@@ -62,12 +70,12 @@
 
 .profile-gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: .5px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3px;
 }
 
 .gallery-item {
-    height: 180px;
+    height: 250px;
 }
 .gallery-item img{
     width: 100%;
@@ -76,5 +84,12 @@
 }
 
 @media only screen and (max-width: 680px) {
- 
+ .profile-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+}
+.gallery-item {
+    height: 180px;
+}
 }

@@ -15,6 +15,8 @@ const FeedCard = ({ post }) => {
         slidesToScroll: 1
     };
 
+    console.log(post,"post")
+
     return (
         <div className="feedcard" key={post.id}>
             {/* Header */}
@@ -27,10 +29,10 @@ const FeedCard = ({ post }) => {
             </div>
 
             {/* Carousel */}
-            {post.images && post.images.length > 0 && (
+            {post.image && post.image.length > 0 && (
                 <div className="feedcard-carousel">
                     <Slider {...sliderSettings}>
-                        {post.images.map((img, idx) => (
+                        {post.image.map((img, idx) => (
                             <div key={idx} className="carousel-image-wrapper">
                                 <img src={img} alt={`slide-${idx}`} className="carousel-image" />
                             </div>
@@ -64,7 +66,7 @@ const FeedCard = ({ post }) => {
                 )}
             </div>
 
-            <span className="time">{post.time}</span>
+            <span className="time">{post.daysAgo}</span>
         </div>
     );
 };

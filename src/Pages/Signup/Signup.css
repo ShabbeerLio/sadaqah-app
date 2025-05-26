@@ -176,6 +176,7 @@
   }
   .signup-box.nonactive .toggle-panel.toggle-left {
     top: -30%;
+    left: 0;
     transition: 0.8s ease-in-out;
   }
   .toggle-panel .btn {
