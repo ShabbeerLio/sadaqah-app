@@ -1,0 +1,128 @@
+.history-box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+  margin: 15px;
+}
+.date-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  padding-bottom: 0;
+  gap: 1rem;
+}
+.date-inpt {
+  display: flex;
+  flex-direction: column;
+}
+.date-inpt input {
+  border: none;
+  background-color: transparent;
+  border: 1px solid #ebebeb;
+  color: black;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.date-inpt label {
+  font-size: 12px;
+}
+.history-left {
+  width: 50%;
+  background-color: #d7f3dd;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.history-left h1 {
+  color: #23933b;
+  font-weight: 600;
+  font-size: 40px;
+}
+.history-left p {
+  background-color: #f1fbf3;
+  border-radius: 25px;
+  margin: 0;
+  padding: 5px 20px;
+}
+.history-right {
+  width: 50%;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.history-right img {
+  width: 25%;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+.history-right-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #ebebeb;
+  padding: 1rem;
+}
+
+.history-card-detail {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+.history-card-detail p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  border-radius: 25px;
+  background-color: #ebebeb;
+  padding: 10px;
+  font-size: 25px;
+}
+
+.history-card-title span {
+  font-size: 14px;
+}
+.history-card-title h2 {
+  font-size: 18px;
+  margin: 0;
+  text-transform: uppercase;
+}
+.history-card-title h6 {
+  font-size: 12px;
+  margin: 0;
+  padding-top: 5px;
+}
+@media only screen and (max-width: 680px) {
+  .history-box {
+    flex-wrap: wrap;
+  }
+  .history-left,
+  .history-right {
+    width: 100%;
+  }
+  .history-right img {
+    width: 50%;
+    object-fit: cover;
+    border-radius: 25px;
+  }
+  .history-left {
+    padding: 2rem 1rem;
+  }
+  .history-right-card {
+    width: 100%;
+  }
+}

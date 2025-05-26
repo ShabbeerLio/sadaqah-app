@@ -1,23 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom";
+import Navbar from "./Components/Navbar/Navbar";
+import Home from "./Pages/Home/Home";
+import Pnav from "./Components/Navbar/Pnav";
+import Profile from "./Pages/Profile/Profile";
+import History from "./Pages/History/History";
+import Login from "./Pages/Login/Login";
+import Signup from "./Pages/Signup/Signup";
+import { useEffect, useState } from "react";
+import Loading from "./Components/Loading/Loading";
+import Feeds from "./Pages/Feeds/Feeds";
+import ProfileEdit from "./Pages/Profile/ProfileEdit";
+import Check from "./Pages/check";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <BrowserRouter>
+      <MainLayout />
+    </BrowserRouter>
+  );
+}
+
+function MainLayout() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading on first mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const hideNav =
+    location.pathname === "/login" || location.pathname === "/signup";
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <div className="app-container">
+      {!hideNav && <Navbar />}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile-edit" element={<ProfileEdit />} />
+        <Route path="/feeds" element={<Feeds />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/check" element={<Check />} />
+      </Routes>
+      {!hideNav && <Pnav />}
     </div>
   );
 }

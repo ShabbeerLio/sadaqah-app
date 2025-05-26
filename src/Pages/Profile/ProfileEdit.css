@@ -1,0 +1,52 @@
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+}
+
+.profile-image-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 16px;
+  /* border: 2px solid #444; */
+}
+
+.edit-avatar button {
+  background: none;
+  border: none;
+  color: #1e90ff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+}
+
+.field-label {
+  color: #aaa;
+}
+
+.field-value {
+  text-align: right;
+  white-space: pre-line;
+}
+
+.bio .field-value {
+  text-align: left;
+  white-space: pre-line;
+}

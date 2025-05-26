@@ -1,0 +1,39 @@
+.Pnav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: none;
+  border-radius: 15px 15px 0 0;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.Pnav ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem 0;
+  margin: 0;
+}
+.Pnav ul li {
+  display: flex;
+}
+.Pnav ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-decoration: none;
+  color:  rgb(88, 88, 88);
+  cursor: pointer;
+  font-size: 12px;
+}
+.Pnav ul li a svg{
+  font-size: 25px;
+  color: rgb(88, 88, 88);
+}
+@media only screen and (max-width: 990px) {
+    .Pnav{
+        display: block;
+    }
+}

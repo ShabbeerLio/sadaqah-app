@@ -1,0 +1,104 @@
+.navbar {
+  width: 100%;
+  background-color: #241f5f;
+  color: black;
+}
+.navbar-main {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.nav-name h5 {
+  font-size: 20px;
+  color: white;
+  margin: 0;
+}
+.nav-name span {
+  font-size: 14px;
+  color: #ffffffc7;
+  margin: 0;
+}
+
+.navbar-main img {
+  width: 100%;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .show > .nav-link {
+  color: white !important;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: rgb(228, 228, 228) !important;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile svg {
+  font-size: 25px;
+  color: white;
+}
+.profile .help a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8e88d3;
+  border-radius: 25px;
+  padding: 5px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+.profile .help a p {
+  margin: 0;
+  color: white;
+  padding: 0 5px;
+}
+.profile .btn {
+  box-shadow: none;
+}
+.dropdown-menu[data-bs-popper] {
+  top: 100%;
+  right: 0;
+  left: auto !important;
+  margin-top: 0.125rem;
+  background-color: #ffffff;
+}
+.dropdown-menu[data-bs-popper] a {
+  color: black;
+}
+.navbar-collapse {
+  justify-content: center;
+}
+
+@media screen and (min-width: 1200px) {
+  .navbar-main {
+    max-width: 1200px;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .navbar {
+    width: 100%;
+    padding: 2px 0;
+    /* background-color: transparent; */
+  }
+  .navbar-main img {
+    width: 110%;
+    max-height: 80px;
+    object-fit: cover;
+  }
+  .navbar-brand {
+    width: 40%;
+  }
+  /* .profile {
+    position: absolute;
+    top: 20%;
+    right: 2%;
+  } */
+}

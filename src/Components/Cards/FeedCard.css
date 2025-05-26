@@ -1,0 +1,100 @@
+.feedcard {
+  /* max-width: 450px; */
+  width: 100%;
+  margin: 20px auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.feedcard-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-weight: bold;
+  display: block;
+}
+
+.user-location {
+  font-size: 12px;
+  color: #888;
+  display: block;
+}
+
+.feedcard-carousel {
+  width: 100%;
+  max-height: 550px;
+}
+
+.carousel-image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 550px;
+  background-color: #f9f9f9;
+}
+
+.feedcard-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  align-items: center;
+}
+
+.left-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.feedcard-description {
+  padding: 0 14px 6px;
+  font-size: 14px;
+}
+
+.more-link {
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.time {
+  font-size: 12px;
+  color: #888;
+  padding: 0 14px 10px;
+  display: block;
+}
+
+.slick-dots {
+    bottom: 2% !important;
+}
