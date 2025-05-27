@@ -33,6 +33,9 @@ const Signup = () => {
                             <div className="form-group">
                                 <input type="password" id="password" className="form-input" placeholder="Enter Password" />
                             </div>
+                            <div className="forgot-link">
+                                <Link>Forgot Password</Link>
+                            </div>
                             <button onClick={handleClickLogin} type="button" className="submit-button">
                                 Login
                             </button>

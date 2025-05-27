@@ -19,7 +19,7 @@
 .Collection-box-left {
   width: 50%;
   border-radius: 8px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #f0f0f0;
   padding: 1rem;
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #8e88d3;
+  background-color: #483AA0;
   color: white;
   padding: 10px;
   border-radius: 8px;
@@ -39,10 +39,10 @@
 .collection-left-bottom p svg {
   margin-right: 8px;
   font-size: 20px;
-  color: #241f5f;
+  color: #f0f0f0;
 }
 .collection-left-bottom h6 {
-  color: #241f5f;
+  color: #f0f0f0;
   margin: 0;
 }
 .Collection-box-right {
@@ -54,7 +54,10 @@
 }
 
 .collection-right-card {
-  background-color: #fcb619;
+  background-color: #f0f0f0;
+  /* border: 1px solid #FDB618; */
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   width: 100%;
   padding: 1rem;
@@ -65,14 +68,15 @@
   height: 100%;
 }
 .collection-right-card p {
-  background-color: #fbeac5;
+  background-color: #ffffff;
   border-radius: 1rem;
   padding: 5px;
   margin-bottom: 8px;
 }
 .collection-right-card p svg {
-  color: #fcb619;
+  color: black;
   font-size: 35px;
+  padding: 5px;
 }
 
 @media screen and (min-width: 1200px) {

@@ -88,7 +88,7 @@
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #4b5563;
+  color: #25205E;
 }
 
 .form-input {
@@ -101,18 +101,17 @@
 
 .forgot-link {
   text-align: right;
-  margin-bottom: 1rem;
 }
 
 .forgot-link a {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: #25205E;
   font-weight: 600;
   text-decoration: none;
 }
 
 .forgot-link a:hover {
-  color: #4b5563;
+  color: #25205E;
 }
 
 .submit-button {

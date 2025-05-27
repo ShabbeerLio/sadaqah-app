@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Searchbox from "../../Components/Searchbox/Searchbox";
 import CombinedFeedData from "../AppData";
 import SearchCard from "../../Components/Cards/SearchCard";
-import defaultImage from "../../Assets/Posts/vecteezy_holy-book-quran-and-tasbih-isolated-on-white-background_5714464.jpg"; // Make sure to add the image path correctly
+import defaultImage from "../../Assets/app-bg.png"; // Make sure to add the image path correctly
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,7 +25,7 @@ const Search = () => {
       <div className="Home-main">
         <Searchbox value={searchTerm} setSearch={setSearchTerm} />
         {searchTerm && filteredPosts.length === 0 ? (
-          <div className="No-results">
+          <div className="search-image">
             <img src={defaultImage} alt="No results found" />
             <p>No results found.</p>
           </div>

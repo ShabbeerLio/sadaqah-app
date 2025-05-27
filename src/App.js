@@ -49,6 +49,7 @@ function MainLayout() {
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/profile-edit" element={<ProfileEdit />} />
         <Route path="/feeds" element={<Feeds />} />
         <Route path="/history" element={<History />} />

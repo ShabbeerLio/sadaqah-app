@@ -29,7 +29,6 @@ const Signup = () => {
         password: "",
         pincode: "",
         authorizedPersonName: "",
-        authorizedDesignation: "",
         authorizedNumber: "",
     });
 
@@ -97,7 +96,7 @@ const Signup = () => {
                                 <input
                                     type="text"
                                     className="form-input"
-                                    placeholder="Enter Name"
+                                    placeholder="Name"
                                     value={userData.name}
                                     onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                                 />
@@ -105,14 +104,14 @@ const Signup = () => {
                             <div className="form-group">
                                 <input
                                     type="number"
-                                    id="number" className="form-input" placeholder="Enter Number"
+                                    id="number" className="form-input" placeholder="Number"
                                     value={userData.number}
                                     onChange={(e) => setUserData({ ...userData, number: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <input
                                     type="email"
-                                    id="email" className="form-input" placeholder="Enter Email"
+                                    id="email" className="form-input" placeholder="Email"
                                     value={userData.email}
                                     onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
                             </div>
@@ -120,24 +119,24 @@ const Signup = () => {
                             <div className="form-group">
                                 <input
                                     type="password"
-                                    id="password" className="form-input" placeholder="Enter Password"
+                                    id="password" className="form-input" placeholder="Password"
                                     value={userData.password}
                                     onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <input
                                     type="number"
-                                    id="currentPincode" className="form-input" placeholder="Enter Current Pincode"
+                                    id="currentPincode" className="form-input" placeholder="Current Pincode"
                                     value={userData.currentPincode}
                                     onChange={(e) => setUserData({ ...userData, currentPincode: e.target.value })} />
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <input
                                     type="number"
-                                    id="villagePincode" className="form-input" placeholder="Enter Village Pincode"
+                                    id="villagePincode" className="form-input" placeholder="Village Pincode"
                                     value={userData.villagePincode}
                                     onChange={(e) => setUserData({ ...userData, villagePincode: e.target.value })} />
-                            </div>
+                            </div> */}
                             <button type="submit" className="submit-button">
                                 Signup
                             </button>
@@ -178,8 +177,9 @@ const Signup = () => {
                                     <option value="">Select Institution Type</option>
                                     <option value="Masjid">Masjid</option>
                                     <option value="Madrasa">Madrasa</option>
-                                    <option value="Charity Organization">Charity Organization</option>
-                                    <option value="Other">Other</option>
+                                    <option value="Kabristan">Kabristan</option>
+                                    <option value="Khanqua">Khanqua</option>
+                                    <option value="Islamic Trust">Islamic Trust</option>
                                 </select>
                             </div>
                             <div className="form-group">
@@ -187,7 +187,7 @@ const Signup = () => {
                                     type="email"
                                     id="email"
                                     className="form-input"
-                                    placeholder="Enter Email"
+                                    placeholder="Email"
                                     value={instituteData.email}
                                     onChange={(e) =>
                                         setInstituteData({ ...instituteData, email: e.target.value })
@@ -198,7 +198,7 @@ const Signup = () => {
                                     type="password"
                                     id="password"
                                     className="form-input"
-                                    placeholder="Enter Password"
+                                    placeholder="Password"
                                     value={instituteData.password}
                                     onChange={(e) =>
                                         setInstituteData({ ...instituteData, password: e.target.value })
@@ -209,14 +209,14 @@ const Signup = () => {
                                     type="number"
                                     id="pincode"
                                     className="form-input"
-                                    placeholder="Enter pincode"
+                                    placeholder="pincode"
                                     value={instituteData.pincode}
                                     onChange={(e) =>
                                         setInstituteData({ ...instituteData, pincode: e.target.value })
                                     } />
                             </div>
                             <div className="login-dash">
-                                <p>Authorized Person (Imam or committee Head)</p>
+                                <p>Authorized Person (Imam or Committee Head)</p>
                             </div>
                             <div className="form-group">
                                 <input
@@ -231,21 +231,10 @@ const Signup = () => {
                             </div>
                             <div className="form-group">
                                 <input
-                                    type="text"
-                                    id="designation"
-                                    className="form-input"
-                                    placeholder="Designation"
-                                    value={instituteData.authorizedDesignation}
-                                    onChange={(e) =>
-                                        setInstituteData({ ...instituteData, authorizedDesignation: e.target.value })
-                                    } />
-                            </div>
-                            <div className="form-group">
-                                <input
                                     type="number"
                                     id="number"
                                     className="form-input"
-                                    placeholder="Number"
+                                    placeholder="Mobile Number"
                                     value={instituteData.authorizedNumber}
                                     onChange={(e) =>
                                         setInstituteData({ ...instituteData, authorizedNumber: e.target.value })

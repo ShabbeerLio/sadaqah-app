@@ -1,0 +1,34 @@
+.Footer {
+  position: relative;
+  height: 30vh;
+}
+
+.Footer-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.Footer-image img {
+  width: 100%;
+  object-fit: cover;
+      opacity: 0.8;
+}
+
+.Footer-text {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  padding: 1rem;
+}
+.Footer-text h2 {
+  color: #b3b3b3c8;
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-style: italic;
+}
+.Footer-text p {
+    /* font-weight: 200; */
+  margin: 0;
+}
