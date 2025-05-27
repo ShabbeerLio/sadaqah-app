@@ -11,6 +11,7 @@ const CombinedFeedData = [
     username: "shabbeer",
     avatar: post1,
     followers: 200,
+    location: "Delhi",
     posts: [
       {
         id: 1,
@@ -45,6 +46,7 @@ const CombinedFeedData = [
     username: "samsungindia",
     avatar: post2,
     followers: 1200,
+    location: "bangalore",
     posts: [
       {
         id: 1,
@@ -71,6 +73,7 @@ const CombinedFeedData = [
     username: "foodie123",
     avatar: avatarImg,
     followers: 340,
+    location: "bangalore",
     posts: [
       {
         id: 1,
@@ -95,6 +98,7 @@ const CombinedFeedData = [
     username: "city_lights",
     avatar: post3,
     followers: 580,
+    location: "bangalore",
     posts: [
       {
         id: 1,
@@ -109,8 +113,9 @@ const CombinedFeedData = [
   {
     id: 5,
     username: "pet_paradise",
-    avatar: avatarImg,
+    avatar: post2,
     followers: 720,
+    location: "Bihar",
     posts: [
       {
         id: 1,
@@ -127,6 +132,7 @@ const CombinedFeedData = [
     username: "artsy_gal",
     avatar: avatarImg,
     followers: 410,
+    location: "Mumbai",
     posts: [
       {
         id: 1,
@@ -149,8 +155,9 @@ const CombinedFeedData = [
   {
     id: 7,
     username: "fitness_freak",
-    avatar: avatarImg,
+    avatar: post3,
     followers: 1050,
+    location: "Kolkata",
     posts: [
       {
         id: 1,
@@ -166,6 +173,54 @@ const CombinedFeedData = [
         image: [sampleImg],
         likes: 520,
         time: "2025-05-10",
+        description: "Fuel your body, fuel your mind. #healthylifestyle",
+      },
+    ],
+  },
+  {
+    id: 8,
+    username: "Mashjid-e-hind",
+    avatar: post1,
+    followers: 1050,
+    location: "Kolkata",
+    posts: [
+      {
+        id: 1,
+        type: "Quran",
+        location: "delhi",
+        // image: [post1],
+        likes: 720,
+        time: "2025-05-11",
+        title: "this is quran title1",
+        description: "this is descriptions of quran type post just for cheking purpose",
+      },
+      {
+        id: 2,
+        type: "Hadith",
+        location: "gurgaon",
+        image: [sampleImg],
+        likes: 520,
+        time: "2025-05-10",
+        title: "this is Hadith title2",
+        description: "Fuel your body, fuel your mind. #healthylifestyle",
+      },
+      {
+        id: 3,
+        type: "Quran",
+        location: "gurgaon",
+        image: [post1],
+        likes: 520,
+        time: "2025-05-10",
+        title: "this is Hadith title3",
+        description: "Fuel your body, fuel your mind. #healthylifestyle",
+      },
+      {
+        id: 4,
+        type: "Hadith",
+        location: "gurgaon",
+        likes: 520,
+        time: "2025-05-10",
+        title: "this is Hadith title4",
         description: "Fuel your body, fuel your mind. #healthylifestyle",
       },
     ],

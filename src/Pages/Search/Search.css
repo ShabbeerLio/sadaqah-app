@@ -1,0 +1,32 @@
+.Search {
+  width: 100%;
+  height: 85%;
+}
+.search-image {
+  position: relative;
+}
+.search-image img {
+  width: 100%;
+  object-fit: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.search-image img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  filter: brightness(0.8);
+}
+.search-image p {
+  margin: 0;
+  text-align: center;
+}
+
+@media only screen and (max-width: 680px) {
+  .Search {
+    width: 100%;
+    height: 100%;
+  }
+}

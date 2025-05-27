@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Pnav.css"
 import { Link } from 'react-router-dom'
-import { LuHouse, LuCircleUser } from "react-icons/lu";
+import { LuHouse, LuCircleUser, LuSearch } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
 import { CgFeed } from "react-icons/cg";
 
@@ -16,6 +16,9 @@ const Pnav = () => {
                 </li>
                 <li>
                     <Link to={"/feeds"}><CgFeed />Feeds</Link>
+                </li>
+                <li>
+                    <Link to={"/search"}><LuSearch />Search</Link>
                 </li>
                 <li>
                     <Link to={"/profile"}><LuCircleUser />Profile</Link>

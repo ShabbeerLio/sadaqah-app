@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Loading from "./Components/Loading/Loading";
 import Feeds from "./Pages/Feeds/Feeds";
 import ProfileEdit from "./Pages/Profile/ProfileEdit";
+import Search from "./Pages/Search/Search";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function MainLayout() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Home />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile-edit" element={<ProfileEdit />} />
         <Route path="/feeds" element={<Feeds />} />

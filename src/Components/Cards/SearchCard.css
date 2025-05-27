@@ -1,0 +1,33 @@
+.SearchCard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 10px;
+  /* padding: 0 15px ; */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.SearchCard-left img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 2/2;
+  border-radius: 12px;
+}
+.SearchCard-left {
+  width: 15%;
+}
+.SearchCard-right {
+  width: 80%;
+}
+.SearchCard-right h6{
+  font-weight: 600;
+  margin: 0;
+}
+.SearchCard-right p{
+  margin: 0;
+  font-size: 14px;
+}
