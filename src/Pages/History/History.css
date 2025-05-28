@@ -41,9 +41,10 @@
   border-radius: 8px;
   padding: 1rem;
   width: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .history-left h1 {
-  color: #25205E;
+  color: #25205e;
   font-weight: 600;
   font-size: 20px;
 }
@@ -82,8 +83,9 @@
   justify-content: space-between;
   width: 100%;
   padding: 1rem;
-  background-color: #ebebeb;
+  background-color: white;
   border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .history-card-detail {
@@ -138,5 +140,16 @@
   }
   .history-right-card {
     width: 100%;
+  }
+  .history-left {
+    padding: 0 10px;
+  }
+
+  .date-filter {
+  padding: 0;
+}
+  .history-right {
+    background-color: #f0f0f0;
+    padding: 1rem;
   }
 }

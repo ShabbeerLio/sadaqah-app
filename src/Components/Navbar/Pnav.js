@@ -1,34 +1,53 @@
-import React from 'react'
-import "./Pnav.css"
-import { Link } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react';
+import './Pnav.css';
+import { NavLink, useLocation } from 'react-router-dom';
 import { LuHouse, LuCircleUser, LuSearch } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
 import { CgFeed } from "react-icons/cg";
 
-
-
 const Pnav = () => {
+    const location = useLocation();
+    const [activeLeft, setActiveLeft] = useState(0);
+    const [activeWidth, setActiveWidth] = useState(0);
+    const navRefs = useRef([]);
+
+    useEffect(() => {
+        const current = navRefs.current.find(
+            ref => ref && ref.dataset.path === location.pathname
+        );
+        if (current) {
+            setActiveLeft(current.offsetLeft);
+            setActiveWidth(current.offsetWidth);
+        }
+    }, [location]);
+
+    const links = [
+        { to: "/", label: "Home", icon: <LuHouse /> },
+        { to: "/feeds", label: "Feeds", icon: <CgFeed /> },
+        { to: "/search", label: "Search", icon: <LuSearch /> },
+        { to: "/profile", label: "Profile", icon: <LuCircleUser /> },
+        { to: "/history", label: "History", icon: <GrTransaction /> },
+    ];
+
     return (
-        <div className='Pnav'>
+        <div className="Pnav">
+            <div className="highlight" style={{ left: activeLeft }} />
             <ul>
-                <li>
-                    <Link to={"/"}><LuHouse />Home</Link>
-                </li>
-                <li>
-                    <Link to={"/feeds"}><CgFeed />Feeds</Link>
-                </li>
-                <li>
-                    <Link to={"/search"}><LuSearch />Search</Link>
-                </li>
-                <li>
-                    <Link to={"/profile"}><LuCircleUser />Profile</Link>
-                </li>
-                <li>
-                    <Link to={"/history"}> <GrTransaction />History</Link>
-                </li>
+                {links.map((link, index) => (
+                    <li key={index}>
+                        <NavLink
+                            to={link.to}
+                            className="nav-link"
+                            data-path={link.to}
+                            ref={el => navRefs.current[index] = el}
+                        >
+                            {link.icon}
+                        </NavLink>
+                    </li>
+                ))}
             </ul>
         </div>
-    )
-}
+    );
+};
 
-export default Pnav
+export default Pnav;

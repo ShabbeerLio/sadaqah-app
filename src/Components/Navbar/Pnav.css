@@ -17,6 +17,9 @@
 }
 .Pnav ul li {
   display: flex;
+  align-items: center;
+    justify-content: center;
+    padding: 20px 0;
 }
 .Pnav ul li a {
   display: flex;
@@ -24,13 +27,63 @@
   justify-content: center;
   flex-direction: column;
   text-decoration: none;
-  color:  rgb(88, 88, 88);
+  color:  #25205E;
   cursor: pointer;
   font-size: 12px;
 }
 .Pnav ul li a svg{
   font-size: 25px;
-  color: rgb(88, 88, 88);
+  color: #25205E;
+}
+
+/*  */
+
+.Pnav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+}
+
+.Pnav li {
+    flex: 1;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 12px;
+    text-decoration: none;
+    color: #333;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
+    transition: color 0.5s ease;
+}
+
+.nav-link.active{
+    color: white;
+}
+.nav-link:focus{
+    color: white;
+}
+.nav-link.active svg{
+    color: white;
+}
+
+.Pnav .highlight {
+    position: absolute;
+    top: 10%;
+    bottom: 0;
+    height: 50px;
+    width: 50px;
+    background-color: #25205E;
+    transition: left 0.3s ease, width 0.3s ease;
+    z-index: 0;
+    border-radius: 50px;
+    border: none;
 }
 @media only screen and (max-width: 990px) {
     .Pnav{
