@@ -74,17 +74,27 @@
 }
 
 .Pnav .highlight {
-    position: absolute;
-    top: 10%;
-    bottom: 0;
-    height: 50px;
-    width: 50px;
-    background-color: #25205E;
-    transition: left 0.3s ease, width 0.3s ease;
-    z-index: 0;
-    border-radius: 50px;
-    border: none;
+  position: absolute;
+  top: 10%;
+  height: 50px;
+  background-color: #25205E;
+  border-radius: 50px;
+  z-index: 0;
 }
+
+/* Water droplet tail */
+.Pnav .liquid-tail {
+  position: absolute;
+  top: 10%;
+  height: 50px;
+  background-color: #25205E;
+  border-radius: 50px;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: right;
+  /* mix-blend-mode: multiply; */
+}
+
 @media only screen and (max-width: 990px) {
     .Pnav{
         display: block;
