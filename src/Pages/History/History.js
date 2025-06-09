@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./History.css";
 import nofund from "../../Assets/no fund.jpg";
 import { GoArrowUpRight } from "react-icons/go";
 import Banners from "../../Components/Banner/Banner";
+import { useNavigate } from "react-router-dom";
 
 const History = () => {
+    const navigate = useNavigate();
+
+  useEffect(() => {
+    const authUser = localStorage.getItem("authUser");
+    if (!authUser) {
+      navigate("/login");
+    }
+  }, [navigate]);
     const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
     const [fromDate, setFromDate] = useState(today);

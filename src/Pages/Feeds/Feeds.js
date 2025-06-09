@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FeedCard from "../../Components/Cards/FeedCard";
 import "./Feeds.css";
 import CombinedFeedData from "../AppData";
 import Searchbox from "../../Components/Searchbox/Searchbox";
+import { useNavigate } from "react-router-dom";
 
 const Feeds = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authUser = localStorage.getItem("authUser");
+    if (!authUser) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   // Function to format how long ago the post was
   const getTimeAgo = (dateString) => {
@@ -30,15 +39,16 @@ const Feeds = () => {
   };
 
   // Flatten and enrich all posts with user info and relative date
-  const allPosts = CombinedFeedData.flatMap((user) =>
-    user.posts.map((post) => ({
-      ...post,
-      username: user.username,
-      avatar: user.avatar,
-      followers: user.followers,
-      daysAgo: getTimeAgo(post.time),
-    }))
-  );
+  const allPosts = CombinedFeedData.filter((user) => user.type === "institute") // only institutes
+    .flatMap((user) =>
+      user.posts.map((post) => ({
+        ...post,
+        username: user.username,
+        avatar: user.avatar,
+        followers: user.followers,
+        daysAgo: getTimeAgo(post.time),
+      }))
+    );
 
   // Sort newest posts first
   const sortedPosts = allPosts.sort(

@@ -1,15 +1,24 @@
 import "./Search.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Searchbox from "../../Components/Searchbox/Searchbox";
 import CombinedFeedData from "../AppData";
 import SearchCard from "../../Components/Cards/SearchCard";
 import defaultImage from "../../Assets/app-bg.png"; // Make sure to add the image path correctly
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authUser = localStorage.getItem("authUser");
+    if (!authUser) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const [searchTerm, setSearchTerm] = useState("");
 
   // Flatten and enrich all posts with user info and relative date
-  const allPosts = CombinedFeedData;
+  const allPosts = CombinedFeedData.filter((user) => user.type === "institute");
 
   // Sort newest posts first
   const sortedPosts = allPosts.sort(

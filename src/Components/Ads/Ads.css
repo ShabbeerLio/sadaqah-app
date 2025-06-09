@@ -1,36 +1,23 @@
-.Banners {
+.Ads {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 36vh;
+  height: 20vh;
   position: relative;
   margin: 10px;
-  overflow: hidden;
+  z-index: 999;
 }
 
-.Banners-main {
+.Ads-main {
   width: 100%;
   height: 100%;
 }
 
-.banner-slider {
-  height: 100%;
-}
-
-.slick-list {
-  height: 100%;
-}
-
-.banner-image {
-  height: 100%;
-  border-radius: 8px;
-}
-.banner-image img {
-  height: 35vh;
+.Ads-image img {
+  height: 30vh;
   width: 100%;
   object-fit: cover;
   border-radius: 8px;
-
 }
 
 @media screen and (min-width: 1200px) {
@@ -40,10 +27,10 @@
 }
 
 @media only screen and (max-width: 680px) {
-  .Banners {
-    height: 21vh;
+  .Ads {
+    height: 10vh;
   }
-  .banner-image img {
-    height: 20vh;
+  .Ads-image img {
+    height: 15vh;
   }
 }

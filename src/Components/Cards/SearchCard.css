@@ -27,6 +27,11 @@
   font-weight: 600;
   margin: 0;
 }
+.SearchCard-right h6 span{
+  font-weight: 300;
+  margin: 0;
+  font-size: 12px;
+}
 .SearchCard-right p{
   margin: 0;
   font-size: 14px;
