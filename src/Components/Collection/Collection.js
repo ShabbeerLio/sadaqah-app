@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 const Collection = () => {
     const user = JSON.parse(localStorage.getItem("authUser"));
-    console.log(user, "user");
+    // console.log(user, "user");
     const transactions = TransactionsData;
-    console.log(transactions, "dta");
+    // console.log(transactions, "dta");
 
     
     return (
@@ -28,7 +28,7 @@ const Collection = () => {
                             <h6>View Analytics</h6>
                         </div>
                     </div>
-                    {user.type === "institute" ? (
+                    {user?.type === "institute" ? (
                         <div className="Collection-box-right institute">
                             <h5>Recent Transactions</h5>
                             {transactions.map((tx) => (
