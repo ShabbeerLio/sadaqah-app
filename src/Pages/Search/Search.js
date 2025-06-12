@@ -18,7 +18,7 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Flatten and enrich all posts with user info and relative date
-  const allPosts = CombinedFeedData.filter((user) => user.type === "institute");
+  const allPosts = CombinedFeedData.filter((user) => user.type === "institute" || "user");
 
   // Sort newest posts first
   const sortedPosts = allPosts.sort(

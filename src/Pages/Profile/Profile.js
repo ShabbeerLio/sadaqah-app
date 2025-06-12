@@ -14,14 +14,19 @@ const Profile = () => {
     }
   }, [navigate]);
   const user = JSON.parse(localStorage.getItem("authUser"));
-//   console.log(user, "user");
+  //   console.log(user, "user");
 
   if (!user) return null;
 
-  let data = CombinedFeedData.find((item) => item.username === user.username);
+  let data = [];
+  if (id) {
+    data = CombinedFeedData.find((item) => item.id === Number(id));
+  } else {
+    data = CombinedFeedData.find((item) => item.username === user.username);
+  }
 
   // console.log(CombinedFeedData[0],"user")
-  console.log(data,"dara")
+  console.log(data, "dara");
   if (!data) {
     return (
       <div className="Home">
@@ -62,7 +67,7 @@ const Profile = () => {
                     following
                   </span>
                 )}
-                
+
                 {/* <span>
                   <strong>
                     {data.followers ? data.followers : data.following}

@@ -66,12 +66,14 @@ const Pnav = () => {
       {tail && (
         <motion.div
           className="liquid-tail"
-          initial={{ opacity: 0.8, scaleY: 1 }}
-          animate={{ opacity: 0, scaleY: 0 }}
+          initial={{ opacity: 0.8, scaleX: 1 }}
+          animate={{ opacity: 0, scaleX: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{
             left: Math.min(tail.from, tail.to),
             width: Math.abs(tail.to - tail.from),
+            transformOrigin:
+              tail.from < tail.to ? "right center" : "left center",
           }}
         />
       )}

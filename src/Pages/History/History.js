@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./History.css";
 import nofund from "../../Assets/no fund.jpg";
-import { GoArrowUpRight } from "react-icons/go";
 import Banners from "../../Components/Banner/Banner";
 import { useNavigate } from "react-router-dom";
+import HistoryCard from "../../Components/HistoryCard/HistoryCard";
+import TransactionsData from "../TransationData";
 
 const History = () => {
     const navigate = useNavigate();
@@ -20,34 +21,35 @@ const History = () => {
     const [toDate, setToDate] = useState(today);
 
     // Mock transactions data
-    const transactions = [
-        {
-            id: 1,
-            date: "2025-05-20",
-            name: "Mashjid momin",
-            amount: 100,
-        },
-        {
-            id: 2,
-            date: "2025-05-19",
-            name: "John Doe",
-            amount: 200,
-        },
-        {
-            id: 3,
-            date: "2025-05-18",
-            name: "Ali Khan",
-            amount: 300,
-        },
-    ];
+    // const transactions = [
+    //     {
+    //         id: 1,
+    //         date: "2025-05-20",
+    //         name: "Mashjid momin",
+    //         amount: 100,
+    //     },
+    //     {
+    //         id: 2,
+    //         date: "2025-05-19",
+    //         name: "Shabbeer",
+    //         amount: 200,
+    //     },
+    //     {
+    //         id: 3,
+    //         date: "2025-05-18",
+    //         name: "Ali Khan",
+    //         amount: 300,
+    //     },
+    // ];
 
     // Filter transactions by date range
-    const filteredTransactions = transactions.filter((tx) => {
+    const filteredTransactions = TransactionsData.filter((tx) => {
         return tx.date >= fromDate && tx.date <= toDate;
     });
 
     // Total amount calculation
     const totalAmount = filteredTransactions.reduce((sum, tx) => sum + tx.amount, 0);
+    console.log(filteredTransactions,"filteredTransactions")
 
     return (
         <div className="Home">
@@ -97,17 +99,7 @@ const History = () => {
                             </>
                         ) : (
                             filteredTransactions.map((tx) => (
-                                <div className="history-right-card" key={tx.id}>
-                                    <div className="history-card-detail">
-                                        <p><GoArrowUpRight /></p>
-                                        <div className="history-card-title">
-                                            <span>Paid to</span>
-                                            <h2>{tx.name}</h2>
-                                            <h6>{new Date(tx.date).toLocaleDateString()}</h6>
-                                        </div>
-                                    </div>
-                                    <h4>₹{tx.amount}</h4>
-                                </div>
+                                <HistoryCard tx={tx}/>
                             ))
                         )}
                     </div>

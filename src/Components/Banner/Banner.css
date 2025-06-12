@@ -23,13 +23,13 @@
 
 .banner-image {
   height: 100%;
-  border-radius: 8px;
+  border-radius: 20px;
 }
 .banner-image img {
   height: 35vh;
   width: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 20px;
 
 }
 
