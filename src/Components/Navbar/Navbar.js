@@ -1,9 +1,26 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { IoMdNotifications, IoMdHelpCircleOutline } from "react-icons/io";
+import {
+  IoMdNotifications,
+  IoMdHelpCircleOutline,
+  IoIosClose,
+} from "react-icons/io";
+import { FcDonate } from "react-icons/fc";
+import { useState } from "react";
+import donate1 from "../../Assets/Posts/hadith.png"
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("authUser"));
+
+  const [donateActive, setDonateActive] = useState("");
+  const handleDonet = () => {
+    setDonateActive("active");
+  };
+  const handleCloseDonet = () => {
+    setDonateActive("");
+  };
+
+  // console.log(donateActive, "active");
 
   if (!user) return null;
   return (
@@ -57,6 +74,45 @@ const Navbar = () => {
                   <IoMdHelpCircleOutline />
                   <p>help</p>
                 </Link>
+              </div>
+              <div className="donate" onClick={handleDonet}>
+                <FcDonate />
+              </div>
+              <div className={`donate-box ${donateActive}`}>
+                <div className="donate-boxes">
+                  <div className="donate-top">
+                    <h4>Donatation Required</h4>
+                  <IoIosClose onClick={handleCloseDonet} />
+                  </div>
+                  <div className="donate-card">
+                    <div className="donate-title">
+                      <img src={donate1} alt="" />
+                      <h5>Mashjid-e-hind</h5>
+                    </div>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam provident dignissimos vero corrupti libero.</p>
+                    <div className="donate-progress-box">
+                       <div className="fill"></div>
+                    </div>
+                    <div className="donate-pay">
+                      <p>Pay Now</p>
+                      <p>₹23,456 / ₹1,23,456</p>
+                    </div>
+                  </div>
+                  <div className="donate-card">
+                    <div className="donate-title">
+                      <img src={donate1} alt="" />
+                      <h5>mashjid-e-noor</h5>
+                    </div>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam provident dignissimos vero corrupti libero.</p>
+                    <div className="donate-progress-box">
+                       <div className="fill"></div>
+                    </div>
+                    <div className="donate-pay">
+                      <p>Pay Now</p>
+                      <p>₹23,456 / ₹1,23,456</p>
+                    </div>
+                  </div>
+                </div>
               </div>
               {/* <div className="dropdown">
                                 <Link className="btn help" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

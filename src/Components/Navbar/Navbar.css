@@ -1,6 +1,6 @@
 .navbar {
   width: 100%;
-  background-color: #25205E;
+  background-color: #25205e;
   color: black;
 }
 .navbar-main {
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #483AA0;
+  background-color: #483aa0;
   border-radius: 25px;
   padding: 5px;
   text-decoration: none;
@@ -75,6 +75,111 @@
 .navbar-collapse {
   justify-content: center;
 }
+.donate {
+  position: fixed;
+  bottom: 9%;
+  right: 3%;
+  border-radius: 50px;
+  background: #25205e;
+  padding: 12px;
+  z-index: 999;
+}
+
+.donate-box {
+  position: fixed;
+  bottom: -50%;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  height: 50%;
+  z-index: 9999;
+  border-radius: 25px;
+  padding: 1rem;
+  transition: all ease-in-out 0.5s;
+  overflow: auto;
+  padding-bottom: 4rem;
+}
+.donate-box.active {
+  bottom: 0%;
+  transition: all ease-in-out 0.5s;
+}
+
+.donate-boxes svg {
+  color: black;
+  font-size: 30px;
+}
+
+.donate-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+
+.donate-progress-box{
+  width: 100%;
+  height: 8px;
+  background: #f1f1f1ff;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.donate-progress-box .fill {
+  width: 40%;
+  height: 8px;
+  background: #25205e;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.donate-progress-box span{
+ color: black;
+}
+.donate-top h4{
+  font-size: 20px;
+}
+
+.donate-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.donate-title img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+.donate-title h5 {
+  color: black;
+}
+
+.donate-card {
+  font-size: 12px;
+  border-radius: 20px;
+  border: 1px solid #f0f0f0;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+}
+
+.donate-pay{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: .5rem;
+}
+.donate-pay p{
+  margin: 0;
+  text-align: center;
+  width: 50%;
+  border-radius: 25px;
+  padding: 8px;
+  font-size: 16px;
+}
+.donate-pay p:first-child{
+  background-color: #25205e;
+  color: white;
+  font-size: 12px;
+}
 
 @media screen and (min-width: 1200px) {
   .navbar-main {
@@ -88,11 +193,11 @@
     padding: 2px 0;
     /* background-color: transparent; */
   }
-  .navbar-main img {
+  /* .navbar-main img {
     width: 110%;
     max-height: 80px;
     object-fit: cover;
-  }
+  } */
   .navbar-brand {
     width: 40%;
   }

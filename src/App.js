@@ -17,6 +17,8 @@ import Loading from "./Components/Loading/Loading";
 import Feeds from "./Pages/Feeds/Feeds";
 import ProfileEdit from "./Pages/Profile/ProfileEdit";
 import Search from "./Pages/Search/Search";
+import Help from "./Pages/Help/Help";
+import Notification from "./Pages/Notification/Notification";
 
 function App() {
   return (
@@ -59,6 +61,8 @@ function MainLayout() {
         <Route path="/profile-edit" element={<ProfileEdit />} />
         <Route path="/feeds" element={<Feeds />} />
         <Route path="/history" element={<History />} />
+        <Route path="/help" element={<Help />} />
+        <Route path="/notification" element={<Notification />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>
