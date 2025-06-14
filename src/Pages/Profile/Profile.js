@@ -14,7 +14,7 @@ const Profile = () => {
     }
   }, [navigate]);
   const user = JSON.parse(localStorage.getItem("authUser"));
-  //   console.log(user, "user");
+  console.log(user, "user");
 
   if (!user) return null;
 
@@ -25,7 +25,7 @@ const Profile = () => {
     data = CombinedFeedData.find((item) => item.username === user.username);
   }
 
-  // console.log(CombinedFeedData[0],"user")
+  console.log(CombinedFeedData, "user");
   console.log(data, "dara");
   if (!data) {
     return (
@@ -86,23 +86,37 @@ const Profile = () => {
             <Link>Lorem, ipsum dolor.</Link>
           </div>
 
-          {id ? (
-            <>
-              <div className="profile-highlights">
-                <Link className="highlight follow">Follow</Link>
-                <Link className="highlight">Share Profile</Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="profile-highlights">
-                <Link to={"/profile-edit"} className="highlight">
+          <div className="profile-highlights">
+            {!id ? (
+              // Viewing own profile
+              <>
+                <Link to="/profile-edit" className="highlight follow">
                   Edit Profile
                 </Link>
                 <Link className="highlight">Share Profile</Link>
-              </div>
-            </>
-          )}
+              </>
+            ) : (
+              // Viewing someone else's profile
+              <>
+                {user.type === "institute" ? (
+                  data.type === "user" ? (
+                    <Link className="highlight follow">Invite</Link>
+                  ) : (
+                    <Link className="highlight follow">Share Profile</Link>
+                  )
+                ) : user.type === "user" ? (
+                  data.type === "institute" ? (
+                    <>
+                      <Link className="highlight follow">Follow</Link>
+                      <Link className="highlight">Share Profile</Link>
+                    </>
+                  ) : (
+                    <Link className="highlight follow">Share Profile</Link>
+                  )
+                ) : null}
+              </>
+            )}
+          </div>
 
           <div className="profile-gallery">
             {data?.posts?.map((i) => (
@@ -111,13 +125,16 @@ const Profile = () => {
               </div>
             ))}
           </div>
-          <p
+          {!id ? (
+            <p
             style={{ marginTop: "1rem" }}
             onClick={handleLogout}
             className="highlight"
           >
             Log Out
           </p>
+          ) :("")}
+          
         </div>
       </div>
     </div>

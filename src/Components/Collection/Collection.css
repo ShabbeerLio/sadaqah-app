@@ -42,8 +42,13 @@
   font-size: 20px;
   color: #fdb618;
 }
-.collection-left-bottom h6 {
+.collection-left-bottom h6 a{
   color: #fdb618;
+  margin: 0;
+  font-size: 14px;
+  text-decoration: none;
+}
+.collection-left-bottom h6{
   margin: 0;
 }
 .Collection-box-right {

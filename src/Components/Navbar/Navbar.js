@@ -5,9 +5,12 @@ import {
   IoMdHelpCircleOutline,
   IoIosClose,
 } from "react-icons/io";
+import { LuCircleUser } from "react-icons/lu";
 import { FcDonate } from "react-icons/fc";
 import { useState } from "react";
 import donate1 from "../../Assets/Posts/hadith.png"
+import DonateCard from "../DonateCard/DonateCard";
+import DonateData from "../../Pages/DonateData";
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("authUser"));
@@ -21,8 +24,18 @@ const Navbar = () => {
   };
 
   // console.log(donateActive, "active");
+  console.log(user, "user")
 
   if (!user) return null;
+
+  let filteredDonation = [];
+  if (user.type === "user") {
+    filteredDonation = DonateData;
+  } else {
+    filteredDonation = DonateData.filter((i) => i.username === user.username)
+  }
+
+  console.log(filteredDonation, "filteredDonation")
   return (
     <div className="navbar">
       <div className="navbar-main">
@@ -52,11 +65,11 @@ const Navbar = () => {
                 <Link className="nav-link" to="/feeds">
                   Feeds
                 </Link>
+                <Link className="nav-link" to="/add">
+                  Add
+                </Link>
                 <Link className="nav-link" to="/search">
                   Search
-                </Link>
-                <Link className="nav-link" to="/profile">
-                  Profile
                 </Link>
                 <Link className="nav-link" to="/history">
                   History
@@ -70,9 +83,9 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="help">
-                <Link to={"/help"}>
-                  <IoMdHelpCircleOutline />
-                  <p>help</p>
+                <Link to={"/profile"}>
+                  <LuCircleUser />
+                  <p>Profile</p>
                 </Link>
               </div>
               <div className="donate" onClick={handleDonet}>
@@ -82,36 +95,11 @@ const Navbar = () => {
                 <div className="donate-boxes">
                   <div className="donate-top">
                     <h4>Donatation Required</h4>
-                  <IoIosClose onClick={handleCloseDonet} />
+                    <IoIosClose onClick={handleCloseDonet} />
                   </div>
-                  <div className="donate-card">
-                    <div className="donate-title">
-                      <img src={donate1} alt="" />
-                      <h5>Mashjid-e-hind</h5>
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam provident dignissimos vero corrupti libero.</p>
-                    <div className="donate-progress-box">
-                       <div className="fill"></div>
-                    </div>
-                    <div className="donate-pay">
-                      <p>Pay Now</p>
-                      <p>₹23,456 / ₹1,23,456</p>
-                    </div>
-                  </div>
-                  <div className="donate-card">
-                    <div className="donate-title">
-                      <img src={donate1} alt="" />
-                      <h5>mashjid-e-noor</h5>
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam provident dignissimos vero corrupti libero.</p>
-                    <div className="donate-progress-box">
-                       <div className="fill"></div>
-                    </div>
-                    <div className="donate-pay">
-                      <p>Pay Now</p>
-                      <p>₹23,456 / ₹1,23,456</p>
-                    </div>
-                  </div>
+                  {filteredDonation.map((i) => (
+                    <DonateCard user={user} i={i}/>
+                  ))}
                 </div>
               </div>
               {/* <div className="dropdown">

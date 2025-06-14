@@ -25,7 +25,7 @@ const FeedCard = ({ index, post }) => {
             <div className="feedcard-header">
                 <img src={post.avatar} alt="avatar" className="avatar" />
                 <div>
-                    <span className="username">{post.username}</span>
+                    <span className="username">{post.username} <span className="verified">Verified</span></span>
                     <span className="user-location">{post.location}</span>
                 </div>
             </div>

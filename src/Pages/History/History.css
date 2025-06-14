@@ -116,7 +116,7 @@
 
 .history-card-title span {
   font-size: 14px;
-  color: #fdb618;
+  color: green;
 }
 .history-card-title h2 {
   font-size: 18px;
@@ -135,6 +135,21 @@
   align-items: center;
   justify-content: space-between;
 }
+.history-amount{
+  text-align: right;
+}
+.history-amount p{
+  margin: 0;
+  font-size: 12px;
+  line-height: 15px;
+}
+.history-amount h4{
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
 @media only screen and (max-width: 680px) {
   .history-box {
     flex-wrap: wrap;

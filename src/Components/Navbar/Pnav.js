@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Pnav.css";
 import { NavLink, useLocation } from "react-router-dom";
-import { LuHouse, LuCircleUser, LuSearch } from "react-icons/lu";
+import { LuHouse, LuSearch,LuSquarePlus,LuTvMinimalPlay } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
-import { CgFeed } from "react-icons/cg";
 import { motion } from "framer-motion";
 
 const Pnav = () => {
@@ -43,9 +42,9 @@ const Pnav = () => {
 
   const links = [
     { to: "/", label: "Home", icon: <LuHouse /> },
-    { to: "/feeds", label: "Feeds", icon: <CgFeed /> },
+    { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
+    { to: "/add", label: "Add", icon: <LuSquarePlus /> },
     { to: "/search", label: "Search", icon: <LuSearch /> },
-    { to: "/profile", label: "Profile", icon: <LuCircleUser /> },
     { to: "/history", label: "History", icon: <GrTransaction /> },
   ];
 

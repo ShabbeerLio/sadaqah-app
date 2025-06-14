@@ -1,4 +1,4 @@
-import bnimg from "../../Assets/Banner/Banner.jpg";
+import bnimg from "../../Assets/Ads/ads.jpg";
 import "./Ads.css";
 
 const Ads = () => {
