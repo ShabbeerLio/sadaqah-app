@@ -7,7 +7,7 @@ import HistoryCard from "../../Components/HistoryCard/HistoryCard";
 import TransactionsData from "../TransationData";
 
 const History = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const authUser = localStorage.getItem("authUser");
@@ -15,122 +15,108 @@ const History = () => {
       navigate("/login");
     }
   }, [navigate]);
-    const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+  const today = new Date().toISOString().split("T")[0];
 
-    const [fromDate, setFromDate] = useState(today);
-    const [toDate, setToDate] = useState(today);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
-    // Mock transactions data
-    // const transactions = [
-    //     {
-    //         id: 1,
-    //         date: "2025-05-20",
-    //         name: "Mashjid momin",
-    //         amount: 100,
-    //     },
-    //     {
-    //         id: 2,
-    //         date: "2025-05-19",
-    //         name: "Shabbeer",
-    //         amount: 200,
-    //     },
-    //     {
-    //         id: 3,
-    //         date: "2025-05-18",
-    //         name: "Ali Khan",
-    //         amount: 300,
-    //     },
-    // ];
+  // Sort all transactions by latest date first
+  const sortedTransactions = [...TransactionsData].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
-    // Filter transactions by date range
-    const filteredTransactions = TransactionsData.filter((tx) => {
-        return tx.date >= fromDate && tx.date <= toDate;
-    });
+  // Apply filter only if both dates are selected
+  const filteredTransactions =
+    fromDate && toDate
+      ? sortedTransactions.filter(
+          (tx) => tx.date >= fromDate && tx.date <= toDate
+        )
+      : sortedTransactions;
 
-    // Total amount calculation
-    const totalAmount = filteredTransactions.reduce((sum, tx) => sum + tx.amount, 0);
-    console.log(filteredTransactions,"filteredTransactions")
+  // Calculate total for displayed (filtered or full) transactions
+  const totalAmount = filteredTransactions.reduce(
+    (sum, tx) => sum + tx.amount,
+    0
+  );
+  console.log(filteredTransactions, "filteredTransactions");
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth(); // 0-11
+  const currentYear = currentDate.getFullYear();
 
+  // Filter only this month's transactions (from full sorted list)
+  const thisMonthTransactions = sortedTransactions.filter((tx) => {
+    const txDate = new Date(tx.date);
     return (
-        <div className="Home">
-            <div className="Home-main">
-                <Banners />
-
-                <div className="history-box">
-                    <div className="history-left">
-                        <div className="history-left-card">
-                            <h1>₹{totalAmount}</h1>
-                            <span>Total Donated</span>
-                            <p>{totalAmount === 0 ? "No Transactions" : `${filteredTransactions.length} Transactions`}</p>
-                        </div>
-                        <div className="history-left-card">
-                            <h1>₹{totalAmount}</h1>
-                            <span>This month</span>
-                            <p>{totalAmount === 0 ? "No Transactions" : `${filteredTransactions.length} Transactions`}</p>
-                        </div>
-                    </div>
-
-                    {/* Conditional Rendering */}
-                    <div className="history-right">
-                        <div className="date-filter">
-                            {/* <label>Date Range:</label> */}
-                            <div className="date-inpt">
-                                <label>From:</label>
-                                <input
-                                    type="date"
-                                    value={fromDate}
-                                    onChange={(e) => setFromDate(e.target.value)}
-                                />
-                            </div>
-                            <div className="date-inpt">
-                                <label>To:</label>
-                                <input
-                                    type="date"
-                                    value={toDate}
-                                    onChange={(e) => setToDate(e.target.value)}
-                                />
-                            </div>
-                        </div>
-                        {totalAmount === 0 ? (
-                            <>
-                                <img src={nofund} alt="No Transactions" />
-                                <h5>No Transactions Found</h5>
-                                <p>No transactions in this date range.</p>
-                            </>
-                        ) : (
-                            filteredTransactions.map((tx) => (
-                                <HistoryCard tx={tx}/>
-                            ))
-                        )}
-                    </div>
-                </div>
-
-                {/* <div className="history-transation-box">
-                    {totalAmount === 0 ? (
-                        <>
-                            <img src={nofund} alt="No Transactions" />
-                            <h5>No Transactions Found</h5>
-                            <p>No transactions in this date range.</p>
-                        </>
-                    ) : (
-                        filteredTransactions.map((tx) => (
-                            <div className="history-right-card" key={tx.id}>
-                                <div className="history-card-detail">
-                                    <p><GoArrowUpRight /></p>
-                                    <div className="history-card-title">
-                                        <span>Paid to</span>
-                                        <h2>{tx.name}</h2>
-                                        <h6>{new Date(tx.date).toLocaleDateString()}</h6>
-                                    </div>
-                                </div>
-                                <h4>₹{tx.amount}</h4>
-                            </div>
-                        ))
-                    )}
-                </div> */}
-            </div>
-        </div>
+      txDate.getMonth() === currentMonth && txDate.getFullYear() === currentYear
     );
+  });
+
+  const thisMonthAmount = thisMonthTransactions.reduce(
+    (sum, tx) => sum + tx.amount,
+    0
+  );
+
+  return (
+    <div className="Home">
+      <div className="Home-main">
+        <Banners />
+
+        <div className="history-box">
+          <div className="history-left">
+            <div className="history-left-card">
+              <h1>₹{totalAmount}</h1>
+              <span>Total Donated</span>
+              <p>
+                {totalAmount === 0
+                  ? "No Transactions"
+                  : `${filteredTransactions.length} Transactions`}
+              </p>
+            </div>
+            <div className="history-left-card">
+              <h1>₹{thisMonthAmount}</h1>
+              <span>This month</span>
+              <p>
+                {thisMonthAmount === 0
+                  ? "No Transactions"
+                  : `${thisMonthTransactions.length} Transactions`}
+              </p>
+            </div>
+          </div>
+
+          {/* Conditional Rendering */}
+          <div className="history-right">
+            <div className="date-filter">
+              <div className="date-inpt">
+                <label>From:</label>
+                <input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
+              </div>
+              <div className="date-inpt">
+                <label>To:</label>
+                <input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
+              </div>
+            </div>
+            {totalAmount === 0 ? (
+              <>
+                <img src={nofund} alt="No Transactions" />
+                <h5>No Transactions Found</h5>
+                <p>No transactions in this date range.</p>
+              </>
+            ) : (
+              filteredTransactions.map((tx) => <HistoryCard tx={tx} />)
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default History;

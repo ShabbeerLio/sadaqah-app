@@ -76,6 +76,12 @@
   justify-content: center;
 }
 
+.donate-card-box{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1rem;
+}
+
 @media screen and (min-width: 1200px) {
   .navbar-main {
     max-width: 1200px;
@@ -101,4 +107,9 @@
     top: 20%;
     right: 2%;
   } */
+   .donate-card-box{
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  gap: 1rem;
+}
 }

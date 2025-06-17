@@ -83,10 +83,17 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="help">
-                <Link to={"/profile"}>
-                  <LuCircleUser />
-                  <p>Profile</p>
-                </Link>
+                {user.type === "user" ? (
+                  <Link to={"/help"}>
+                    <IoMdHelpCircleOutline />
+                    <p>Help</p>
+                  </Link>
+                ) : (
+                  <Link to={"/profile"}>
+                    <LuCircleUser />
+                    <p>Profile</p>
+                  </Link>
+                )}
               </div>
               <div className="donate" onClick={handleDonet}>
                 <FcDonate />
@@ -97,22 +104,13 @@ const Navbar = () => {
                     <h4>Donatation Required</h4>
                     <IoIosClose onClick={handleCloseDonet} />
                   </div>
+                  <div className="donate-card-box">
                   {filteredDonation.map((i) => (
-                    <DonateCard user={user} i={i}/>
-                  ))}
+                      <DonateCard user={user} i={i} />
+                    ))}
+                    </div>
                 </div>
               </div>
-              {/* <div className="dropdown">
-                                <Link className="btn help" to="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <IoMdHelpCircleOutline />
-                                    help
-                                </Link>
-
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
-                                    <li><Link className="dropdown-item" to="/">Logout</Link></li>
-                                </ul>
-                            </div> */}
             </div>
           </div>
         </nav>

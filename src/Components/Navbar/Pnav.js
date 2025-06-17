@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Pnav.css";
 import { NavLink, useLocation } from "react-router-dom";
-import { LuHouse, LuSearch,LuSquarePlus,LuTvMinimalPlay } from "react-icons/lu";
+import {
+  LuHouse,
+  LuSearch,
+  LuSquarePlus,
+  LuTvMinimalPlay,
+  LuCircleUser
+} from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
 import { motion } from "framer-motion";
 
@@ -10,6 +16,7 @@ const Pnav = () => {
   const [highlightProps, setHighlightProps] = useState({ left: 0, width: 50 });
   const navRefs = useRef([]);
   const [tail, setTail] = useState(null);
+  const user = JSON.parse(localStorage.getItem("authUser"));
 
   useEffect(() => {
     const current = navRefs.current.find(
@@ -40,13 +47,33 @@ const Pnav = () => {
     }
   }, [tail]);
 
-  const links = [
-    { to: "/", label: "Home", icon: <LuHouse /> },
-    { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
-    { to: "/add", label: "Add", icon: <LuSquarePlus /> },
-    { to: "/search", label: "Search", icon: <LuSearch /> },
-    { to: "/history", label: "History", icon: <GrTransaction /> },
-  ];
+  let links = [];
+
+  if (user.type === "user") {
+    links = [
+      { to: "/", label: "Home", icon: <LuHouse /> },
+      { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
+      { to: "/profile", label: "Profile", icon: <LuCircleUser /> },
+      { to: "/search", label: "Search", icon: <LuSearch /> },
+      { to: "/history", label: "History", icon: <GrTransaction /> },
+    ];
+  } else {
+    links = [
+      { to: "/", label: "Home", icon: <LuHouse /> },
+      { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
+      { to: "/add", label: "Add", icon: <LuSquarePlus /> },
+      { to: "/search", label: "Search", icon: <LuSearch /> },
+      { to: "/history", label: "History", icon: <GrTransaction /> },
+    ];
+  }
+
+  // const links = [
+  //   { to: "/", label: "Home", icon: <LuHouse /> },
+  //   { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
+  //   { to: "/add", label: "Add", icon: <LuSquarePlus /> },
+  //   { to: "/search", label: "Search", icon: <LuSearch /> },
+  //   { to: "/history", label: "History", icon: <GrTransaction /> },
+  // ];
 
   return (
     <div className="Pnav">
