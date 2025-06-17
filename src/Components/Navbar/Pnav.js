@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Pnav.css";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LuHouse,
   LuSearch,
@@ -17,6 +17,14 @@ const Pnav = () => {
   const navRefs = useRef([]);
   const [tail, setTail] = useState(null);
   const user = JSON.parse(localStorage.getItem("authUser"));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authUser = localStorage.getItem("authUser");
+    if (!authUser) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const current = navRefs.current.find(
