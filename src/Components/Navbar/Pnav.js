@@ -6,23 +6,25 @@ import {
   LuSearch,
   LuSquarePlus,
   LuTvMinimalPlay,
-  LuCircleUser
+  LuCircleUser,
 } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
 import { motion } from "framer-motion";
 
 const Pnav = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [highlightProps, setHighlightProps] = useState({ left: 0, width: 50 });
   const navRefs = useRef([]);
   const [tail, setTail] = useState(null);
-  const user = JSON.parse(localStorage.getItem("authUser"));
-  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const authUser = localStorage.getItem("authUser");
     if (!authUser) {
       navigate("/login");
+    } else {
+      setUser(JSON.parse(authUser));
     }
   }, [navigate]);
 
@@ -31,7 +33,6 @@ const Pnav = () => {
       (ref) => ref && ref.dataset.path === location.pathname
     );
     if (current) {
-      // Set tail between previous and new position
       const oldLeft = highlightProps.left + highlightProps.width / 2;
       const newLeft = current.offsetLeft + current.offsetWidth / 2;
 
@@ -55,33 +56,24 @@ const Pnav = () => {
     }
   }, [tail]);
 
-  let links = [];
+  if (!user) return null; // Don't render until user is loaded
 
-  if (user.type === "user") {
-    links = [
-      { to: "/", label: "Home", icon: <LuHouse /> },
-      { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
-      { to: "/profile", label: "Profile", icon: <LuCircleUser /> },
-      { to: "/search", label: "Search", icon: <LuSearch /> },
-      { to: "/history", label: "History", icon: <GrTransaction /> },
-    ];
-  } else {
-    links = [
-      { to: "/", label: "Home", icon: <LuHouse /> },
-      { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
-      { to: "/add", label: "Add", icon: <LuSquarePlus /> },
-      { to: "/search", label: "Search", icon: <LuSearch /> },
-      { to: "/history", label: "History", icon: <GrTransaction /> },
-    ];
-  }
-
-  // const links = [
-  //   { to: "/", label: "Home", icon: <LuHouse /> },
-  //   { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
-  //   { to: "/add", label: "Add", icon: <LuSquarePlus /> },
-  //   { to: "/search", label: "Search", icon: <LuSearch /> },
-  //   { to: "/history", label: "History", icon: <GrTransaction /> },
-  // ];
+  const links =
+    user.type === "user"
+      ? [
+          { to: "/", label: "Home", icon: <LuHouse /> },
+          { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
+          { to: "/profile", label: "Profile", icon: <LuCircleUser /> },
+          { to: "/search", label: "Search", icon: <LuSearch /> },
+          { to: "/history", label: "History", icon: <GrTransaction /> },
+        ]
+      : [
+          { to: "/", label: "Home", icon: <LuHouse /> },
+          { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
+          { to: "/add", label: "Add", icon: <LuSquarePlus /> },
+          { to: "/search", label: "Search", icon: <LuSearch /> },
+          { to: "/history", label: "History", icon: <GrTransaction /> },
+        ];
 
   return (
     <div className="Pnav">
