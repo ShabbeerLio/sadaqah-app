@@ -7,7 +7,7 @@ import {
 } from "react-icons/io";
 import { LuCircleUser } from "react-icons/lu";
 import { FcDonate } from "react-icons/fc";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import donate1 from "../../Assets/Posts/hadith.png"
 import DonateCard from "../DonateCard/DonateCard";
 import DonateData from "../../Pages/DonateData";
@@ -16,6 +16,7 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("authUser"));
 
   const [donateActive, setDonateActive] = useState("");
+  const donateRef = useRef(null);
   const handleDonet = () => {
     setDonateActive("active");
   };
@@ -23,8 +24,22 @@ const Navbar = () => {
     setDonateActive("");
   };
 
-  // console.log(donateActive, "active");
-  console.log(user, "user")
+  // Detect click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (donateRef.current && !donateRef.current.contains(event.target)) {
+        handleCloseDonet();
+      }
+    };
+
+    if (donateActive === "active") {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [donateActive]);
 
   if (!user) return null;
 
@@ -35,7 +50,6 @@ const Navbar = () => {
     filteredDonation = DonateData.filter((i) => i.username === user.username)
   }
 
-  console.log(filteredDonation, "filteredDonation")
   return (
     <div className="navbar">
       <div className="navbar-main">
@@ -46,17 +60,6 @@ const Navbar = () => {
               <span>My Sadaqah</span>
               <h5>{user.username}</h5>
             </Link>
-            {/* <button
-                            className="navbar-toggler"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarNavAltMarkup"
-                            aria-controls="navbarNavAltMarkup"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="navbar-toggler-icon"></span>
-                        </button> */}
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
                 <Link className="nav-link active" aria-current="page" to="/">
@@ -98,7 +101,7 @@ const Navbar = () => {
               <div className="donate" onClick={handleDonet}>
                 <FcDonate />
               </div>
-              <div className={`donate-box ${donateActive}`}>
+              <div className={`donate-box ${donateActive}`} ref={donateRef}>
                 <div className="donate-boxes">
                   <div className="donate-top">
                     <h4>Donatation Required</h4>
