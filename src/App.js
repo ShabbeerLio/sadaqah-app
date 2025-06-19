@@ -19,6 +19,7 @@ import ProfileEdit from "./Pages/Profile/ProfileEdit";
 import Search from "./Pages/Search/Search";
 import Help from "./Pages/Help/Help";
 import Notification from "./Pages/Notification/Notification";
+import ZakatCalculator from "./Pages/Calculator/Calculator";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function MainLayout() {
         <Route path="/history" element={<History />} />
         <Route path="/help" element={<Help />} />
         <Route path="/notification" element={<Notification />} />
+        <Route path="/calculator" element={<ZakatCalculator />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

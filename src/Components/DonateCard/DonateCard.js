@@ -1,6 +1,7 @@
 import React from "react";
 import "./DonateCard.css";
 import donate1 from "../../Assets/Posts/hadith.png";
+import verify from "../../Assets/Logo/verification-badge.png"
 
 const DonateCard = ({ user, i }) => {
     const progressPercent = Math.min(
@@ -13,7 +14,11 @@ const DonateCard = ({ user, i }) => {
                 <img src={donate1} alt="" />
                 <div className="donate-deatail">
                     <div className="donation-name">
-                        <h5>{i.username} <span className="verified">Verified</span></h5>
+                        <h5>{i.username}
+                            <span className="verified">
+                                Verified
+                            </span>
+                        </h5>
                         <p className="location">{i.location}</p>
                     </div>
                     <p className="status">Following</p>

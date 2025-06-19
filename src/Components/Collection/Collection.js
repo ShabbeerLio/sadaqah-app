@@ -1,10 +1,13 @@
 import React from "react";
 import "./Collection.css";
-import { GoArrowUpRight, GoShareAndroid } from "react-icons/go";
+import { GoArrowUpRight, GoShareAndroid, GoArrowRight } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import HistoryCard from "../HistoryCard/HistoryCard";
 import TransactionsData from "../../Pages/TransationData";
 import { Link } from "react-router-dom";
+import { FcMoneyTransfer, FcCalendar, FcDonate } from "react-icons/fc";
+import { LuCalculator } from "react-icons/lu";
+
 
 const Collection = () => {
     const user = JSON.parse(localStorage.getItem("authUser"));
@@ -66,21 +69,46 @@ const Collection = () => {
                             {transactions.map((tx) => (
                                 <HistoryCard tx={tx} />
                             ))}
-                            <Link to={"/history"} className="View-more-transatction" >View More</Link>
+                            <Link to={"/history"} className="View-more-transatction" >View More <GoArrowRight /></Link>
                         </div>
                     ) : (
                         <div className="Collection-box-right">
-                            <div className="collection-right-card">
-                                <p>
-                                    <GoArrowUpRight />
-                                </p>
-                                <span>Send Money</span>
+                            <h5>Zakat</h5>
+                            <div className="Collection-box-right-box">
+                                <div className="collection-right-card">
+                                    <p>
+                                        <FcMoneyTransfer />
+                                    </p>
+                                    <span>₹12344</span>
+                                    <span>Total Zakat</span>
+                                </div>
+                                <div className="collection-right-card">
+                                    <p>
+                                        <FcCalendar />
+                                    </p>
+                                    <span>₹7344</span>
+                                    <span>This Month</span>
+                                </div>
+                                <div className="collection-right-card">
+                                    <p>
+                                        <FcDonate />
+                                    </p>
+                                    <span>₹12344</span>
+                                    <span>Donated</span>
+                                </div>
                             </div>
-                            <div className="collection-right-card">
-                                <p>
-                                    <GoShareAndroid />
-                                </p>
-                                <span>Share</span>
+                            <div className="Collection-box-right-pay">
+                                <div className="Collection-card-pay">
+                                    <p>
+                                        <GoArrowUpRight />
+                                        Donate Now
+                                    </p>
+                                </div>
+                                <div className="Collection-card-pay send">
+                                    <Link to={"/calculator"}>
+                                        <LuCalculator />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     )}

@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 const Pnav = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [highlightProps, setHighlightProps] = useState({ left: 0, width: 50 });
+  const [highlightProps, setHighlightProps] = useState({ left: -9999, width: 0 });
   const navRefs = useRef([]);
   const [tail, setTail] = useState(null);
   const [user, setUser] = useState(null);
@@ -29,10 +29,18 @@ const Pnav = () => {
   }, [navigate]);
 
   useEffect(() => {
+    if (!user) return;
+
+    const links =
+      user.type === "user"
+        ? ["/", "/feeds", "/profile", "/search", "/history"]
+        : ["/", "/feeds", "/add", "/search", "/history"];
+
     const current = navRefs.current.find(
       (ref) => ref && ref.dataset.path === location.pathname
     );
-    if (current) {
+
+    if (links.includes(location.pathname) && current) {
       const oldLeft = highlightProps.left + highlightProps.width / 2;
       const newLeft = current.offsetLeft + current.offsetWidth / 2;
 
@@ -44,8 +52,11 @@ const Pnav = () => {
         left: current.offsetLeft,
         width: current.offsetWidth,
       });
+    } else {
+      // Hide highlight if route doesn't match any nav item
+      setHighlightProps({ left: -9999, width: 0 });
     }
-  }, [location]);
+  }, [location, user]);
 
   useEffect(() => {
     if (tail) {
@@ -82,14 +93,14 @@ const Pnav = () => {
         animate={{
           left: highlightProps.left,
           width: highlightProps.width,
-          scale: [1, 0.7, 1], // backward droplet bounce
+          scale: [1, 0.7, 1],
         }}
         transition={{
           duration: 0.4,
           ease: [0.22, 1.61, 0.36, 1],
         }}
       />
-      {tail && (
+      {/* {tail && (
         <motion.div
           className="liquid-tail"
           initial={{ opacity: 0.8, scaleX: 1 }}
@@ -102,7 +113,7 @@ const Pnav = () => {
               tail.from < tail.to ? "right center" : "left center",
           }}
         />
-      )}
+      )} */}
       <ul>
         {links.map((link, index) => (
           <li key={index}>

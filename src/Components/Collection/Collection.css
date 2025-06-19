@@ -53,13 +53,20 @@
 }
 .Collection-box-right {
   width: 50%;
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1rem; */
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  margin: 0 10px;
+  padding: 10px;
 }
 
 .Collection-box-right.institute {
+  display: flex;
+  gap: 10px;
+  margin: 0;
   background: #ffffff;
   background: linear-gradient(
     0deg,
@@ -70,10 +77,16 @@
   );
 }
 
-.collection-right-card {
-  background-color: #f0f0f0;
-  /* border: 1px solid #FDB618; */
+.Collection-box-right-box{
+  width: 100%;
+  /* height: 100%; */
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
 
+.collection-right-card {
+  background-color: white;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   width: 100%;
@@ -84,16 +97,23 @@
   flex-direction: column;
   height: 100%;
 }
-.collection-right-card p {
+
+.Collection-box-right h5{
+  padding: 10px 10px 0 10px;
+}
+.Collection-box-right-box p {
   background-color: #ffffff;
   border-radius: 20px;
   padding: 5px;
   margin-bottom: 8px;
 }
-.collection-right-card p svg {
+.Collection-box-right-box p svg {
   color: black;
-  font-size: 35px;
+  font-size: 50px;
   padding: 5px;
+}
+.Collection-box-right-box span {
+  text-align: center;
 }
 
 .institute {
@@ -108,6 +128,52 @@
   margin-top: 0.5rem;
   font-size: 14px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Collection-box-right-pay{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.Collection-card-pay{
+  border-radius: 50px;
+  background-color: #fdb618;
+  padding: 10px 15px;
+  width: 90%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.Collection-card-pay p{
+  margin: 0;
+  font-size: 16px;
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+.Collection-card-pay p svg{
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+.Collection-card-pay.send{
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #25205e;
+  color: white;
+}
+.Collection-card-pay.send a svg{
+  font-size: 25px;
+  margin-right: 0px;
+  color: white;
 }
 
 @media screen and (min-width: 1200px) {

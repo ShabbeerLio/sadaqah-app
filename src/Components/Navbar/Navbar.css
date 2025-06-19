@@ -82,6 +82,54 @@
   gap: 1rem;
 }
 
+.nav-pay-now {
+  position: fixed;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-pay-now a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #25205e;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-pay-now a svg {
+  font-size: 30px;
+  /* padding: 2px; */
+}
+
+.nav-pay-now a .pay-text {
+  width: 100%;
+  transition: all 0.5s ease-in-out;
+  visibility: visible;
+  margin-left: 5px;
+  color: white;
+}
+.nav-pay-now.scrolled a .pay-text {
+  width: 0;
+  transition: all 0.5s ease-in-out;
+  font-size: 0px;
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-pay-now.scrolled a {
+  padding: 10px;
+}
+
 @media screen and (min-width: 1200px) {
   .navbar-main {
     max-width: 1200px;

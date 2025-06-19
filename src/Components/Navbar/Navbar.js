@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   IoMdNotifications,
   IoMdHelpCircleOutline,
@@ -11,12 +11,18 @@ import { useEffect, useRef, useState } from "react";
 import donate1 from "../../Assets/Posts/hadith.png"
 import DonateCard from "../DonateCard/DonateCard";
 import DonateData from "../../Pages/DonateData";
+import { LuScanQrCode } from "react-icons/lu";
+
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("authUser"));
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const [donateActive, setDonateActive] = useState("");
   const donateRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const handleDonet = () => {
     setDonateActive("active");
   };
@@ -41,6 +47,15 @@ const Navbar = () => {
     };
   }, [donateActive]);
 
+  // Handle scroll to toggle "isScrolled"
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   if (!user) return null;
 
   let filteredDonation = [];
@@ -49,6 +64,8 @@ const Navbar = () => {
   } else {
     filteredDonation = DonateData.filter((i) => i.username === user.username)
   }
+
+
 
   return (
     <div className="navbar">
@@ -98,22 +115,37 @@ const Navbar = () => {
                   </Link>
                 )}
               </div>
-              <div className="donate" onClick={handleDonet}>
-                <FcDonate />
-              </div>
-              <div className={`donate-box ${donateActive}`} ref={donateRef}>
-                <div className="donate-boxes">
-                  <div className="donate-top">
-                    <h4>Donatation Required</h4>
-                    <IoIosClose onClick={handleCloseDonet} />
-                  </div>
-                  <div className="donate-card-box">
-                  {filteredDonation.map((i) => (
-                      <DonateCard user={user} i={i} />
-                    ))}
-                    </div>
+              {/* Show Donate button only if NOT on /history */}
+              {currentPath !== "/history" && (
+                <div className="donate" onClick={handleDonet}>
+                  <FcDonate />
                 </div>
-              </div>
+              )}
+              {/* Show Pay Now only on / */}
+              {currentPath === "/" && user.type === "user" && (
+                <div className={`nav-pay-now ${isScrolled ? "scrolled" : ""}`}>
+                  <Link to="/payment">
+                    <LuScanQrCode />
+                    <span className="pay-text">Do Sadaqah</span>
+                  </Link>
+                </div>
+              )}
+              {/* Donate Popup */}
+              {currentPath !== "/history" && (
+                <div className={`donate-box ${donateActive}`} ref={donateRef}>
+                  <div className="donate-boxes">
+                    <div className="donate-top">
+                      <h4>Donation Required</h4>
+                      <IoIosClose onClick={handleCloseDonet} />
+                    </div>
+                    <div className="donate-card-box">
+                      {filteredDonation.map((i, index) => (
+                        <DonateCard key={index} user={user} i={i} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </nav>

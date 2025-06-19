@@ -27,6 +27,7 @@
 .SearchCard-right h6{
   font-weight: 600;
   margin: 0;
+  display: flex;
 }
 .SearchCard-right h6 span{
   font-weight: 300;
