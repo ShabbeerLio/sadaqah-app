@@ -87,7 +87,7 @@ const Collection = () => {
                                     </div>
                                     <p>Total ₹12344</p>
                                     <p>Donated ₹2344</p>
-                                    <p className="donate-btn">Donate Now</p>
+                                    <Link to={"/payment"} className="donate-btn">Donate Now</Link>
                                     <img src={makka} alt="" />
                                 </div>
                                 <div className="collection-right-card item2">
@@ -102,7 +102,7 @@ const Collection = () => {
                                 <div className="collection-right-card item3">
                                     <h6>Zakat Calculator</h6>
                                     <p>Calculate your Zakat</p>
-                                    <p className="donate-btn">Calculate</p>
+                                    <Link to={"/calculator"} className="donate-btn">Calculate</Link>
                                     <img src={donate} alt="" />
                                 </div>
                             </div>

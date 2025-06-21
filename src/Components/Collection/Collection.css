@@ -108,12 +108,8 @@
   overflow: hidden;
   position: relative;
 }
-.collection-right-card.item2 {
-  background-color: #729762;
-  /* height: 140px; */
-}
 .collection-right-card.item1 {
-  height: 320px;
+  height: 310px;
 }
 .collection-right-card.item1 img {
   width: 80%;
@@ -121,11 +117,15 @@
   bottom: 0;
   right: 0;
 }
+.collection-right-card.item2 {
+  background-color: #729762;
+  /* height: 140px; */
+}
 .collection-right-card.item2 img {
   width: 50%;
   position: absolute;
-  bottom: -10%;
-  right: -10%;
+  bottom: -5%;
+  right: -5%;
 }
 .collection-right-card.item3 {
   /* height: 150px; */
@@ -136,10 +136,13 @@
   color: white;
   width: 60%;
 }
+.collection-right-card.item1 .donate-btn {
+  width: 70%;
+}
 .collection-right-card.item3 img {
   width: 50%;
   position: absolute;
-  bottom: -15%;
+  bottom: -8%;
   right: -10%;
 }
 .collection-right-card h6 {
@@ -156,11 +159,16 @@
   background-color: #fdb618;
   color: black;
   border-radius: 20px;
-  padding: 5px 8px;
+  padding: 5px 10px;
   font-size: 12px;
   text-align: center;
-  margin-top: 1rem;
-  width: 70%;
+  text-decoration: none;
+}
+.collection-right-card a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 .collection-right-card .donate-progress-box {
   margin: 10px 0;
