@@ -11,24 +11,27 @@
 
 .Collection-box {
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
-  /* gap: 2rem; */
+  gap: 1rem;
+  align-items: center;
 }
 
 .Collection-box-left {
   width: 50%;
   border-radius: 20px;
-  border: 1px solid #f0f0f0;
+  height: 100%;
+  /* border: 1px solid #f0f0f0; */
   padding: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #729762;
+  color: white;
 }
 
 .collection-left-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #483aa0;
+  background-color: #597445;
   color: white;
   padding: 10px 15px;
   border-radius: 20px;
@@ -53,14 +56,11 @@
 }
 .Collection-box-right {
   width: 50%;
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem; */
-  background-color: #f0f0f0;
+  height: 100%;
+  /* background-color: #729762; */
   border-radius: 20px;
-  margin: 0 10px;
-  padding: 10px;
+  /* margin: 0 10px; */
+  /* padding: 10px; */
 }
 
 .Collection-box-right.institute {
@@ -77,44 +77,102 @@
   );
 }
 
-.Collection-box-right-box{
+.item1 {
+  grid-area: box1;
+}
+.item2 {
+  grid-area: box2;
+}
+.item3 {
+  grid-area: box3;
+}
+
+.Collection-box-right-box {
   width: 100%;
   /* height: 100%; */
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  /* grid-template-columns: repeat(3,1fr); */
+  grid-template-areas:
+    "box1 box2"
+    "box1 box3";
   gap: 10px;
 }
 
 .collection-right-card {
-  background-color: white;
+  background-color: #597445;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   width: 100%;
   padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.collection-right-card.item2 {
+  background-color: #729762;
+  /* height: 140px; */
+}
+.collection-right-card.item1 {
+  height: 320px;
+}
+.collection-right-card.item1 img {
+  width: 80%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.collection-right-card.item2 img {
+  width: 50%;
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+}
+.collection-right-card.item3 {
+  /* height: 150px; */
+  background-color: #fdb618;
+}
+.collection-right-card.item3 .donate-btn {
+  background-color: #729762;
+  color: white;
+  width: 60%;
+}
+.collection-right-card.item3 img {
+  width: 50%;
+  position: absolute;
+  bottom: -15%;
+  right: -10%;
+}
+.collection-right-card h6 {
+  color: white;
+  font-size: 18px;
+  /* margin: 0; */
+}
+.collection-right-card p {
+  color: white;
+  font-size: 14px;
+  margin: 0;
+}
+.collection-right-card .donate-btn {
+  background-color: #fdb618;
+  color: black;
+  border-radius: 20px;
+  padding: 5px 8px;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 1rem;
+  width: 70%;
+}
+.collection-right-card .donate-progress-box {
+  margin: 10px 0;
+}
+.collection-right-card .donate-progress-box .fill {
+  background-color: #fdb618;
 }
 
-.Collection-box-right h5{
+/* .Collection-box-right h5 {
   padding: 10px 10px 0 10px;
-}
-.Collection-box-right-box p {
-  background-color: #ffffff;
-  border-radius: 20px;
-  padding: 5px;
-  margin-bottom: 8px;
-}
-.Collection-box-right-box p svg {
-  color: black;
-  font-size: 50px;
-  padding: 5px;
-}
-.Collection-box-right-box span {
-  text-align: center;
-}
+  color: #597445;
+} */
 
 .institute {
   flex-direction: column;
@@ -131,49 +189,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.Collection-box-right-pay{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
-  gap: 1rem;
-}
-
-.Collection-card-pay{
-  border-radius: 50px;
-  background-color: #fdb618;
-  padding: 10px 15px;
-  width: 90%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-.Collection-card-pay p{
-  margin: 0;
-  font-size: 16px;
-  display: flex ;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-.Collection-card-pay p svg{
-  font-size: 25px;
-  margin-right: 5px;
-}
-
-.Collection-card-pay.send{
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #25205e;
-  color: white;
-}
-.Collection-card-pay.send a svg{
-  font-size: 25px;
-  margin-right: 0px;
-  color: white;
 }
 
 @media screen and (min-width: 1200px) {
@@ -196,7 +211,9 @@
   }
   .Collection-box-right {
     width: 100%;
-    padding: 10px;
+    /* padding: 10px; */
+    margin: 0 10px;
+    margin-bottom: 1rem;
   }
   .Collection-box-right.institute {
     gap: 8px;

@@ -20,6 +20,7 @@ import Search from "./Pages/Search/Search";
 import Help from "./Pages/Help/Help";
 import Notification from "./Pages/Notification/Notification";
 import ZakatCalculator from "./Pages/Calculator/Calculator";
+import Payment from "./Pages/Payment/Payment";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function MainLayout() {
         <Route path="/help" element={<Help />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/calculator" element={<ZakatCalculator />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

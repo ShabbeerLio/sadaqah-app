@@ -7,9 +7,13 @@ import TransactionsData from "../../Pages/TransationData";
 import { Link } from "react-router-dom";
 import { FcMoneyTransfer, FcCalendar, FcDonate } from "react-icons/fc";
 import { LuCalculator } from "react-icons/lu";
+import makka from "../../Assets/makka.png"
+import donate from "../../Assets/donate.png"
+import calender from "../../Assets/calender.png"
 
 
 const Collection = () => {
+    const progressPercent = 60;
     const user = JSON.parse(localStorage.getItem("authUser"));
     // console.log(user, "user");
     const transactions = TransactionsData;
@@ -73,41 +77,33 @@ const Collection = () => {
                         </div>
                     ) : (
                         <div className="Collection-box-right">
-                            <h5>Zakat</h5>
+                            {/* <h5>Zakat</h5> */}
                             <div className="Collection-box-right-box">
-                                <div className="collection-right-card">
-                                    <p>
-                                        <FcMoneyTransfer />
-                                    </p>
-                                    <span>₹12344</span>
-                                    <span>Total Zakat</span>
+                                <div className="collection-right-card item1">
+                                    <h6>Zakat</h6>
+                                    <p>Donate your zakat here</p>
+                                    <div className="donate-progress-box">
+                                        <div className="fill" style={{ width: `${progressPercent}%` }}></div>
+                                    </div>
+                                    <p>Total ₹12344</p>
+                                    <p>Donated ₹2344</p>
+                                    <p className="donate-btn">Donate Now</p>
+                                    <img src={makka} alt="" />
                                 </div>
-                                <div className="collection-right-card">
-                                    <p>
-                                        <FcCalendar />
-                                    </p>
-                                    <span>₹7344</span>
-                                    <span>This Month</span>
+                                <div className="collection-right-card item2">
+                                    <h6>Zakat (This Month)</h6>
+                                    <div className="donate-progress-box">
+                                        <div className="fill" style={{ width: `${progressPercent}%` }}></div>
+                                    </div>
+                                    <p>Total ₹12344</p>
+                                    <p>Donated ₹1344</p>
+                                    <img src={calender} alt="" />
                                 </div>
-                                <div className="collection-right-card">
-                                    <p>
-                                        <FcDonate />
-                                    </p>
-                                    <span>₹12344</span>
-                                    <span>Donated</span>
-                                </div>
-                            </div>
-                            <div className="Collection-box-right-pay">
-                                <div className="Collection-card-pay">
-                                    <p>
-                                        <GoArrowUpRight />
-                                        Donate Now
-                                    </p>
-                                </div>
-                                <div className="Collection-card-pay send">
-                                    <Link to={"/calculator"}>
-                                        <LuCalculator />
-                                    </Link>
+                                <div className="collection-right-card item3">
+                                    <h6>Zakat Calculator</h6>
+                                    <p>Calculate your Zakat</p>
+                                    <p className="donate-btn">Calculate</p>
+                                    <img src={donate} alt="" />
                                 </div>
                             </div>
                         </div>

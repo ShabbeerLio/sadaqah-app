@@ -38,16 +38,19 @@
   gap: 1rem;
 }
 .history-left-card {
-  background-color: #f0f0f0;
+  background-color: #729762;
   border-radius: 20px;
   padding: 1rem;
   width: 100%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 .history-left h1 {
-  color: #25205e;
+  color: white;
   font-weight: 600;
   font-size: 20px;
+}
+.history-left span {
+  color: white;
 }
 .history-left p {
   background-color: #ffffff;
@@ -65,7 +68,7 @@
   flex-direction: column;
   gap: 1rem;
 background: #ffffff;
-background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(194, 194, 194, 1) 2%, rgba(194, 194, 194, 1) 70%, rgba(255, 255, 255, 1) 100%);
+background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, #d2dac8 2%, #d2dac8 70%, rgba(255, 255, 255, 1) 100%);
 }
 .history-right img {
   width: 25%;

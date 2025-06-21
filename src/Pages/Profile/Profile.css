@@ -55,7 +55,7 @@
 
 }
 .profile-details a{
-    color: #483AA0;
+    color: #597445;
     text-decoration: none;
 }
 
@@ -66,13 +66,13 @@
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    border: 1px solid black;
+    border: 1px solid #597445;
     font-size: 14px;
     color: black;
     text-decoration: none;
 }
 .highlight.follow {
-    background-color: #483AA0;
+    background-color: #597445;
     color: white;
     border: none;
 }

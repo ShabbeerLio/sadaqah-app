@@ -5,6 +5,8 @@ import {
   IoMdHelpCircleOutline,
   IoIosClose,
 } from "react-icons/io";
+import { IoNotificationsOutline } from "react-icons/io5";
+
 import { LuCircleUser } from "react-icons/lu";
 import { FcDonate } from "react-icons/fc";
 import { useEffect, useRef, useState } from "react";
@@ -73,9 +75,11 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid nav-name">
             <Link className="navbar-brand" to="/">
-              {/* <img src={logo} alt="" /> */}
-              <span>My Sadaqah</span>
-              <h5>{user.username}</h5>
+              <img src={donate1} alt="" />
+              <div className="navbar-title">
+                <h5>Assalamu Alaikum</h5>
+                <span>Donate your Zakat</span>
+              </div>
             </Link>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
@@ -99,7 +103,7 @@ const Navbar = () => {
             <div className="profile">
               <div className="notification">
                 <Link to={"/notification"}>
-                  <IoMdNotifications />
+                  <IoNotificationsOutline />
                 </Link>
               </div>
               <div className="help">

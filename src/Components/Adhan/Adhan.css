@@ -1,0 +1,102 @@
+.adhaz-box {
+  display: flex;
+  gap: 1rem;
+  height: 150px;
+  align-items: flex-end;
+  margin-top: 2.5rem !important;
+  position: relative;
+}
+
+.adhan-left {
+  width: 60%;
+}
+
+.adhan-left p {
+  margin: 0;
+  font-size: 14px;
+  color: white;
+}
+.adhan-left h2 {
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #e7f0dc;
+}
+.adhan-left h2 span {
+  font-size: 14px;
+  font-weight: 300;
+}
+.adhan-right {
+  width: 40%;
+}
+.adhan-right img {
+  width: 35%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  filter: drop-shadow(5px -1px 8px black);
+}
+
+.Collection-box-right.adhan {
+  padding: 10px;
+  margin: 0 10px;
+  margin-bottom: 1rem;
+  background-color: #597445;
+}
+
+.adhan-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.adhan-card p {
+  margin: 0;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+.adhan-card p:last-child {
+  font-weight: 300;
+}
+.adhan-card svg {
+  color: #e7f0dc;
+  font-size: 30px;
+  margin: 5px 0;
+}
+
+.next-prayer {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.next-prayer svg {
+  font-size: 25px;
+  margin-bottom: 5px;
+  color: #e7f0dc;
+}
+.next-time p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 0.2;
+}
+.next-time span {
+  font-size: 10px;
+}
+
+.adhan-right-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+@media only screen and (max-width: 680px) {
+  .adhan-right img {
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    filter: drop-shadow(5px -1px 8px black);
+  }
+}

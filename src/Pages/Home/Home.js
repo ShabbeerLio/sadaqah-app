@@ -6,6 +6,7 @@ import Searchbox from "../../Components/Searchbox/Searchbox";
 import Footer from "../../Components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import Ads from "../../Components/Ads/Ads";
+import Adhan from "../../Components/Adhan/Adhan";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Home = () => {
   return (
     <div className="Home">
       <div className="Home-main">
+        <Adhan/>
         <Banners />
         <Collection />
         <Ads />

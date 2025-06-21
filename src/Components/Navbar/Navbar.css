@@ -1,6 +1,6 @@
 .navbar {
   width: 100%;
-  background-color: #25205e;
+  background-color: transparent;
   color: black;
 }
 .navbar-main {
@@ -28,10 +28,10 @@
 
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .show > .nav-link {
-  color: white !important;
+  color: #597445 !important;
 }
 .navbar-light .navbar-nav .nav-link {
-  color: rgb(228, 228, 228) !important;
+  color: #729762 !important;
 }
 
 .profile {
@@ -42,13 +42,13 @@
 
 .profile svg {
   font-size: 25px;
-  color: white;
+  color: #597445;
 }
 .profile .help a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #483aa0;
+  background-color: #729762;
   border-radius: 25px;
   padding: 5px;
   text-decoration: none;
@@ -58,6 +58,9 @@
   margin: 0;
   color: white;
   padding: 0 5px;
+}
+.profile .help a svg {
+  color: white;
 }
 .profile .btn {
   box-shadow: none;
@@ -95,7 +98,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #25205e;
+  background-color: #597445;
   color: white;
   padding: 10px 20px;
   border-radius: 50px;
@@ -108,6 +111,7 @@
 .nav-pay-now a svg {
   font-size: 30px;
   /* padding: 2px; */
+  color: white;
 }
 
 .nav-pay-now a .pay-text {
@@ -130,6 +134,25 @@
   padding: 10px;
 }
 
+.navbar-brand{
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.navbar-brand img{
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background-color: white;
+}
+
+.navbar-title h5{
+  line-height: 10px;
+  color: #597445;
+}
+.navbar-title span{
+  color: #597445;
+}
 @media screen and (min-width: 1200px) {
   .navbar-main {
     max-width: 1200px;
