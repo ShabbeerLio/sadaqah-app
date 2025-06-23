@@ -24,6 +24,8 @@ const Navbar = () => {
   const [donateActive, setDonateActive] = useState("");
   const donateRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const userLocation = user.currentPinLocation || "Delhi"; // customize this to your user data
+  const [donationType, setDonationType] = useState(userLocation);
 
   const handleDonet = () => {
     setDonateActive("active");
@@ -63,9 +65,18 @@ const Navbar = () => {
   let filteredDonation = [];
   if (user.type === "user") {
     filteredDonation = DonateData;
+    filteredDonation = filteredDonation.filter((i) => {
+      if (donationType === userLocation) {
+        return i.location === userLocation;
+      } else {
+        return i.location !== userLocation;
+      }
+    });
   } else {
     filteredDonation = DonateData.filter((i) => i.username === user.username)
   }
+
+
 
 
 
@@ -139,12 +150,47 @@ const Navbar = () => {
                 <div className={`donate-box ${donateActive}`} ref={donateRef}>
                   <div className="donate-boxes">
                     <div className="donate-top">
-                      <h4>Donation Required</h4>
+                      <div className="donate-top-head">
+                        <h4>Donation Requests</h4>
+                        {user.type === "user" ? (
+                          <div className="radio-options">
+                            <label
+                              className={`radio-label ${donationType === "Delhi" ? "purple" : ""}`}
+                            >
+                              <input
+                                type="radio"
+                                value="Delhi"
+                                checked={donationType === "Delhi"}
+                                onChange={() => setDonationType("Delhi")}
+                              />
+                              Your Location
+                            </label>
+                            <label
+                              className={`radio-label ${donationType === "others" ? "blue" : ""}`}
+                            >
+                              <input
+                                type="radio"
+                                value="others"
+                                checked={donationType === "others"}
+                                onChange={() => setDonationType("others")}
+                              />
+                              System Requested
+                            </label>
+                          </div>
+                        ) : ("")}
+
+                      </div>
                       <IoIosClose onClick={handleCloseDonet} />
                     </div>
                     <div className="donate-card-box">
                       {filteredDonation.map((i, index) => (
-                        <DonateCard key={index} user={user} i={i} />
+                        <DonateCard
+                          key={index}
+                          user={user}
+                          i={i}
+                          donationType={donationType}
+                          handleCloseDonet={handleCloseDonet}
+                        />
                       ))}
                     </div>
                   </div>

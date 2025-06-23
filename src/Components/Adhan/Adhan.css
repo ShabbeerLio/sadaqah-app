@@ -5,6 +5,7 @@
   align-items: flex-end;
   margin-top: 2.5rem !important;
   position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .adhan-left {
@@ -42,6 +43,7 @@
   margin: 0 10px;
   margin-bottom: 1rem;
   background-color: #597445;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .adhan-card {

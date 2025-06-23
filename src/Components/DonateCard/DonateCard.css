@@ -8,6 +8,31 @@
   z-index: 999;
 }
 
+.donate-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+.donate-details{
+  width: 80%;
+}
+
+.donate-view{
+  width: 20%;
+}
+.donate-view a{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+color: #597445;
+text-decoration: none;
+}
+
+
 .donate-box {
   position: fixed;
   bottom: -50%;
@@ -48,6 +73,10 @@
   margin-bottom: 0.5rem;
 }
 
+.donation-title{
+  font-size: 18px;
+}
+
 .donate-progress-box {
   width: 100%;
   height: 8px;
@@ -66,13 +95,15 @@
   color: black;
 }
 .donate-top h4 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .donate-title {
   display: flex;
   align-items: center;
   gap: 1rem;
+  border-top: 1px solid #597445;
+  padding: 10px 0;
 }
 .donate-title img {
   width: 36px;
@@ -89,7 +120,7 @@
 }
 .donation-name h5 {
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
 }
@@ -116,6 +147,7 @@
 }
 
 .donate-card {
+  position: relative;
   font-size: 12px;
   border-radius: 20px;
   /* border: 1px solid #f0f0f0; */
@@ -123,6 +155,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   /* margin-bottom: 8px; */
   background-color: #E7F0DC;
+  overflow: hidden;
 }
 
 .donation-description {
@@ -149,12 +182,24 @@
   font-size: 12px;
   width: 80%;
 }
+.donate-paybtn a{
+  background-color: #fdb618;
+  color: black;
+  font-size: 12px;
+  width: 80%;
+  border-radius: 25px;
+  text-align: center;
+  padding: 8px;
+  text-decoration: none;
+}
+
 .donate-paybtn p:nth-child(2) {
   background-color: #fdb618;
   color: black;
   font-size: 12px;
   width: 20%;
 }
+
 .donate-paybtn {
   display: flex;
   align-items: center;
@@ -182,3 +227,23 @@
   height: auto;
   object-fit: contain;
 } */
+.donateCard-tag{
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: #597445;
+}
+
+.donate-payable{
+  width: 50%;
+}
+.donate-payable p{
+  width: 100%;
+  padding: 0;
+}
+.donate-payable span{
+  color: black;
+  font-size: 12px;
+}

@@ -68,13 +68,8 @@
   gap: 10px;
   margin: 0;
   background: #ffffff;
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(194, 194, 194, 1) 15%,
-    rgba(194, 194, 194, 1) 70%,
-    rgba(255, 255, 255, 1) 100%
-  );
+ background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, #d2dac8 2%, #d2dac8 70%, rgba(255, 255, 255, 1) 100%);
+
 }
 
 .item1 {
@@ -112,13 +107,13 @@
   height: 310px;
 }
 .collection-right-card.item1 img {
-  width: 80%;
+  width: 75%;
   position: absolute;
   bottom: 0;
   right: 0;
 }
 .collection-right-card.item2 {
-  background-color: #729762;
+  background-color: #658147;
   /* height: 140px; */
 }
 .collection-right-card.item2 img {
@@ -187,7 +182,7 @@
 }
 
 .View-more-transatction {
-  background-color: #483aa0;
+  background-color: #597445;
   border-radius: 20px;
   padding: 10px 20px;
   color: white;
@@ -224,14 +219,10 @@
     margin-bottom: 1rem;
   }
   .Collection-box-right.institute {
+    padding: 10px;
     gap: 8px;
     background: #ffffff;
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(194, 194, 194, 1) 15%,
-      rgba(194, 194, 194, 1) 70%,
-      rgba(255, 255, 255, 1) 100%
-    );
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, #d2dac8 2%, #d2dac8 70%, rgba(255, 255, 255, 1) 100%);
+    border-radius: 0;
   }
 }

@@ -53,7 +53,7 @@
   margin: 0;
   padding: 10px 20px;
   border: 1px solid white;
-  border-radius: 0.5rem;
+  border-radius: 25px;
   margin-top: 1rem;
   width: 50%;
   color: white;
@@ -88,15 +88,18 @@
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #25205E;
+  color: #597445;
 }
 
 .form-input {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 25px;
   font-size: 0.875rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: #a6a6a6;
 }
 
 .forgot-link {
@@ -105,23 +108,23 @@
 
 .forgot-link a {
   font-size: 0.75rem;
-  color: #25205E;
+  color: #597445;
   font-weight: 600;
   text-decoration: none;
 }
 
 .forgot-link a:hover {
-  color: #25205E;
+  color: #597445;
 }
 
 .submit-button {
   width: 100%;
   padding: 0.75rem;
   font-size: 1rem;
-  background: #241f5f;
+  background: #597445;
   color: white;
   border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
+  border-radius: 25px;
   cursor: pointer;
   transition: background 0.2s;
   margin: 1rem 0;
@@ -138,7 +141,7 @@
     justify-content: center;
     padding: 10px;
     width: 100%;
-    border-radius: 0.5rem;
+    border-radius: 25px;
     border: 1px solid #d1d5db;
     cursor: pointer;
     margin-top: 1rem;

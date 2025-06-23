@@ -2,7 +2,7 @@
   position: relative;
   height: 80%;
   width: 90%;
-  background-color: #fff;
+  background-color: #E7F0DC;
   border-radius: 2rem;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -17,7 +17,7 @@
   right: 0;
   width: 50%;
   height: 100%;
-  background-color: #fff;
+  background-color: #E7F0DC;
   display: flex;
   align-items: center;
   text-align: center;
@@ -52,7 +52,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  /* background-color: #241f5f; */
+  /* background-color: #597445; */
 }
 .toggle-box::before {
   content: "";
@@ -60,7 +60,7 @@
   left: -250%;
   width: 300%;
   height: 100%;
-  background-color: #25205E;
+  background-color: #597445;
   border-radius: 150px;
   z-index: 2;
   transition: 1s ease-in-out;
@@ -74,7 +74,7 @@
   position: absolute;
   width: 50%;
   height: 100%;
-  /* background-color: #241f5f; */
+  /* background-color: #597445; */
   color: white;
   display: flex;
   flex-direction: column;
@@ -109,7 +109,7 @@
   margin: 0;
   padding: 10px 20px;
   border: 1px solid white;
-  border-radius: 0.5rem;
+  border-radius: 25px;
   margin-top: 0.7rem;
   width: 50%;
   color: white;
