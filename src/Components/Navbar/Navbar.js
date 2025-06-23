@@ -24,7 +24,7 @@ const Navbar = () => {
   const [donateActive, setDonateActive] = useState("");
   const donateRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const userLocation = user.currentPinLocation || "Delhi"; // customize this to your user data
+  const userLocation = "Delhi";
   const [donationType, setDonationType] = useState(userLocation);
 
   const handleDonet = () => {
