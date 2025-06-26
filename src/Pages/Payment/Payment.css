@@ -37,7 +37,7 @@
   justify-content: space-between;
   padding: 5px 0;
 }
-.sadaqah-container .summary-detail p{
+.sadaqah-container .summary-detail p {
   margin: 0;
 }
 
@@ -53,9 +53,8 @@
   cursor: pointer;
 }
 
-
-.summary-card hr{
-    margin: 5px 0;
+.summary-card hr {
+  margin: 5px 0;
 }
 
 .sadaqah-container .custom-dropdown {
@@ -92,7 +91,7 @@
   overflow-y: auto;
   z-index: 100;
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
 }
 
@@ -124,23 +123,23 @@
   font-size: 14px;
 }
 
-.summary-detail.adsnote{
-    flex-direction: column;
+.summary-detail.adsnote {
+  flex-direction: column;
 }
-.summary-detail.adsnote p{
-    font-size: 12px;
+.summary-detail.adsnote p {
+  font-size: 12px;
 }
-.summary-detail.adsnote p span{
-    color: #fdb618;
+.summary-detail.adsnote p span {
+  color: #fdb618;
 }
-.adsnote img{
-    width: 100%;
-    border-radius: 20px;
-    margin-top: 1rem;
+.adsnote img {
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 1rem;
 }
 
 /* check box */
-/* From Uiverse.io by boryanakrasteva */ 
+/* From Uiverse.io by boryanakrasteva */
 /* Customize the label (the checkbox-btn) */
 .checkbox-btn {
   display: block;
@@ -175,7 +174,7 @@
   height: 20px;
   width: 20px;
   border: 2px solid #ffffff;
-  transition: .2s linear;
+  transition: 0.2s linear;
 }
 .checkbox-btn input:checked ~ .checkmark {
   background-color: transparent;
@@ -194,7 +193,7 @@
   border: 2px solid #fdb618;
   filter: drop-shadow(0px 0px 10px #fdb618);
   border-width: 0 2.5px 2.5px 0;
-  transition: .2s linear;
+  transition: 0.2s linear;
   transform: translate(-50%, -50%) rotate(0deg) scale(0.2);
 }
 
@@ -206,18 +205,14 @@
   animation: pulse 1s ease-in;
 }
 
-.checkbox-btn input:checked ~ .checkmark {
-  /* transform: rotate(45deg); */
-  /* border: none; */
-}
-
 @keyframes pulse {
-  0%,
-  100% {
+  0% {
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
   50% {
-    transform: translate(-50%, -50%) rotate(45deg) scale(1.6);
+    transform: translate(-50%, -50%) rotate(25deg) scale(1.6);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
   }
 }
-
