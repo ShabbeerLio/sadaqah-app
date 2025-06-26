@@ -10,6 +10,7 @@ import { LuCalculator } from "react-icons/lu";
 import makka from "../../Assets/makka.png"
 import donate from "../../Assets/donate.png"
 import calender from "../../Assets/calender.png"
+import suggest from "../../Assets/suggest.png"
 
 
 const Collection = () => {
@@ -106,6 +107,12 @@ const Collection = () => {
                                     <img src={donate} alt="" />
                                 </div>
                             </div>
+                            <div className="collection-right-card item4">
+                                    <h6>Suggest Masakeen (345)</h6>
+                                    <p>A needy person who is eligible to receive Zakat is referred to as "Miskeen" (مسکین).</p>
+                                    <Link to={"/calculator"} className="donate-btn">Suggest Us!</Link>
+                                    <img src={suggest} alt="" />
+                                </div>
                         </div>
                     )}
                 </div>

@@ -35,7 +35,6 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  filter: drop-shadow(5px -1px 8px black);
 }
 
 .Collection-box-right.adhan {
@@ -95,10 +94,9 @@
 
 @media only screen and (max-width: 680px) {
   .adhan-right img {
-    width: 50%;
+    width: 53%;
     position: absolute;
-    bottom: 0;
-    right: 0;
-    filter: drop-shadow(5px -1px 8px black);
+    bottom: 0%;
+    right: 0%;
   }
 }

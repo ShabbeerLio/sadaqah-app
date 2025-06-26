@@ -1,14 +1,18 @@
 import React from "react";
 import Slider from "react-slick";
-import banner1 from "../../Assets/Banner/Banner.jpg";
-import banner2 from "../../Assets/Posts/post3.jpg";
-import banner3 from "../../Assets/Posts/post4.jpg";
+import banner1 from "../../Assets/Banner/1.jpg";
+import banner2 from "../../Assets/Banner/2.jpg";
+import banner3 from "../../Assets/Banner/3.jpg";
+import banner4 from "../../Assets/Banner/4.jpg";
+import banner5 from "../../Assets/Banner/5.jpg";
+import banner6 from "../../Assets/Banner/6.jpg";
 import "./Banner.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const Banners = () => {
-  const images = [banner1, banner2, banner3];
+  const images = [banner1, banner2, banner3, banner4, banner5, banner6];
 
   const settings = {
     dots: true,
@@ -27,6 +31,9 @@ const Banners = () => {
           {images.map((img, index) => (
             <div className="banner-image" key={index}>
               <img src={img} alt={`banner-${index}`} />
+              <div className="banner-btn">
+                <Link to={"/payment"}>Donate Now</Link>
+              </div>
             </div>
           ))}
         </Slider>

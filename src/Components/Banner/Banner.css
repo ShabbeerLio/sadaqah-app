@@ -24,6 +24,7 @@
 .banner-image {
   height: 100%;
   border-radius: 20px;
+  position: relative;
 }
 .banner-image img {
   height: 35vh;
@@ -31,6 +32,24 @@
   object-fit: cover;
   border-radius: 20px;
 
+}
+
+.banner-btn a{
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  z-index: 99;
+  background-color: #fdb618;
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  border-radius: 25px;
+  padding: 8px;
+  margin: 10px;
+  font-size: 12px;
 }
 
 @media screen and (min-width: 1200px) {

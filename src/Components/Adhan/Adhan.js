@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Adhan.css";
-import mashjid from "../../Assets/mashjid.png";
+import mashjid from "../../Assets/mashjid6.png";
 import { IoMdTime } from "react-icons/io";
 import {
     PiSunHorizon,
@@ -21,6 +21,7 @@ const Adhan = () => {
     const [locationName, setLocationName] = useState(null);
     const [currentPrayer, setCurrentPrayer] = useState(null);
     const [nextPrayer, setNextPrayer] = useState(null);
+    const [timeRemaining, setTimeRemaining] = useState("");
 
     const imageMap = {
         Fajr: <PiSunHorizon />,
@@ -129,7 +130,6 @@ const Adhan = () => {
             }
         }
 
-        // After Isha
         if (!current && prayerTimes.length) {
             current = prayerTimes[prayerTimes.length - 1];
             next = prayerTimes[0];
@@ -137,6 +137,34 @@ const Adhan = () => {
 
         setCurrentPrayer(current);
         setNextPrayer(next);
+
+        if (next) {
+            const updateCountdown = () => {
+                const now = new Date();
+                const [h, m] = next.time.split(":").map(Number);
+                const nextDate = new Date(now);
+                nextDate.setHours(h, m, 0, 0);
+
+                if (nextDate < now) {
+                    nextDate.setDate(nextDate.getDate() + 1);
+                }
+
+                const diffMs = nextDate - now;
+                const diffMin = Math.floor(diffMs / 60000);
+                const hours = Math.floor(diffMin / 60);
+                const minutes = diffMin % 60;
+
+                setTimeRemaining(
+                    `${hours} hour${hours !== 1 ? "s" : ""} ${minutes} minute${
+                        minutes !== 1 ? "s" : ""
+                    }`
+                );
+            };
+
+            updateCountdown();
+            const interval = setInterval(updateCountdown, 1000);
+            return () => clearInterval(interval);
+        }
     }, [prayerTimess]);
 
     const formatTo12Hour = (timeStr) => {
@@ -146,13 +174,13 @@ const Adhan = () => {
         const ampm = hour >= 12 ? "PM" : "AM";
 
         hour = hour % 12;
-        hour = hour ? hour : 12; // 0 becomes 12
+        hour = hour ? hour : 12;
 
         return `${hour}:${minute.toString().padStart(2, "0")} ${ampm}`;
     };
 
     const hijriMonthNames = [
-        "", // index 0 unused
+        "",
         "Muharram",
         "Safar",
         "Rabiʿ al-Awwal",
@@ -178,15 +206,26 @@ const Adhan = () => {
                                     ? `${date.hijri.day} ${hijriMonthNames[date.hijri.month]} ${date.hijri.year} AH`
                                     : ""}
                             </p>
-                            <h2>{currentPrayer ? formatTo12Hour(currentPrayer.time) : "--:--"}</h2>
+
+                            <h2>
+    {nextPrayer ? (
+        <>
+            {formatTo12Hour(nextPrayer.time).split(" ")[0]}
+            <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
+            <span> (Delhi)</span>
+        </>
+    ) : "--:--"}
+</h2>
+
                             <div className="next-prayer">
                                 <IoMdTime />
                                 <div className="next-time">
-                                    <p>Next Prayer</p>
-                                    <span>{nextPrayer?.name} - {nextPrayer ? formatTo12Hour(nextPrayer.time) : "--:--"}</span>
+                                    <p>{nextPrayer ? nextPrayer.name : "-"} Time Remaining</p>
+                                    <span>{timeRemaining}</span>
                                 </div>
                             </div>
                         </div>
+
                         <div className="adhan-right">
                             <img src={mashjid} alt="Masjid" />
                         </div>

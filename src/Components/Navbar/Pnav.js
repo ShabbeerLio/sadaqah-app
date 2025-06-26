@@ -10,14 +10,35 @@ import {
 } from "react-icons/lu";
 import { GrTransaction } from "react-icons/gr";
 import { motion } from "framer-motion";
+import { GiPayMoney } from "react-icons/gi";
+import { FcDonate } from "react-icons/fc";
+import { IoIosClose } from "react-icons/io";
+import DonateData from "../../Pages/DonateData";
+import DonateCard from "../DonateCard/DonateCard";
+import doantebtn from "../../Assets/donate (1).png"
 
 const Pnav = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [highlightProps, setHighlightProps] = useState({ left: -9999, width: 0 });
+  const donateRef = useRef(null);
+  const [highlightProps, setHighlightProps] = useState({
+    left: -9999,
+    width: 0,
+  });
   const navRefs = useRef([]);
   const [tail, setTail] = useState(null);
+  const [donateActive, setDonateActive] = useState("");
+
   const [user, setUser] = useState(null);
+  const userLocation = "Delhi";
+  const [donationType, setDonationType] = useState(userLocation);
+
+  const handleDonet = () => {
+    setDonateActive("active");
+  };
+  const handleCloseDonet = () => {
+    setDonateActive("");
+  };
 
   useEffect(() => {
     const authUser = localStorage.getItem("authUser");
@@ -67,24 +88,38 @@ const Pnav = () => {
     }
   }, [tail]);
 
+  // Detect click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (donateRef.current && !donateRef.current.contains(event.target)) {
+        handleCloseDonet();
+      }
+    };
+
+    if (donateActive === "active") {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [donateActive]);
+
   if (!user) return null; // Don't render until user is loaded
 
-  const links =
-    user.type === "user"
-      ? [
-          { to: "/", label: "Home", icon: <LuHouse /> },
-          { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
-          { to: "/profile", label: "Profile", icon: <LuCircleUser /> },
-          { to: "/search", label: "Search", icon: <LuSearch /> },
-          { to: "/history", label: "History", icon: <GrTransaction /> },
-        ]
-      : [
-          { to: "/", label: "Home", icon: <LuHouse /> },
-          { to: "/feeds", label: "Feeds", icon: <LuTvMinimalPlay /> },
-          { to: "/add", label: "Add", icon: <LuSquarePlus /> },
-          { to: "/search", label: "Search", icon: <LuSearch /> },
-          { to: "/history", label: "History", icon: <GrTransaction /> },
-        ];
+  let filteredDonation = [];
+  if (user.type === "user") {
+    filteredDonation = DonateData;
+    filteredDonation = filteredDonation.filter((i) => {
+      if (donationType === userLocation) {
+        return i.location === userLocation;
+      } else {
+        return i.location !== userLocation;
+      }
+    });
+  } else {
+    filteredDonation = DonateData.filter((i) => i.username === user.username);
+  }
 
   return (
     <div className="Pnav">
@@ -115,19 +150,111 @@ const Pnav = () => {
         />
       )} */}
       <ul>
-        {links.map((link, index) => (
-          <li key={index}>
-            <NavLink
-              to={link.to}
-              className="nav-link"
-              data-path={link.to}
-              ref={(el) => (navRefs.current[index] = el)}
-            >
-              {link.icon}
-            </NavLink>
-          </li>
-        ))}
+        <li>
+          <NavLink
+            to={"/"}
+            className="nav-link"
+            data-path={"/"}
+            ref={(el) => (navRefs.current[0] = el)}
+          >
+            <LuHouse />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"/feeds"}
+            className="nav-link"
+            data-path={"/feeds"}
+            ref={(el) => (navRefs.current[1] = el)}
+          >
+            <LuTvMinimalPlay />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            onClick={handleDonet}
+            className="nav-link navdonate"
+            data-path={"/donate"}
+            ref={(el) => (navRefs.current[2] = el)}
+          >
+            <img src={doantebtn} alt="" />
+            {/* <GiPayMoney /> */}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"/search"}
+            className="nav-link"
+            data-path={"/search"}
+            ref={(el) => (navRefs.current[3] = el)}
+          >
+            <LuSearch />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={"/history"}
+            className="nav-link"
+            data-path={"/history"}
+            ref={(el) => (navRefs.current[4] = el)}
+          >
+            <GrTransaction />
+          </NavLink>
+        </li>
       </ul>
+      <div className={`donate-box ${donateActive}`} ref={donateRef}>
+        <div className="donate-boxes">
+          <div className="donate-top">
+            <div className="donate-top-head">
+              <h4>Donation Requests</h4>
+              {user.type === "user" ? (
+                <div className="radio-options">
+                  <label
+                    className={`radio-label ${
+                      donationType === "Delhi" ? "purple" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      value="Delhi"
+                      checked={donationType === "Delhi"}
+                      onChange={() => setDonationType("Delhi")}
+                    />
+                    Your Location
+                  </label>
+                  <label
+                    className={`radio-label ${
+                      donationType === "others" ? "blue" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      value="others"
+                      checked={donationType === "others"}
+                      onChange={() => setDonationType("others")}
+                    />
+                    System Requested
+                  </label>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <IoIosClose onClick={handleCloseDonet} />
+          </div>
+          <div className="donate-card-box">
+            {filteredDonation.map((i, index) => (
+              <DonateCard
+                key={index}
+                user={user}
+                i={i}
+                donationType={donationType}
+                handleCloseDonet={handleCloseDonet}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

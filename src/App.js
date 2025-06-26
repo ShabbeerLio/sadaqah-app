@@ -21,6 +21,7 @@ import Help from "./Pages/Help/Help";
 import Notification from "./Pages/Notification/Notification";
 import ZakatCalculator from "./Pages/Calculator/Calculator";
 import Payment from "./Pages/Payment/Payment";
+import StatusPage from "./Pages/Payment/StatusPage";
 
 function App() {
   return (
@@ -44,7 +45,10 @@ function MainLayout() {
   }, []);
 
   const hideNav =
-    location.pathname === "/login" || location.pathname === "/signup";
+    location.pathname === "/login" ||
+    location.pathname === "/signup" ||
+    location.pathname === "/payment" ||
+    location.pathname === "/status";
 
   if (loading) {
     return <Loading />;
@@ -67,6 +71,7 @@ function MainLayout() {
         <Route path="/notification" element={<Notification />} />
         <Route path="/calculator" element={<ZakatCalculator />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/status" element={<StatusPage />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

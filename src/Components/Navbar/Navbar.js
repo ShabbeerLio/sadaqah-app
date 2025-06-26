@@ -1,19 +1,16 @@
 import "./Navbar.css";
 import { Link, useLocation } from "react-router-dom";
 import {
-  IoMdNotifications,
   IoMdHelpCircleOutline,
-  IoIosClose,
 } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
-
-import { LuCircleUser } from "react-icons/lu";
-import { FcDonate } from "react-icons/fc";
 import { useEffect, useRef, useState } from "react";
 import donate1 from "../../Assets/Posts/hadith.png"
-import DonateCard from "../DonateCard/DonateCard";
 import DonateData from "../../Pages/DonateData";
-import { LuScanQrCode } from "react-icons/lu";
+import {
+  LuSquarePlus,
+  LuScanQrCode,
+} from "react-icons/lu";
 
 
 const Navbar = () => {
@@ -85,7 +82,7 @@ const Navbar = () => {
       <div className="navbar-main">
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid nav-name">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/profile">
               <img src={donate1} alt="" />
               <div className="navbar-title">
                 <h5>Assalamu Alaikum</h5>
@@ -124,18 +121,12 @@ const Navbar = () => {
                     <p>Help</p>
                   </Link>
                 ) : (
-                  <Link to={"/profile"}>
-                    <LuCircleUser />
-                    <p>Profile</p>
+                  <Link to={"/add"}>
+                    <LuSquarePlus />
+                    <p>Feed</p>
                   </Link>
                 )}
               </div>
-              {/* Show Donate button only if NOT on /history */}
-              {currentPath !== "/history" && (
-                <div className="donate" onClick={handleDonet}>
-                  <FcDonate />
-                </div>
-              )}
               {/* Show Pay Now only on / */}
               {currentPath === "/" && user.type === "user" && (
                 <div className={`nav-pay-now ${isScrolled ? "scrolled" : ""}`}>
@@ -145,57 +136,7 @@ const Navbar = () => {
                   </Link>
                 </div>
               )}
-              {/* Donate Popup */}
-              {currentPath !== "/history" && (
-                <div className={`donate-box ${donateActive}`} ref={donateRef}>
-                  <div className="donate-boxes">
-                    <div className="donate-top">
-                      <div className="donate-top-head">
-                        <h4>Donation Requests</h4>
-                        {user.type === "user" ? (
-                          <div className="radio-options">
-                            <label
-                              className={`radio-label ${donationType === "Delhi" ? "purple" : ""}`}
-                            >
-                              <input
-                                type="radio"
-                                value="Delhi"
-                                checked={donationType === "Delhi"}
-                                onChange={() => setDonationType("Delhi")}
-                              />
-                              Your Location
-                            </label>
-                            <label
-                              className={`radio-label ${donationType === "others" ? "blue" : ""}`}
-                            >
-                              <input
-                                type="radio"
-                                value="others"
-                                checked={donationType === "others"}
-                                onChange={() => setDonationType("others")}
-                              />
-                              System Requested
-                            </label>
-                          </div>
-                        ) : ("")}
-
-                      </div>
-                      <IoIosClose onClick={handleCloseDonet} />
-                    </div>
-                    <div className="donate-card-box">
-                      {filteredDonation.map((i, index) => (
-                        <DonateCard
-                          key={index}
-                          user={user}
-                          i={i}
-                          donationType={donationType}
-                          handleCloseDonet={handleCloseDonet}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
+             
             </div>
           </div>
         </nav>

@@ -96,6 +96,13 @@
   /* mix-blend-mode: multiply; */
 }
 
+.nav-link.navdonate svg{
+color: #25205E;
+}
+
+.nav-link.navdonate img{
+width: 40%;
+}
 @media only screen and (max-width: 990px) {
     .Pnav{
         display: block;

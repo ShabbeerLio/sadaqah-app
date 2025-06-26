@@ -1,0 +1,125 @@
+.status-box.success h2 {
+  color: green;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+}
+.back-button p{
+    font-size: 18px;
+    margin: 0;
+}
+.status-box.success .status-message {
+  color: green;
+  text-align: center;
+  margin: 0;
+}
+
+.status-box.failure h2 {
+  text-align: center;
+  color: red;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+.status-box.failure .status-message {
+  text-align: center;
+  color: red;
+  margin: 0;
+}
+
+.madarsa-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #eaf4ea;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 8px;
+  position: relative;
+}
+
+.madarsa-box img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.status-icon {
+  position: absolute;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tick {
+  background-color: #597445 !important;
+}
+.cross {
+  background-color: red !important;
+}
+
+.details {
+  background-color: #729762;
+  padding: 1rem;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.details div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.payment-img {
+  width: 100%;
+  border-radius: 20px;
+  margin:20px 0;
+}
+
+.invoice-btn,
+.try-again-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #fdb618;
+  color: black;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.reminder-bot-top{
+    background-color: #597445;
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.reminder-bot-detail svg{
+    font-size: 30px;
+}
+.reminder-bot-top h4{
+    margin: 0;
+    font-size: 14px;
+}
+.reminder-bot-top p{
+    margin: 0;
+    font-size: 12px;
+}
+
+.reminder-note{
+    font-size: 12px;
+    margin-top: 10px;
+}
+.reminder-note span{
+    font-weight: 800;
+}

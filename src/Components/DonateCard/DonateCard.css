@@ -35,17 +35,17 @@ text-decoration: none;
 
 .donate-box {
   position: fixed;
-  bottom: -50%;
+  bottom: -60%;
   left: 0;
   background-color: white;
   width: 100%;
-  height: 50%;
+  height: 60%;
   z-index: 9999;
   border-radius: 25px;
   padding: 1rem;
   transition: all ease-in-out 0.5s;
   overflow: auto;
-  padding-bottom: 4rem;
+  padding-bottom: 1rem;
   background: #ffffff;
   background: linear-gradient(
     0deg,

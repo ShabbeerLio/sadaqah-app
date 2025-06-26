@@ -68,8 +68,13 @@
   gap: 10px;
   margin: 0;
   background: #ffffff;
- background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, #d2dac8 2%, #d2dac8 70%, rgba(255, 255, 255, 1) 100%);
-
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    #d2dac8 2%,
+    #d2dac8 70%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 .item1 {
@@ -194,6 +199,22 @@
   justify-content: center;
 }
 
+.collection-right-card.item4 {
+  margin-top: 10px;
+}
+.collection-right-card.item4 p{
+  width: 75%;
+}
+.collection-right-card.item4 a{
+  width: 70%;
+}
+.collection-right-card.item4 img {
+  width: 30%;
+  position: absolute;
+  bottom: -0%;
+  right: 0%;
+}
+
 @media screen and (min-width: 1200px) {
   .Banners-detail {
     max-width: 1080px;
@@ -222,7 +243,13 @@
     padding: 10px;
     gap: 8px;
     background: #ffffff;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, #d2dac8 2%, #d2dac8 70%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      #d2dac8 2%,
+      #d2dac8 70%,
+      rgba(255, 255, 255, 1) 100%
+    );
     border-radius: 0;
   }
 }
