@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GoArrowUpRight, GoArrowDownLeft } from "react-icons/go";
 
 const HistoryCard = ({ tx }) => {
@@ -34,49 +34,111 @@ const HistoryCard = ({ tx }) => {
   const { fee, percentage } = calculatePlatformFee(tx.amount);
   const finalAmount = tx.amount - fee;
 
+  const nameRef = useRef();
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  useEffect(() => {
+    const el = nameRef.current;
+    if (el && el.scrollWidth > el.clientWidth) {
+      setIsOverflowing(true);
+    }
+  }, []);
+
   return (
     <div className="history-right-card" key={tx.id}>
       {user.type === "institute" ? (
         <>
-          <div className="history-card-detail-box">
-            <div className="history-card-detail">
-              <p>
-                <GoArrowDownLeft />
-              </p>
-              <div className="history-card-title">
-                <span>Received from</span>
-                <h2>{tx.name}</h2>
-                <h6>{new Date(tx.date).toLocaleDateString()}</h6>
+          {tx.type === "Zakat" ? ("") : (
+            <>
+              <div className="history-card-detail-box">
+                <div className="history-card-detail">
+                  <p>
+                    <GoArrowDownLeft />
+                  </p>
+                  <div className="history-card-title">
+                    <span>Received from</span>
+                    <div className="scrolling-name-wrapper">
+                      <h2
+                        className={`scrolling-name ${isOverflowing ? "scrolling" : ""}`}
+                        ref={nameRef}
+                      >
+                        {tx.name}
+                      </h2>
+                    </div>
+                    <h6>{new Date(tx.date).toLocaleDateString()}</h6>
+                  </div>
+                </div>
+                <div className="history-amount">
+                  <p>₹{tx.amount}</p>
+                  <p>(Platform Fee - {percentage}%) - ₹{fee}</p>
+                  <h4>₹{finalAmount}</h4>
+                </div>
               </div>
-            </div>
-            <div className="history-amount">
-              <p>₹{tx.amount}</p>
-              <p>(Platform Fee - {percentage}%) - ₹{fee}</p>
-              <h4>₹{finalAmount}</h4>
-            </div>
-          </div>
-          <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
+              <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
+            </>
+          )}
+
         </>
       ) : (
         <>
-          <div className="history-card-detail-box">
-            <div className="history-card-detail">
-              <p>
-                <GoArrowUpRight />
-              </p>
-              <div className="history-card-title">
-                <span>Paid to</span>
-                <h2>{tx.name}</h2>
-                <h6>{new Date(tx.date).toLocaleDateString()}</h6>
+          {tx.type === "Zakat" ? (
+            <>
+              <div className="history-card-detail-box">
+                <div className="history-card-detail">
+                  <p>
+                    <GoArrowUpRight />
+                  </p>
+                  <div className="history-card-title">
+                    <span>Paid to</span>
+                    <div className="scrolling-name-wrapper">
+                      <h2
+                        className={`scrolling-name ${isOverflowing ? "scrolling" : ""}`}
+                        ref={nameRef}
+                      >
+                        {tx.name}
+                      </h2>
+                    </div>
+                    <h6>{new Date(tx.date).toLocaleDateString()}</h6>
+                  </div>
+                </div>
+                <div className="history-amount">
+                  <h4>₹{tx.amount}</h4>
+                </div>
               </div>
-            </div>
-            <div className="history-amount">
-              <p>₹{tx.amount}</p>
-              <p>(Platform Fee - {percentage}%) - ₹{fee}</p>
-              <h4>₹{finalAmount}</h4>
-            </div>
-          </div>
-          <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
+              <div
+                className="donateCard-tag"
+                style={{ backgroundColor: "#fdb618" }}
+              ></div>
+            </>
+          ) : (
+            <>
+              <div className="history-card-detail-box">
+                <div className="history-card-detail">
+                  <p>
+                    <GoArrowUpRight />
+                  </p>
+                  <div className="history-card-title">
+                    <span>Paid to</span>
+                    <div className="scrolling-name-wrapper">
+                      <h2
+                        className={`scrolling-name ${isOverflowing ? "scrolling" : ""}`}
+                        ref={nameRef}
+                      >
+                        {tx.name}
+                      </h2>
+                    </div>
+                    <h6>{new Date(tx.date).toLocaleDateString()}</h6>
+                  </div>
+                </div>
+                <div className="history-amount">
+                  <p>₹{tx.amount}</p>
+                  <p>(Platform Fee - {percentage}%) - ₹{fee}</p>
+                  <h4>₹{finalAmount}</h4>
+                </div>
+              </div>
+              <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
+            </>
+          )}
         </>
       )}
     </div>

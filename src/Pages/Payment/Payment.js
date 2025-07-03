@@ -158,7 +158,7 @@ const Payment = () => {
               <p>₹ {amountValue}</p>
             </div>
             <div className="summary-detail">
-              <div className=" checkbox-section">
+              <div className="checkbox-section">
                 <label class="checkbox-btn">
                   <label for="checkbox"></label>
                   <input

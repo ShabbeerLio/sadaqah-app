@@ -11,6 +11,7 @@ import {
   LuSquarePlus,
   LuScanQrCode,
 } from "react-icons/lu";
+import dosadaqa from "../../Assets/payment.png"
 
 
 const Navbar = () => {
@@ -73,10 +74,6 @@ const Navbar = () => {
     filteredDonation = DonateData.filter((i) => i.username === user.username)
   }
 
-
-
-
-
   return (
     <div className="navbar">
       <div className="navbar-main">
@@ -86,7 +83,7 @@ const Navbar = () => {
               <img src={donate1} alt="" />
               <div className="navbar-title">
                 <h5>Assalamu Alaikum</h5>
-                <span>Donate your Zakat</span>
+                <span>{user?.username}</span>
               </div>
             </Link>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -131,7 +128,8 @@ const Navbar = () => {
               {currentPath === "/" && user.type === "user" && (
                 <div className={`nav-pay-now ${isScrolled ? "scrolled" : ""}`}>
                   <Link to="/payment">
-                    <LuScanQrCode />
+                  <img className="pay-imag" src={dosadaqa} alt="" />
+                    {/* <LuScanQrCode /> */}
                     <span className="pay-text">Do Sadaqah</span>
                   </Link>
                 </div>

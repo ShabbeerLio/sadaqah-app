@@ -37,7 +37,7 @@
 .banner-btn a{
   position: absolute;
   bottom: 0%;
-  left: 0;
+  right: 0;
   z-index: 99;
   background-color: #fdb618;
   color: black;
@@ -45,7 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 95%;
+  width: 50%;
   border-radius: 25px;
   padding: 8px;
   margin: 10px;

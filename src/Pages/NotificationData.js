@@ -10,8 +10,8 @@ const NotificationData = [
     from: { type: "user", name: "shabbeer" },
     to: { type: "institute", name: "Mashjid-e-hind" },
     avatar: post1,
-    notification: "shabbeer has requested to join your institute.",
-    reason: "request",
+    notification: "shabbeer has paid 100 to Mashjid-e-hind.",
+    reason: "payment",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const NotificationData = [
     id: 4,
     from: { type: "institute", name: "Al-Noor Madrasa" },
     to: { type: "user", name: "all" },
-     avatar: post2,
+    avatar: post2,
     notification: "Admissions are now open for the new session.",
     reason: "announcement",
   },
@@ -54,13 +54,13 @@ const NotificationData = [
     reason: "notice",
   },
   {
-  id: 7,
-  from: { type: "institute", name: "New Masjid" },
-  to: { type: "user", name: "all" },
-  avatar: post1,
-  notification: "New Masjid has joined the platform.",
-  reason: "new-institute"
-}
+    id: 7,
+    from: { type: "institute", name: "New Masjid" },
+    to: { type: "user", name: "all" },
+    avatar: post1,
+    notification: "New Masjid has joined the platform.",
+    reason: "new-institute",
+  },
 ];
 
 export default NotificationData;

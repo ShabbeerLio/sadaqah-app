@@ -8,8 +8,11 @@ import {
     PiCloudSun,
     PiCloudMoon,
     PiMoonStars,
+    PiSunDim,
+    PiCalendarDots
 } from "react-icons/pi";
 import axios from "axios";
+import Loading from "../Loading/Loading";
 
 const Adhan = () => {
     const ALADHAN_API_BASE_URL = "https://api.aladhan.com/v1/timingsByCity";
@@ -22,6 +25,7 @@ const Adhan = () => {
     const [currentPrayer, setCurrentPrayer] = useState(null);
     const [nextPrayer, setNextPrayer] = useState(null);
     const [timeRemaining, setTimeRemaining] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const imageMap = {
         Fajr: <PiSunHorizon />,
@@ -31,58 +35,72 @@ const Adhan = () => {
         Isha: <PiMoonStars />,
     };
 
-    const searchForLocation = (city, latitude, longitude) => {
-        axios
-            .get(ALADHAN_API_BASE_URL, {
+    const searchForLocation = async (city, latitude, longitude) => {
+        try {
+            const response = await axios.get(ALADHAN_API_BASE_URL, {
                 params: {
                     city: city,
                     country: city,
-                },
-            })
-            .then((response) => {
-                const data = response.data.data;
-
-                setDate({
-                    gregorian: data.date.readable,
-                    hijri: {
-                        day: data.date.hijri.day,
-                        month: data.date.hijri.month.number,
-                        weekday: data.date.hijri.weekday.ar,
-                        year: data.date.hijri.year,
-                    },
-                });
-
-                setPrayerTimes({
-                    Fajr: data.timings.Fajr,
-                    Sunrise: data.timings.Sunrise,
-                    Dhuhr: data.timings.Dhuhr,
-                    Asr: data.timings.Asr,
-                    Maghrib: data.timings.Maghrib,
-                    Isha: data.timings.Isha,
-                });
-
-                const { timezone } = data.meta;
-                searchLocationName(latitude, longitude, timezone);
-            })
-            .catch(() => {
-                alert("❌ لا يوجد مكان بهذا الاسم");
+                    method: 1,
+                    timezonestring: "Asia/Kolkata"
+                }
             });
-    };
 
-    const searchLocationName = (latitude, longitude, timezone) => {
-        axios
-            .get(BIGDATACLOUD_BASE_URL, {
+            const data = response.data.data;
+
+            const hijriDay = parseInt(data.date.hijri.day) - 1;
+            setDate({
+                gregorian: data.date.readable,
+                hijri: {
+                    day: hijriDay <= 0 ? "30" : hijriDay.toString(),
+                    month: data.date.hijri.month.number,
+                    weekday: data.date.hijri.weekday.ar,
+                    year: data.date.hijri.year,
+                },
+            });
+
+            setPrayerTimes({
+                Fajr: data.timings.Fajr,
+                Sunrise: data.timings.Sunrise,
+                Dhuhr: data.timings.Dhuhr,
+                Asr: data.timings.Asr,
+                Maghrib: data.timings.Maghrib,
+                Isha: data.timings.Isha,
+            });
+
+            const { timezone } = data.meta;
+
+            const locRes = await axios.get(BIGDATACLOUD_BASE_URL, {
                 params: {
                     latitude,
                     longitude,
                     localityLanguage: "en",
                 },
-            })
-            .then((response) => {
-                const { city, countryName } = response.data;
-                setLocationName({ city, country: countryName, timezone });
             });
+
+            const { city: cityName, countryName } = locRes.data;
+            setLocationName({ city: cityName, country: countryName, timezone });
+
+            setLoading(false); // ✅ Mark loading done after everything
+        } catch (err) {
+            alert("❌ لا يوجد مكان بهذا الاسم");
+        }
     };
+
+    // const searchLocationName = (latitude, longitude, timezone) => {
+    //     axios
+    //         .get(BIGDATACLOUD_BASE_URL, {
+    //             params: {
+    //                 latitude,
+    //                 longitude,
+    //                 localityLanguage: "en",
+    //             },
+    //         })
+    //         .then((response) => {
+    //             const { city, countryName } = response.data;
+    //             setLocationName({ city, country: countryName, timezone });
+    //         });
+    // };
 
     useEffect(() => {
         searchForLocation("Delhi", "28.70", "77.10");
@@ -150,14 +168,15 @@ const Adhan = () => {
                 }
 
                 const diffMs = nextDate - now;
-                const diffMin = Math.floor(diffMs / 60000);
-                const hours = Math.floor(diffMin / 60);
-                const minutes = diffMin % 60;
+                const totalSeconds = Math.floor(diffMs / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
 
                 setTimeRemaining(
-                    `${hours} hour${hours !== 1 ? "s" : ""} ${minutes} minute${
-                        minutes !== 1 ? "s" : ""
-                    }`
+                    `${hours}hr${hours !== 1 ? "s" : ""} ` +
+                    `${minutes}min${minutes !== 1 ? "" : ""} ` +
+                    `${seconds}s${seconds !== 1 ? "" : ""}`
                 );
             };
 
@@ -199,39 +218,49 @@ const Adhan = () => {
         <div className="Collection">
             <div className="Collection-main">
                 <div className="Collection-box">
-                    <div className="Collection-box-left adhaz-box">
-                        <div className="adhan-left">
-                            <p>
-                                {date
-                                    ? `${date.hijri.day} ${hijriMonthNames[date.hijri.month]} ${date.hijri.year} AH`
-                                    : ""}
-                            </p>
+                    {loading === true ? (
+                        <div className="Collection-box-left adhaz-box adhan-loading"></div>
+                    ) : (
+                        <div className="Collection-box-left adhaz-box">
+                            <div className="adhan-left">
+                                <p className="adhan-sunrise">
+                                    <PiSunDim /> Sunrise {prayerTimess ? formatTo12Hour(prayerTimess.Sunrise) : "--:--"}
+                                </p>
+                                <p className="adhan-sunrise">
+                                    <PiCalendarDots/>
+                                    {date
+                                        ? `${date.hijri.day} ${hijriMonthNames[date.hijri.month]} ${date.hijri.year} AH`
+                                        : ""}
+                                </p>
 
-                            <h2>
-    {nextPrayer ? (
-        <>
-            {formatTo12Hour(nextPrayer.time).split(" ")[0]}
-            <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
-            <span> (Delhi)</span>
-        </>
-    ) : "--:--"}
-</h2>
+                                <h2>
+                                    {nextPrayer ? (
+                                        <>
+                                            {formatTo12Hour(nextPrayer.time).split(" ")[0]}
+                                            <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
+                                            <span> ({locationName?.city})</span>
+                                        </>
+                                    ) : "--:--"}
+                                </h2>
 
-                            <div className="next-prayer">
-                                <IoMdTime />
-                                <div className="next-time">
-                                    <p>{nextPrayer ? nextPrayer.name : "-"} Time Remaining</p>
-                                    <span>{timeRemaining}</span>
+                                <div className="next-prayer">
+                                    <IoMdTime />
+                                    <div className="next-time">
+                                        <p>{nextPrayer ? nextPrayer.name : "-"} Time Starting</p>
+                                        <span>{timeRemaining}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="adhan-right">
-                            <img src={mashjid} alt="Masjid" />
+                            <div className="adhan-right">
+                                <img src={mashjid} alt="Masjid" />
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="Collection-box-right adhan">
+                    )}
+                    {loading === true ? (
+                        <div className="Collection-box-right adhan adhan-loading"></div>
+                    ) : (
+                        <div className="Collection-box-right adhan">
                         <div className="adhan-right-box">
                             {prayerTimes.map((prayer, index) => (
                                 <div className="adhan-card" key={index}>
@@ -242,6 +271,20 @@ const Adhan = () => {
                             ))}
                         </div>
                     </div>
+                    )}
+                    
+
+                    {/* <div className="Collection-box-right adhan">
+                        <div className="adhan-right-box">
+                            {prayerTimes.map((prayer, index) => (
+                                <div className="adhan-card" key={index}>
+                                    <p>{prayer.name}</p>
+                                    {prayer.image}
+                                    <p>{formatTo12Hour(prayer.time)}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div> */}
                 </div>
             </div>
         </div>

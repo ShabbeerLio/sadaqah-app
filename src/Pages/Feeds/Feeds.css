@@ -3,6 +3,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
+.slick-slide img:focus-visible {
+  outline: none;
+}
 
 @media only screen and (max-width: 680px) {
   .Feeds-box {

@@ -1,7 +1,6 @@
 import React from "react";
 import "./SearchCard.css";
 import { useNavigate } from "react-router-dom";
-import verify from "../../Assets/Logo/verification-badge.png"
 
 const SearchCard = ({ searchItem }) => {
     const navigate = useNavigate();

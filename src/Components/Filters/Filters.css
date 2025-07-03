@@ -1,0 +1,45 @@
+.Filters{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: .8rem;
+}
+.Filters .active{
+     background-color: #729762;
+    color: white;
+}
+
+.filter-boxes{
+    overflow: hidden;
+}
+
+.filter-box{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: auto;
+    padding: 5px 0;
+}
+
+.filter-box {
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.filter-box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.filter-ala p,
+.filter-boxes p{
+    background-color: #E7F0DC;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 5px 15px;
+    border-radius: 25px;
+    display: inline-block;
+    white-space: nowrap;
+    color: #597445;
+}

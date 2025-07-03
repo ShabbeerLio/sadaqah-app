@@ -5,7 +5,6 @@ import { GoHeart, GoPaperAirplane } from "react-icons/go";
 import { LuMessageCircle, LuBookmark } from "react-icons/lu";
 import defaultimg from "../../Assets/Posts/vecteezy_holy-book-quran-and-tasbih-isolated-on-white-background_5714464.jpg";
 import hadith from "../../Assets/Posts/hadith.png";
-import verify from "../../Assets/Logo/verification-badge.png";
 
 const FeedCard = ({ index, post }) => {
   const [showFull, setShowFull] = useState(false);

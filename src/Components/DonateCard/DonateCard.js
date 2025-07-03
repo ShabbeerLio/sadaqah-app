@@ -1,7 +1,6 @@
 import React from "react";
 import "./DonateCard.css";
 import donate1 from "../../Assets/Posts/hadith.png";
-import verify from "../../Assets/Logo/verification-badge.png"
 import { Link } from "react-router-dom";
 
 const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {

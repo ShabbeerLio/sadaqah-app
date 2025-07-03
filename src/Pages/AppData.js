@@ -5,6 +5,7 @@ import post3 from "../Assets/Posts/vecteezy_islamic-cute-3d-mosque-for-ramadan-a
 import avatarImg from "../Assets/Banner/Banner.jpg";
 
 const CombinedFeedData = [
+  // USERS
   {
     id: 1,
     type: "user",
@@ -14,6 +15,43 @@ const CombinedFeedData = [
     avatar: post1,
     following: 200,
     location: "Delhi",
+    transactions: [
+      {
+        id: 1,
+        name: "Mashjid-e-hind",
+        amount: 100,
+        date: "2025-07-01",
+        type: "payment",
+      },
+      {
+        id: 2,
+        name: "Zakat",
+        amount: 1500,
+        date: "2025-07-01",
+        type: "Zakat",
+      },
+      {
+        id: 3,
+        name: "Al-Noor Madrasa",
+        amount: 500,
+        date: "2025-06-25",
+        type: "payment",
+      },
+      {
+        id: 4,
+        name: "Khanqah-e-Rahmat",
+        amount: 1000,
+        date: "2025-06-20",
+        type: "payment",
+      },
+      {
+        id: 5,
+        name: "Khiribandh Kabristan",
+        amount: 2500,
+        date: "2025-05-10",
+        type: "payment",
+      },
+    ],
   },
   {
     id: 2,
@@ -21,9 +59,46 @@ const CombinedFeedData = [
     username: "foodie123",
     email: "foodie123@gmail.com",
     password: "foodie321",
-    avatar: avatarImg,
+    avatar: sampleImg,
     following: 340,
     location: "Bangalore",
+    transactions: [
+      {
+        id: 1,
+        name: "Mashjid-e-hind",
+        amount: 100,
+        date: "2025-07-01",
+        type: "payment",
+      },
+      {
+        id: 2,
+        name: "Zakat",
+        amount: 1500,
+        date: "2025-07-01",
+        type: "Zakat",
+      },
+      {
+        id: 3,
+        name: "Al-Noor Madrasa",
+        amount: 500,
+        date: "2025-06-25",
+        type: "payment",
+      },
+      {
+        id: 4,
+        name: "Khanqah-e-Rahmat",
+        amount: 1000,
+        date: "2025-06-20",
+        type: "payment",
+      },
+      {
+        id: 5,
+        name: "Khiribandh Kabristan",
+        amount: 2500,
+        date: "2025-05-10",
+        type: "payment",
+      },
+    ],
   },
   {
     id: 3,
@@ -31,10 +106,26 @@ const CombinedFeedData = [
     instituteType: "masjid",
     username: "Mashjid-e-hind",
     email: "mashjid@gmail.com",
-    password: "masjid123",
+    password: "12345678",
     avatar: post1,
     followers: 1050,
     location: "Kolkata",
+    transactions: [
+      {
+        id: 1,
+        name: "shabbeer",
+        amount: 100,
+        date: "2025-07-01",
+        type: "payment",
+      },
+      {
+        id: 2,
+        name: "foodie123",
+        amount: 100,
+        date: "2025-07-01",
+        type: "payment",
+      },
+    ],
     posts: [
       {
         id: 1,
@@ -44,7 +135,7 @@ const CombinedFeedData = [
         time: "2025-05-11",
         title: "Surah Al-Fatiha",
         description: "Opening chapter of the Quran with deep meanings.",
-        image: [post1],
+        image: [post1, post2, post3],
       },
       {
         id: 2,
@@ -64,13 +155,39 @@ const CombinedFeedData = [
     instituteType: "madrasa",
     username: "Al-Noor Madrasa",
     email: "madarasa@gmail.com",
-    password: "madarasa123",
+    password: "12345678",
     avatar: post2,
     followers: 620,
     location: "Patna",
+    transactions: [
+      {
+        id: 1,
+        name: "shabbeer",
+        amount: 500,
+        date: "2025-06-25",
+        type: "payment",
+      },
+      {
+        id: 2,
+        name: "foodie123",
+        amount: 500,
+        date: "2025-06-25",
+        type: "payment",
+      },
+    ],
     posts: [
       {
         id: 1,
+        type: "Quran",
+        location: "Patna",
+        likes: 450,
+        time: "2025-05-08",
+        title: "Surah Ikhlas",
+        description: "Understanding monotheism in Islam.",
+        image: [post3],
+      },
+      {
+        id: 2,
         type: "Quran",
         location: "Patna",
         likes: 450,
@@ -87,10 +204,26 @@ const CombinedFeedData = [
     instituteType: "khanqah",
     username: "Khanqah-e-Rahmat",
     email: "khanqah@gmail.com",
-    password: "khanqah123",
+    password: "12345678",
     avatar: post3,
     followers: 800,
     location: "Lucknow",
+    transactions: [
+      {
+        id: 1,
+        name: "shabbeer",
+        amount: 1000,
+        date: "2025-06-20",
+        type: "payment",
+      },
+      {
+        id: 2,
+        name: "foodie123",
+        amount: 1000,
+        date: "2025-06-20",
+        type: "payment",
+      },
+    ],
     posts: [
       {
         id: 1,
@@ -99,7 +232,8 @@ const CombinedFeedData = [
         likes: 390,
         time: "2025-05-05",
         title: "Love for Humanity",
-        description: "Hadith about loving for your brother what you love for yourself.",
+        description:
+          "Hadith about loving for your brother what you love for yourself.",
         image: [post1],
       },
     ],
@@ -108,12 +242,28 @@ const CombinedFeedData = [
     id: 6,
     type: "institute",
     instituteType: "kabristan",
-    username: "Green Field Kabristan",
+    username: "Khiribandh Kabristan",
     email: "kabristan@gmail.com",
     password: "kabristan123",
     avatar: avatarImg,
     followers: 290,
     location: "Bihar",
+    transactions: [
+      {
+        id: 1,
+        name: "shabbeer",
+        amount: 2500,
+        date: "2025-05-10",
+        type: "payment",
+      },
+      {
+        id: 2,
+        name: "foodie123",
+        amount: 2500,
+        date: "2025-05-10",
+        type: "payment",
+      },
+    ],
     posts: [
       {
         id: 1,
@@ -123,7 +273,7 @@ const CombinedFeedData = [
         time: "2025-05-01",
         title: "Maintenance Update",
         description: "The kabristan will be closed for maintenance on Friday.",
-        image: [post2],
+        image: [post2, post2],
       },
     ],
   },

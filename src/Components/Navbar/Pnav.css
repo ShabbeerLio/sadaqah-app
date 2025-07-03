@@ -28,13 +28,13 @@
   justify-content: center;
   flex-direction: column;
   text-decoration: none;
-  color:  #25205E;
+  color:  #597445;
   cursor: pointer;
   font-size: 12px;
 }
 .Pnav ul li a svg{
   font-size: 25px;
-  color: #25205E;
+  color: #597445;
 }
 
 /*  */
@@ -101,7 +101,7 @@ color: #25205E;
 }
 
 .nav-link.navdonate img{
-width: 40%;
+width: 43%;
 }
 @media only screen and (max-width: 990px) {
     .Pnav{

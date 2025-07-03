@@ -123,3 +123,9 @@
 .reminder-note span{
     font-weight: 800;
 }
+
+.reminder-bot-detail .checkmark{
+    width: 33px;
+    height: 33px;
+    border-radius: 25px;
+}

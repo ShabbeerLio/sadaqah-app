@@ -1,0 +1,25 @@
+.zakat-history-filter{
+    position: fixed;
+    bottom: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.zakat-filter-box{
+    border-radius: 25px;
+    background-color: #E7F0DC;
+    padding: 10px 20px;
+    color: #597445;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.zakat-filter-box.active{
+    border-radius: 25px;
+    background-color: #729762;
+    padding: 10px 20px;
+    color: white;
+}
+.zakat-filter-box p{
+    margin: 0;
+}

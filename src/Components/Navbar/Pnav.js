@@ -15,7 +15,7 @@ import { FcDonate } from "react-icons/fc";
 import { IoIosClose } from "react-icons/io";
 import DonateData from "../../Pages/DonateData";
 import DonateCard from "../DonateCard/DonateCard";
-import doantebtn from "../../Assets/donate (1).png"
+import doantebtn from "../../Assets/donate (2).png"
 
 const Pnav = () => {
   const navigate = useNavigate();

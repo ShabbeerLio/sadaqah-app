@@ -1,21 +1,27 @@
 const TransactionsData = [
   {
     id: 1,
-    date: "2025-05-20",
-    name: "Md momin",
-    amount: 100,
+    name: "shabbeer",
+    amount: 1500,
+    date: "2025-07-01",
+    type: "Zakat",
+    transactionsType: "Received",
   },
   {
     id: 2,
-    date: "2025-05-19",
-    name: "Shabbeer",
-    amount: 780,
+    name: "foodie123",
+    amount: 1500,
+    date: "2025-07-01",
+    type: "Zakat",
+    transactionsType: "Received",
   },
   {
     id: 3,
-    date: "2025-05-18",
-    name: "Ali Khan",
-    amount: 3000,
+    name: "Zakat",
+    amount: 1500,
+    date: "2025-07-02",
+    type: "Zakat",
+    transactionsType: "Donated",
   },
 ];
 

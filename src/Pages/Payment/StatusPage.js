@@ -10,20 +10,20 @@ const StatusPage = () => {
     const navigate = useNavigate();
     const [timeLeft, setTimeLeft] = useState(15);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
-        }, 1000);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setTimeLeft((prev) => prev - 1);
+    //     }, 1000);
 
-        const timeout = setTimeout(() => {
-            navigate("/");
-        }, 15000);
+    //     const timeout = setTimeout(() => {
+    //         navigate("/");
+    //     }, 15000);
 
-        return () => {
-            clearInterval(interval);
-            clearTimeout(timeout);
-        };
-    }, []);
+    //     return () => {
+    //         clearInterval(interval);
+    //         clearTimeout(timeout);
+    //     };
+    // }, []);
 
     if (!state) {
         return <div className="sadaqah-container">No payment information available.</div>;
@@ -54,9 +54,9 @@ const StatusPage = () => {
                         ? "Your payment has been successfully done"
                         : "Your payment has been declined by your bank"}
                 </p>
-                <p className="status-message" style={{ textAlign: "center", marginTop: "10px" }}>
+                {/* <p className="status-message" style={{ textAlign: "center", marginTop: "10px" }}>
                     Redirecting to homepage in {timeLeft} seconds...
-                </p>
+                </p> */}
 
                 <div className={`SearchCard institute-info ${success ? "tick" : "cross"}`}>
                     <div className="SearchCard-left">
@@ -105,7 +105,16 @@ const StatusPage = () => {
                     <div className="reminder-box">
                         <div className="reminder-bot-top">
                             <div className="reminder-bot-detail">
-                                <LuCircleCheck />
+                                <label class="checkbox-btn">
+                                    <label for="checkbox"></label>
+                                    <input
+                                        type="checkbox"
+                                    // checked={includeFee}
+                                    // onChange={() => setIncludeFee(!includeFee)}
+                                    />
+                                    {/* Platform Fee ({percentage}%) */}
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                             <div className="reminder-bot-detail">
                                 <h4>{institute?.username}</h4>

@@ -5,12 +5,10 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import HistoryCard from "../HistoryCard/HistoryCard";
 import TransactionsData from "../../Pages/TransationData";
 import { Link } from "react-router-dom";
-import { FcMoneyTransfer, FcCalendar, FcDonate } from "react-icons/fc";
-import { LuCalculator } from "react-icons/lu";
-import makka from "../../Assets/makka.png"
+import makka from "../../Assets/suggest2.png"
 import donate from "../../Assets/donate.png"
 import calender from "../../Assets/calender.png"
-import suggest from "../../Assets/suggest.png"
+import suggest from "../../Assets/suggest3.png"
 
 
 const Collection = () => {
@@ -98,6 +96,7 @@ const Collection = () => {
                                     </div>
                                     <p>Total ₹12344</p>
                                     <p>Donated ₹1344</p>
+                                    <Link to={"/zakat-history"} className="donate-btn">View</Link>
                                     <img src={calender} alt="" />
                                 </div>
                                 <div className="collection-right-card item3">

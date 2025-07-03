@@ -22,6 +22,7 @@ import Notification from "./Pages/Notification/Notification";
 import ZakatCalculator from "./Pages/Calculator/Calculator";
 import Payment from "./Pages/Payment/Payment";
 import StatusPage from "./Pages/Payment/StatusPage";
+import ZakatHistory from "./Pages/ZakatHistory/ZakatHistory";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function MainLayout() {
         <Route path="/calculator" element={<ZakatCalculator />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/status" element={<StatusPage />} />
+        <Route path="//zakat-history" element={<ZakatHistory />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

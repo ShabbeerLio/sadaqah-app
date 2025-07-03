@@ -98,7 +98,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #597445;
+  background-color: #fdb618;
   color: white;
   padding: 10px 20px;
   border-radius: 50px;
@@ -120,7 +120,7 @@
   transition: all 0.5s ease-in-out;
   visibility: visible;
   margin-left: 5px;
-  color: white;
+  color: black;
 }
 .nav-pay-now.scrolled a .pay-text {
   width: 0;
@@ -191,6 +191,12 @@ gap: 1rem;
 
 .radio-label.blue {
   color: #00c5ff;
+}
+
+.pay-imag{
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: cover;
 }
 @media screen and (min-width: 1200px) {
   .navbar-main {
