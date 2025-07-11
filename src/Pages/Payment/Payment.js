@@ -72,19 +72,49 @@ const Payment = () => {
   };
 
   const handlePay = () => {
-    const isSuccess = Math.random() < 0.8; // 50% chance
+  const authUser = JSON.parse(localStorage.getItem("authUser"));
+  if (!authUser) return;
 
-    navigate("/status", {
-      state: {
-        institute: selectedInstitute,
-        total,
-        paymentMode: "Phone Pe",
-        paymentDate: "25 June 2025",
-        transactionId: "#TXN" + Math.floor(Math.random() * 1000000),
-        success: isSuccess,
-      },
-    });
+  const isSuccess = Math.random() < 0.8;
+  const paymentDate = new Date().toISOString().split("T")[0];
+  const transactionId = "#TXN" + Math.floor(Math.random() * 1000000);
+
+  const newTransaction = {
+    id: Date.now(),
+    name: selectedInstitute.username,
+    amount: total,
+    date: paymentDate,
+    type: "payment",
+    transactionId,
   };
+
+  // Save to USER transactions
+  const userKey = `userTransactions-${authUser.id}`;
+  const existingUserTx = JSON.parse(localStorage.getItem(userKey)) || [];
+  existingUserTx.push(newTransaction);
+  localStorage.setItem(userKey, JSON.stringify(existingUserTx));
+
+  // Save to INSTITUTE transactions
+  const instituteKey = `instituteTransactions-${selectedInstitute.id}`;
+  const existingInstituteTx = JSON.parse(localStorage.getItem(instituteKey)) || [];
+  existingInstituteTx.push({
+    ...newTransaction,
+    name: authUser.username, // So the institute sees who paid
+  });
+  localStorage.setItem(instituteKey, JSON.stringify(existingInstituteTx));
+
+  // Navigate to status page
+  navigate("/status", {
+    state: {
+      institute: selectedInstitute,
+      total,
+      paymentMode: "Phone Pe",
+      paymentDate,
+      transactionId,
+      success: isSuccess,
+    },
+  });
+};
 
   return (
     <div className="sadaqah-container">
@@ -159,15 +189,15 @@ const Payment = () => {
             </div>
             <div className="summary-detail">
               <div className="checkbox-section">
-                <label class="checkbox-btn">
-                  <label for="checkbox"></label>
+                <label className="checkbox-btn">
+                  <label htmlFor="checkbox"></label>
                   <input
                     type="checkbox"
                     checked={includeFee}
                     onChange={() => setIncludeFee(!includeFee)}
                   />
                   Platform Fee ({percentage}%)
-                  <span class="checkmark"></span>
+                  <span className="checkmark"></span>
                 </label>
               </div>
               <p>₹ {fee.toFixed(2)}</p>

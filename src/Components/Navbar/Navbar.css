@@ -20,11 +20,11 @@
   margin: 0;
 }
 
-.navbar-main img {
+/* .navbar-main img {
   width: 100%;
   max-height: 60px;
   object-fit: contain;
-}
+} */
 
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .show > .nav-link {
@@ -79,9 +79,9 @@
   justify-content: center;
 }
 
-.donate-card-box{
+.donate-card-box {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
@@ -135,31 +135,32 @@
   padding: 10px;
 }
 
-.navbar-brand{
+.navbar-brand {
   display: flex;
   align-items: flex-end;
   gap: 10px;
 }
-.navbar-brand img{
+.navbar-brand img {
   height: 50px;
   width: 50px;
   border-radius: 50px;
   background-color: white;
+  object-fit: cover;
 }
 
-.navbar-title h5{
+.navbar-title h5 {
   line-height: 10px;
   color: #597445;
 }
-.navbar-title span{
+.navbar-title span {
   color: #597445;
 }
 
 /* radio */
-.donate-top-head .radio-options{
+.donate-top-head .radio-options {
   display: flex;
   align-items: center;
-gap: 1rem;
+  gap: 1rem;
 }
 
 .radio-label {
@@ -186,14 +187,14 @@ gap: 1rem;
 
 /* Blue for System Requested */
 .radio-label.blue input[type="radio"] {
-  accent-color: #00c5ff;
+  accent-color: #0e98c1;
 }
 
 .radio-label.blue {
-  color: #00c5ff;
+  color: #0e98c1;
 }
 
-.pay-imag{
+.pay-imag {
   width: 30px !important;
   height: 30px !important;
   object-fit: cover;
@@ -216,16 +217,16 @@ gap: 1rem;
     object-fit: cover;
   } */
   .navbar-brand {
-    width: 40%;
+    width: 60%;
   }
   /* .profile {
     position: absolute;
     top: 20%;
     right: 2%;
   } */
-   .donate-card-box{
-  display: grid;
-  grid-template-columns: repeat(1,1fr);
-  gap: 1rem;
-}
+  .donate-card-box {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
 }

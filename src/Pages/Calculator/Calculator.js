@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Calculator.css";
+import { Link } from "react-router-dom";
 
 const ZakatCalculator = () => {
   const [gold, setGold] = useState(0);
@@ -7,36 +8,64 @@ const ZakatCalculator = () => {
   const [cash, setCash] = useState(0);
   const [savings, setSavings] = useState(0);
   const [liabilities, setLiabilities] = useState(0);
+  const [mode, setMode] = useState("yearly");
 
-  const nisab = 612.36 * 75; // Silver value in INR (adjustable)
+  const nisab = 612.36 * 75;
 
-  const totalAssets = +gold + +silver + +cash + +savings;
+  // For monthly, use only cash and savings
+  const totalAssets =
+    mode === "monthly"
+      ? +cash + +savings
+      : +gold + +silver + +cash + +savings;
+
   const netWealth = totalAssets - +liabilities;
-  const zakatDue = netWealth >= nisab ? netWealth * 0.025 : 0;
+  const zakatRate = mode === "yearly" ? 0.025 : 0.025 / 12;
+  const zakatDue = netWealth >= nisab ? netWealth * zakatRate : 0;
 
   return (
     <div className="Home">
       <div className="Home-main">
-            <h5 className="zakat-title">Zakat Calculator</h5>
+        <h5 className="zakat-title">Zakat Calculator</h5>
+
+        {/* Toggle */}
+        <div className="zakat-btns">
+          <p
+            className={mode === "yearly" ? "active" : ""}
+            onClick={() => setMode("yearly")}
+          >
+            Yearly
+          </p>
+          <p
+            className={mode === "monthly" ? "active" : ""}
+            onClick={() => setMode("monthly")}
+          >
+            Monthly
+          </p>
+        </div>
+
         <div className="zakat-box">
           <div className="zakat-box-left">
-            <div className="form-group">
-              <label>Gold (₹)</label>
-              <input
-                type="number"
-                value={gold}
-                onChange={(e) => setGold(e.target.value)}
-              />
-            </div>
+            {mode === "yearly" && (
+              <>
+                <div className="form-group">
+                  <label>Gold (₹)</label>
+                  <input
+                    type="number"
+                    value={gold}
+                    onChange={(e) => setGold(e.target.value)}
+                  />
+                </div>
 
-            <div className="form-group">
-              <label>Silver (₹)</label>
-              <input
-                type="number"
-                value={silver}
-                onChange={(e) => setSilver(e.target.value)}
-              />
-            </div>
+                <div className="form-group">
+                  <label>Silver (₹)</label>
+                  <input
+                    type="number"
+                    value={silver}
+                    onChange={(e) => setSilver(e.target.value)}
+                  />
+                </div>
+              </>
+            )}
 
             <div className="form-group">
               <label>Cash at hand (₹)</label>
@@ -65,6 +94,7 @@ const ZakatCalculator = () => {
               />
             </div>
           </div>
+
           <div className="zakat-box-right">
             <div className="result">
               <p>
@@ -74,8 +104,14 @@ const ZakatCalculator = () => {
                 <strong>Nisab (Silver):</strong> ₹{nisab.toFixed(2)}
               </p>
               <p>
-                <strong>Zakat Due (2.5%):</strong> ₹{zakatDue.toFixed(2)}
+                <strong>
+                  Zakat Due ({mode === "yearly" ? "2.5%" : "0.21%"}):
+                </strong>{" "}
+                ₹{zakatDue.toFixed(2)}
               </p>
+            </div>
+            <div className="calculator-btn">
+              <Link to={"/payment"}>Donate Now</Link>
             </div>
           </div>
         </div>

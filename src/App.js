@@ -23,6 +23,7 @@ import ZakatCalculator from "./Pages/Calculator/Calculator";
 import Payment from "./Pages/Payment/Payment";
 import StatusPage from "./Pages/Payment/StatusPage";
 import ZakatHistory from "./Pages/ZakatHistory/ZakatHistory";
+import ZakatPayment from "./Pages/Payment/ZakatPayment";
 
 function App() {
   return (
@@ -49,7 +50,8 @@ function MainLayout() {
     location.pathname === "/login" ||
     location.pathname === "/signup" ||
     location.pathname === "/payment" ||
-    location.pathname === "/status";
+    location.pathname === "/status"|| 
+    location.pathname === "/zakat-payment";
 
   if (loading) {
     return <Loading />;
@@ -73,7 +75,8 @@ function MainLayout() {
         <Route path="/calculator" element={<ZakatCalculator />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/status" element={<StatusPage />} />
-        <Route path="//zakat-history" element={<ZakatHistory />} />
+        <Route path="/zakat-history" element={<ZakatHistory />} />
+        <Route path="/zakat-payment" element={<ZakatPayment />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

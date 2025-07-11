@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import HistoryCard from "../../Components/HistoryCard/HistoryCard";
 import Filters from "../../Components/Filters/Filters";
 import CombinedFeedData from "../AppData";
+import TransactionsData from "../TransationData";
 
 const History = () => {
   const navigate = useNavigate();
@@ -13,19 +14,30 @@ const History = () => {
   const [filterRange, setFilterRange] = useState({
     from: "",
     to: "",
-    type: "", // Add this line
+    type: "",
   });
 
   useEffect(() => {
-    const authUser = JSON.parse(localStorage.getItem("authUser"));
-    if (!authUser) {
-      navigate("/login");
-    } else {
-      const findUser = CombinedFeedData.find((i) => i.id === authUser.id);
-      setUserData(findUser?.transactions || []);
-      setLoading(false);
-    }
-  }, [navigate]);
+  const authUser = JSON.parse(localStorage.getItem("authUser"));
+  if (!authUser) {
+    navigate("/login");
+  } else {
+    const findUser = CombinedFeedData.find((i) => i.id === authUser.id);
+    const hardcoded = findUser?.transactions || [];
+
+    const localTx = JSON.parse(localStorage.getItem(`userTransactions-${authUser.id}`)) || [];
+    const zakatTx = JSON.parse(localStorage.getItem(`userZakat-${authUser.id}`)) || [];
+
+    // Filter static Zakat if it's for this user
+    const staticZakatTx = TransactionsData.filter(
+      (tx) => tx.type === "Zakat" && tx.transactionsType === "Donated" && tx.name === authUser.username
+    );
+
+    const allTransactions = [...hardcoded, ...localTx, ...zakatTx, ...staticZakatTx];
+    setUserData(allTransactions);
+    setLoading(false);
+  }
+}, [navigate]);
 
   const sortedTransactions = userData
     ? [...userData].sort((a, b) => new Date(b.date) - new Date(a.date))

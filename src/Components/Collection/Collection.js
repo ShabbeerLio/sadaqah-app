@@ -9,45 +9,16 @@ import makka from "../../Assets/suggest2.png"
 import donate from "../../Assets/donate.png"
 import calender from "../../Assets/calender.png"
 import suggest from "../../Assets/suggest3.png"
+import CombinedFeedData from "../../Pages/AppData";
 
 
 const Collection = () => {
     const progressPercent = 60;
     const user = JSON.parse(localStorage.getItem("authUser"));
-    // console.log(user, "user");
-    const transactions = TransactionsData;
-    console.log(transactions, "dta");
-    function calculatePlatformFee(amount) {
-        let fee = 0;
-        let percentage = 0;
+    const transactions = CombinedFeedData.find((item) => item.username === user.username);
 
-        if (amount <= 500) {
-            percentage = 3;
-            fee = amount * 0.03;
-        } else if (amount <= 1000) {
-            percentage = 2;
-            fee = amount * 0.02;
-        } else if (amount <= 3000) {
-            percentage = 1.5;
-            fee = amount * 0.015;
-        } else {
-            percentage = 1;
-            fee = amount * 0.01;
-            if (fee > 50) {
-                fee = 50;
-                percentage = (50 / amount) * 100;
-            }
-        }
-
-        return {
-            fee: Math.round(fee),
-            percentage: parseFloat(percentage.toFixed(2)),
-        };
-    }
-
-    const totalFinalAmount = transactions.reduce((acc, tx) => {
-        const { fee } = calculatePlatformFee(tx.amount);
-        return acc + (tx.amount - fee);
+    const totalFinalAmount = transactions?.transactions.reduce((acc, tx) => {
+        return acc + tx.amount;
     }, 0);
 
 
@@ -56,7 +27,7 @@ const Collection = () => {
             <div className="Collection-main">
                 <div className="Collection-box">
                     <div className="Collection-box-left">
-                        <span>Total {transactions.length} Payment</span>
+                        <span>Total {transactions?.transactions.length} Payment</span>
                         <h2>₹{totalFinalAmount}</h2>
                         <div className="collection-left-bottom">
                             <p>
@@ -69,7 +40,7 @@ const Collection = () => {
                     {user?.type === "institute" ? (
                         <div className="Collection-box-right institute">
                             <h5>Recent Transactions</h5>
-                            {transactions.map((tx) => (
+                            {transactions?.transactions.map((tx) => (
                                 <HistoryCard tx={tx} />
                             ))}
                             <Link to={"/history"} className="View-more-transatction" >View More <GoArrowRight /></Link>
@@ -86,7 +57,7 @@ const Collection = () => {
                                     </div>
                                     <p>Total ₹12344</p>
                                     <p>Donated ₹2344</p>
-                                    <Link to={"/payment"} className="donate-btn">Donate Now</Link>
+                                    <Link to={"/zakat-payment"} className="donate-btn">Donate Now</Link>
                                     <img src={makka} alt="" />
                                 </div>
                                 <div className="collection-right-card item2">

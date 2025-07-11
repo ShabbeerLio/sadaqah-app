@@ -31,10 +31,9 @@
   width: 100%;
   object-fit: cover;
   border-radius: 20px;
-
 }
 
-.banner-btn a{
+.banner-btn a {
   position: absolute;
   bottom: 0%;
   right: 0;
@@ -50,6 +49,46 @@
   padding: 8px;
   margin: 10px;
   font-size: 12px;
+}
+
+.slick-dots li button:before {
+  height: 5px !important;
+  content: " " !important;
+  text-align: center;
+  opacity: 0.25;
+  width: 50px !important;
+  color: #597445 !important;
+  border-radius: 25px !important;
+  background-color: #729762;
+}
+.slick-dots li button:after {
+  height: 5px !important;
+  content: " " !important;
+  text-align: center;
+  width: 0px !important;
+  color: #597445 !important;
+  border-radius: 25px !important;
+  background-color: #597445;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+.slick-dots li.slick-active button:after {
+  display: flex;
+  width: 100% !important;
+  transition: 3.2s ease-in-out;
+}
+
+.slick-dots {
+  bottom: -8% !important;
+}
+.slick-dots li {
+  width: 50px !important;
+}
+.slick-dots li.slick-active button:before {
+  opacity: 0.25 !important;
+  color: #597445 !important;
 }
 
 @media screen and (min-width: 1200px) {

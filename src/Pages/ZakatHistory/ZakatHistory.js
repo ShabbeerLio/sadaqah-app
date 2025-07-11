@@ -11,6 +11,7 @@ import ZakatFilters from "../../Components/Filters/ZakatFilter";
 const ZakatHistory = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("Donated");
+    const [sortedTransactions, setSortedTransactions] = useState([]);
 
     useEffect(() => {
         const authUser = localStorage.getItem("authUser");
@@ -24,9 +25,45 @@ const ZakatHistory = () => {
         to: "",
         type: "", // Add this line
     });
-    const sortedTransactions = [...TransactionsData]
-        .filter(tx => tx.type && tx.type.toLowerCase() === "zakat")
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    useEffect(() => {
+        const authUser = JSON.parse(localStorage.getItem("authUser"));
+        if (!authUser) {
+            navigate("/login");
+            return;
+        }
+
+        const isUser = authUser.type === "user";
+        const userKey = `userZakat-${authUser.id}`;
+        const receivedKey = `zakatReceived`;
+
+        const localUserZakat = JSON.parse(localStorage.getItem(userKey)) || [];
+        const localReceivedZakat = JSON.parse(localStorage.getItem(receivedKey)) || [];
+        console.log(localUserZakat,"localUserZakat")
+        console.log(localReceivedZakat,"localReceivedZakat")
+
+        let filteredStatic = [];
+        let combined = [];
+
+        if (activeTab === "Donated") {
+            filteredStatic = TransactionsData.filter(
+                (tx) => tx.transactionsType === "Donated"
+            );
+            combined = [...filteredStatic, ...localUserZakat];
+        } else {
+            filteredStatic = TransactionsData.filter(
+                (tx) => tx.transactionsType === "Received"
+            );
+            combined = [...filteredStatic, ...localReceivedZakat];
+        }
+
+        const sorted = combined
+            .filter((tx) => tx.type?.toLowerCase() === "zakat")
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        setSortedTransactions(sorted);
+    }, [navigate, activeTab]); // 👈 FIXED HERE
+
     //   console.log(TransactionsData, "TransactionsData");
 
     const filteredTransactions = sortedTransactions.filter((tx) => {
@@ -51,27 +88,29 @@ const ZakatHistory = () => {
     const currentYear = currentDate.getFullYear();
 
     const thisMonthTransactions = sortedTransactions.filter((tx) => {
-  const txDate = new Date(tx.date);
-  const isSameMonth =
-    txDate.getMonth() === currentMonth &&
-    txDate.getFullYear() === currentYear;
+        const txDate = new Date(tx.date);
+        const isSameMonth =
+            txDate.getMonth() === currentMonth &&
+            txDate.getFullYear() === currentYear;
 
-  const matchesTab =
-    tx.transactionsType === activeTab; // "Donated" or "Received"
+        const matchesTab =
+            tx.transactionsType === activeTab; // "Donated" or "Received"
 
-  return isSameMonth && matchesTab;
-});
+        return isSameMonth && matchesTab;
+    });
 
     const thisMonthAmount = thisMonthTransactions.reduce(
         (sum, tx) => sum + tx.amount,
         0
     );
 
-    const filteredByTab = filteredTransactions.filter((tx) => {
+    const filteredByTab = sortedTransactions.filter((tx) => {
         if (activeTab === "Donated") return tx.transactionsType === "Donated";
         if (activeTab === "Received") return tx.transactionsType === "Received";
         return true;
     });
+
+    // console.log(sortedTransactions, "filteredByTab")
 
     const totalAmountByTab = filteredByTab.reduce((sum, tx) => sum + tx.amount, 0);
 

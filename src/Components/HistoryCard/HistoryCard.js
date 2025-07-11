@@ -102,9 +102,12 @@ const HistoryCard = ({ tx }) => {
                   </div>
                 </div>
                 <div className="history-amount">
-                  <h4>₹{tx.amount}</h4>
+                  <p>₹{tx.amount}</p>
+                  <p>(Platform Fee - {percentage}%) - ₹{fee}</p>
+                  <h4>₹{finalAmount}</h4>
                 </div>
               </div>
+              <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
               <div
                 className="donateCard-tag"
                 style={{ backgroundColor: "#fdb618" }}

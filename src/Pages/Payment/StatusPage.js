@@ -40,6 +40,13 @@ const StatusPage = () => {
 
     const handleGoBack = () => navigate(-1);
 
+    console.log(institute,
+        total,
+        paymentMode,
+        paymentDate,
+        transactionId,
+        success, "data")
+
     return (
         <div className="sadaqah-container">
             <button className="back-button" onClick={handleGoBack}>
@@ -63,7 +70,7 @@ const StatusPage = () => {
                         <img src={institute?.avatar || "/default-avatar.png"} alt={institute?.username} />
                     </div>
                     <div className="SearchCard-right">
-                        <h6>{institute?.username}</h6>
+                        <h6>{institute?.username ? institute?.username : institute}</h6>
                         <p>Location: {institute?.location}</p>
                     </div>
                 </div>
@@ -105,19 +112,19 @@ const StatusPage = () => {
                     <div className="reminder-box">
                         <div className="reminder-bot-top">
                             <div className="reminder-bot-detail">
-                                <label class="checkbox-btn">
-                                    <label for="checkbox"></label>
+                                <label className="checkbox-btn">
+                                    <label htmlFor="checkbox"></label>
                                     <input
                                         type="checkbox"
                                     // checked={includeFee}
                                     // onChange={() => setIncludeFee(!includeFee)}
                                     />
                                     {/* Platform Fee ({percentage}%) */}
-                                    <span class="checkmark"></span>
+                                    <span className="checkmark"></span>
                                 </label>
                             </div>
                             <div className="reminder-bot-detail">
-                                <h4>{institute?.username}</h4>
+                                <h4>{institute?.username ? institute?.username : institute}</h4>
                                 <p><strong>Location:</strong> {institute?.location}</p>
                             </div>
                         </div>

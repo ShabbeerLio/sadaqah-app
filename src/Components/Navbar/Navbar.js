@@ -12,42 +12,14 @@ import {
   LuScanQrCode,
 } from "react-icons/lu";
 import dosadaqa from "../../Assets/payment.png"
+import CombinedFeedData from "../../Pages/AppData";
 
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("authUser"));
   const location = useLocation();
   const currentPath = location.pathname;
-
-  const [donateActive, setDonateActive] = useState("");
-  const donateRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const userLocation = "Delhi";
-  const [donationType, setDonationType] = useState(userLocation);
-
-  const handleDonet = () => {
-    setDonateActive("active");
-  };
-  const handleCloseDonet = () => {
-    setDonateActive("");
-  };
-
-  // Detect click outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (donateRef.current && !donateRef.current.contains(event.target)) {
-        handleCloseDonet();
-      }
-    };
-
-    if (donateActive === "active") {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [donateActive]);
 
   // Handle scroll to toggle "isScrolled"
   useEffect(() => {
@@ -60,19 +32,7 @@ const Navbar = () => {
 
   if (!user) return null;
 
-  let filteredDonation = [];
-  if (user.type === "user") {
-    filteredDonation = DonateData;
-    filteredDonation = filteredDonation.filter((i) => {
-      if (donationType === userLocation) {
-        return i.location === userLocation;
-      } else {
-        return i.location !== userLocation;
-      }
-    });
-  } else {
-    filteredDonation = DonateData.filter((i) => i.username === user.username)
-  }
+  const data = CombinedFeedData.find((item) => item.username === user.username);
 
   return (
     <div className="navbar">
@@ -80,7 +40,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid nav-name">
             <Link className="navbar-brand" to="/profile">
-              <img src={donate1} alt="" />
+              <img src={data.avatar} alt="" />
               <div className="navbar-title">
                 <h5>Assalamu Alaikum</h5>
                 <span>{user?.username}</span>

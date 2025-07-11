@@ -14,7 +14,7 @@ const Signup = () => {
     const loginClickedRef = useRef(false);
 
     const [userData, setUserData] = useState({
-        name: "",
+        username: "",
         number: "",
         email: "",
         password: "",
@@ -23,7 +23,7 @@ const Signup = () => {
     });
 
     const [instituteData, setInstituteData] = useState({
-        instituteName: "",
+        username: "",
         instituteType: "",
         email: "",
         password: "",
@@ -97,8 +97,8 @@ const Signup = () => {
                                     type="text"
                                     className="form-input"
                                     placeholder="Name"
-                                    value={userData.name}
-                                    onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                                    value={userData.username}
+                                    onChange={(e) => setUserData({ ...userData, username: e.target.value })}
                                 />
                             </div>
                             <div className="form-group">

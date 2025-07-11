@@ -116,7 +116,7 @@ text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  /* width: 100%; */
 }
 .donation-name h5 {
   color: black;
