@@ -56,9 +56,11 @@ const Feeds = () => {
   );
 
   // Search filter
-  const filteredPosts = sortedPosts.filter((post) =>
-    post.username.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredPosts = sortedPosts.filter((post) => {
+    const terms = searchTerm.toLowerCase().split(" ");
+    const combined = `${post.username} ${post.location}`.toLowerCase();
+    return terms.every((term) => combined.includes(term));
+  });
 
   return (
     <div className="Home">

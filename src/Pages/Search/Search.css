@@ -4,6 +4,7 @@
 }
 .search-image {
   position: relative;
+  height: 60vh;
 }
 .search-image img {
   width: 100%;
@@ -13,6 +14,20 @@
   left: 0;
   z-index: -1;
 }
+
+.searchimg {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.searchimg img {
+  width: 55% !important;
+  height: auto !important;
+  position: unset;
+}
+
 .search-image img {
   width: 100%;
   object-fit: cover;
@@ -22,6 +37,11 @@
 .search-image p {
   margin: 0;
   text-align: center;
+}
+
+.search-instittute-box {
+  height: 60vh;
+  overflow: auto;
 }
 
 @media only screen and (max-width: 680px) {
