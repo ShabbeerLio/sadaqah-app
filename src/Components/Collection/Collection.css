@@ -99,7 +99,7 @@
 }
 
 .collection-right-card {
-  background-color: #597445;
+  background-color: #729762;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   width: 100%;
@@ -112,17 +112,17 @@
   height: 310px;
 }
 .collection-right-card.item1 img {
-  width: 80%;
-    position: absolute;
-    bottom: -3%;
-    right: 5%;
+  width: 72%;
+  position: absolute;
+  bottom: -3%;
+  right: -7%;
 }
 .collection-right-card.item2 {
   background-color: #658147;
   /* height: 140px; */
 }
 .collection-right-card.item2 .donate-btn {
-    width: 60%;
+  width: 60%;
 }
 
 .collection-right-card.item2 img {
@@ -208,10 +208,10 @@
 .collection-right-card.item4 {
   margin-top: 10px;
 }
-.collection-right-card.item4 p{
+.collection-right-card.item4 p {
   width: 75%;
 }
-.collection-right-card.item4 a{
+.collection-right-card.item4 a {
   width: 70%;
 }
 .collection-right-card.item4 img {

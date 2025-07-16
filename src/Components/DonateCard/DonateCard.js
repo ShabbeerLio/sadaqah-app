@@ -57,7 +57,7 @@ const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
             </div>
             <div
                 className="donateCard-tag"
-                style={{ backgroundColor: tagColor }}
+                style={{ backgroundColor: "transparent" , border:`1.5px solid ${tagColor}`}}
             ></div>
         </div>
     );

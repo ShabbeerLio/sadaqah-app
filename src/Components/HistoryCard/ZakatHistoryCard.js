@@ -84,7 +84,7 @@ const ZakatHistoryCard = ({ tx, activeTab }) => {
           </p>
           <div
             className="donateCard-tag"
-            style={{ backgroundColor: "#fdb618" }}
+            style={{ backgroundColor: "transparent" ,border:"1.5px solid #fdb618"}}
           ></div>
         </>
       ) : (
@@ -122,7 +122,7 @@ const ZakatHistoryCard = ({ tx, activeTab }) => {
           </p>
           <div
             className="donateCard-tag"
-            style={{ backgroundColor: "#fdb618" }}
+            style={{ backgroundColor: "transparent" ,border:"1.5px solid #fdb618" }}
           ></div>
         </>
       )}

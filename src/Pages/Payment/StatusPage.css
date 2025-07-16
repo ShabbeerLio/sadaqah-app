@@ -7,7 +7,7 @@
 
 .back-button {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 .back-button p{
     font-size: 18px;

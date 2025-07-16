@@ -5,7 +5,7 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import HistoryCard from "../HistoryCard/HistoryCard";
 import TransactionsData from "../../Pages/TransationData";
 import { Link } from "react-router-dom";
-import makka from "../../Assets/suggest2.png"
+import makka from "../../Assets/suggest2 (1).png"
 import donate from "../../Assets/donate.png"
 import calender from "../../Assets/calender.png"
 import suggest from "../../Assets/suggest3.png"
@@ -15,7 +15,7 @@ import CombinedFeedData from "../../Pages/AppData";
 const Collection = () => {
     const progressPercent = 60;
     const user = JSON.parse(localStorage.getItem("authUser"));
-    const transactions = CombinedFeedData.find((item) => item.username === user.username);
+    const transactions = CombinedFeedData.find((item) => item?.username === user?.username);
 
     const totalFinalAmount = transactions?.transactions.reduce((acc, tx) => {
         return acc + tx.amount;
@@ -78,11 +78,11 @@ const Collection = () => {
                                 </div>
                             </div>
                             <div className="collection-right-card item4">
-                                    <h6>Suggest Masakeen (345)</h6>
-                                    <p>A needy person who is eligible to receive Zakat is referred to as "Miskeen" (مسکین).</p>
-                                    <Link to={"/calculator"} className="donate-btn">Suggest Us!</Link>
-                                    <img src={suggest} alt="" />
-                                </div>
+                                <h6>Suggest Masakeen (345)</h6>
+                                <p>A needy person who is eligible to receive Zakat is referred to as "Miskeen" (مسکین).</p>
+                                <Link to={"/suggest"} className="donate-btn">Suggest Us!</Link>
+                                <img src={suggest} alt="" />
+                            </div>
                         </div>
                     )}
                 </div>

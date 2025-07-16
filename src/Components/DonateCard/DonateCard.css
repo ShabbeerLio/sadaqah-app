@@ -228,11 +228,12 @@ text-decoration: none;
   object-fit: contain;
 } */
 .donateCard-tag{
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 5px;
+      position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
   background-color: #597445;
 }
 

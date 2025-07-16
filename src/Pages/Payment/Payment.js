@@ -4,6 +4,8 @@ import CombinedFeedData from "../AppData";
 import ads from "../../Assets/Ads/ads.jpg"
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import Ads from "../../Components/Ads/Ads";
+import Searchbox from "../../Components/Searchbox/Searchbox";
 
 
 const Payment = () => {
@@ -14,6 +16,7 @@ const Payment = () => {
   const [includeFee, setIncludeFee] = useState(true); // 👈 new
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const selectedInstitute = institutes.find(
     (inst) => String(inst.id) === String(selectedInstituteId)
@@ -72,88 +75,176 @@ const Payment = () => {
   };
 
   const handlePay = () => {
-  const authUser = JSON.parse(localStorage.getItem("authUser"));
-  if (!authUser) return;
+    const authUser = JSON.parse(localStorage.getItem("authUser"));
+    if (!authUser) return;
 
-  const isSuccess = Math.random() < 0.8;
-  const paymentDate = new Date().toISOString().split("T")[0];
-  const transactionId = "#TXN" + Math.floor(Math.random() * 1000000);
+    const isSuccess = Math.random() < 0.8;
+    const paymentDate = new Date().toISOString().split("T")[0];
+    const transactionId = "#TXN" + Math.floor(Math.random() * 1000000);
 
-  const newTransaction = {
-    id: Date.now(),
-    name: selectedInstitute.username,
-    amount: total,
-    date: paymentDate,
-    type: "payment",
-    transactionId,
+    const newTransaction = {
+      id: Date.now(),
+      name: selectedInstitute.username,
+      amount: total,
+      date: paymentDate,
+      type: "payment",
+      transactionId,
+    };
+
+    // Save to USER transactions
+    const userKey = `userTransactions-${authUser.id}`;
+    const existingUserTx = JSON.parse(localStorage.getItem(userKey)) || [];
+    existingUserTx.push(newTransaction);
+    localStorage.setItem(userKey, JSON.stringify(existingUserTx));
+
+    // Save to INSTITUTE transactions
+    const instituteKey = `instituteTransactions-${selectedInstitute.id}`;
+    const existingInstituteTx = JSON.parse(localStorage.getItem(instituteKey)) || [];
+    existingInstituteTx.push({
+      ...newTransaction,
+      name: authUser.username, // So the institute sees who paid
+    });
+    localStorage.setItem(instituteKey, JSON.stringify(existingInstituteTx));
+
+    // Navigate to status page
+    navigate("/status", {
+      state: {
+        institute: selectedInstitute,
+        total,
+        paymentMode: "Phone Pe",
+        paymentDate,
+        transactionId,
+        success: isSuccess,
+      },
+    });
   };
 
-  // Save to USER transactions
-  const userKey = `userTransactions-${authUser.id}`;
-  const existingUserTx = JSON.parse(localStorage.getItem(userKey)) || [];
-  existingUserTx.push(newTransaction);
-  localStorage.setItem(userKey, JSON.stringify(existingUserTx));
+  // Flatten and enrich all posts with user info and relative date
+  const allPosts = CombinedFeedData.filter((user) => user.type === "institute");
 
-  // Save to INSTITUTE transactions
-  const instituteKey = `instituteTransactions-${selectedInstitute.id}`;
-  const existingInstituteTx = JSON.parse(localStorage.getItem(instituteKey)) || [];
-  existingInstituteTx.push({
-    ...newTransaction,
-    name: authUser.username, // So the institute sees who paid
-  });
-  localStorage.setItem(instituteKey, JSON.stringify(existingInstituteTx));
+  // Sort newest posts first
+  const sortedPosts = allPosts.sort(
+    (a, b) => new Date(b.time) - new Date(a.time)
+  );
 
-  // Navigate to status page
-  navigate("/status", {
-    state: {
-      institute: selectedInstitute,
-      total,
-      paymentMode: "Phone Pe",
-      paymentDate,
-      transactionId,
-      success: isSuccess,
-    },
-  });
-};
+  // Search filter
+  const filteredPosts = sortedPosts.filter((post) =>
+    post.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  console.log(filteredPosts,"filteredPosts")
 
   return (
     <div className="sadaqah-container">
-      <div className="section">
-        <button className="back-button" onClick={handleGoBack}>
-          <IoIosArrowBack />
-        </button>
-        <label>Select an Institute</label>
-        <div className="custom-dropdown" ref={dropdownRef}>
-          <div className="dropdown-selected" onClick={() => setDropdownOpen(!dropdownOpen)}>
-            {selectedInstitute ? (
+      {!selectedInstitute ? (
+        <div className="section">
+          <button className="back-button" onClick={handleGoBack}>
+            <IoIosArrowBack />
+            <h5>Select an Institute</h5>
+          </button>
+          <Searchbox value={searchTerm} setSearch={setSearchTerm} />
+          <div className="institute-list">
+            {filteredPosts.map((inst) => (
+              <div className="SearchCard"
+                onClick={() => setSelectedInstituteId(String(inst.id))}>
+                <div className="SearchCard-left">
+                  <img src={inst.avatar} alt={inst.username} />
+                </div>
+                <div className="SearchCard-right">
+                  <h6>{inst.username} {inst?.type === "institute" ? (
+                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
+                  ) : (
+                    <span>({inst?.type})</span>
+                  )} </h6>
+                  <p>{inst.location}</p>
+                </div>
+              </div>
+            ))}
+            {filteredPosts.map((inst) => (
+              <div className="SearchCard"
+                onClick={() => setSelectedInstituteId(String(inst.id))}>
+                <div className="SearchCard-left">
+                  <img src={inst.avatar} alt={inst.username} />
+                </div>
+                <div className="SearchCard-right">
+                  <h6>{inst.username} {inst?.type === "institute" ? (
+                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
+                  ) : (
+                    <span>({inst?.type})</span>
+                  )} </h6>
+                  <p>{inst.location}</p>
+                </div>
+              </div>
+            ))}
+            {filteredPosts.map((inst) => (
+              <div className="SearchCard"
+                onClick={() => setSelectedInstituteId(String(inst.id))}>
+                <div className="SearchCard-left">
+                  <img src={inst.avatar} alt={inst.username} />
+                </div>
+                <div className="SearchCard-right">
+                  <h6>{inst.username} {inst?.type === "institute" ? (
+                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
+                  ) : (
+                    <span>({inst?.type})</span>
+                  )} </h6>
+                  <p>{inst.location}</p>
+                </div>
+              </div>
+            ))}
+            {filteredPosts.map((inst) => (
+              <div className="SearchCard"
+                onClick={() => setSelectedInstituteId(String(inst.id))}>
+                <div className="SearchCard-left">
+                  <img src={inst.avatar} alt={inst.username} />
+                </div>
+                <div className="SearchCard-right">
+                  <h6>{inst.username} {inst?.type === "institute" ? (
+                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
+                  ) : (
+                    <span>({inst?.type})</span>
+                  )} </h6>
+                  <p>{inst.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Ads />
+        </div>
+      ) : (
+        <div className="section">
+          <button className="back-button" onClick={handleGoBack}>
+            <IoIosArrowBack />
+            <h5>Selected Institute</h5>
+          </button>
+          <div className="custom-dropdown" ref={dropdownRef}>
+            <div className="dropdown-selected" onClick={() => setDropdownOpen(!dropdownOpen)}>
               <div className="dropdown-option">
                 <img src={selectedInstitute.avatar || "/default-avatar.png"} alt="avatar" />
                 <span>{selectedInstitute.username} ({selectedInstitute.location})</span>
               </div>
-            ) : (
-              <span>Choose Institute</span>
-            )}
-            <span className="arrow">{dropdownOpen ? "▲" : "▼"}</span>
-          </div>
-          {dropdownOpen && (
-            <div className="institute-dropdown">
-              {institutes.map((inst) => (
-                <div
-                  key={inst.id}
-                  className="dropdown-option"
-                  onClick={() => {
-                    setSelectedInstituteId(String(inst.id));
-                    setDropdownOpen(false);
-                  }}
-                >
-                  <img src={inst.avatar || "/default-avatar.png"} alt="avatar" />
-                  <span>{inst.username} ({inst.location})</span>
-                </div>
-              ))}
+              <span className="arrow">{dropdownOpen ? "▲" : "▼"}</span>
             </div>
-          )}
+            {dropdownOpen && (
+              <div className="institute-dropdown">
+                {institutes.map((inst) => (
+                  <div
+                    key={inst.id}
+                    className="dropdown-option"
+                    onClick={() => {
+                      setSelectedInstituteId(String(inst.id));
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    <img src={inst.avatar || "/default-avatar.png"} alt="avatar" />
+                    <span>{inst.username} ({inst.location})</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {selectedInstitute && (
         <div className="SearchCard institute-info">

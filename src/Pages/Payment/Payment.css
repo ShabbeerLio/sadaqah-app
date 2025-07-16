@@ -1,5 +1,5 @@
 .sadaqah-container {
-  padding: 20px;
+  padding: 10px;
   background: #f0f7ea;
   min-height: 100vh;
   font-family: sans-serif;
@@ -7,6 +7,18 @@
 
 .sadaqah-container .section {
   margin-bottom: 20px;
+  padding-top: 1rem;
+}
+
+.institute-list {
+  margin-top: 1rem;
+   /* padding: 10px; */
+   height: 65vh;
+   overflow: auto;
+}
+.institute-list .SearchCard {
+  margin: 0;
+margin-bottom: 10px;
 }
 
 .sadaqah-container .institute-info {

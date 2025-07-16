@@ -110,7 +110,7 @@ const HistoryCard = ({ tx }) => {
               <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
               <div
                 className="donateCard-tag"
-                style={{ backgroundColor: "#fdb618" }}
+                style={{ backgroundColor: "transparent", border:"1.5px solid #fdb618" }}
               ></div>
             </>
           ) : (
