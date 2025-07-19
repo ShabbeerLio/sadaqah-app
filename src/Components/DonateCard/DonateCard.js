@@ -20,7 +20,7 @@ const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
                     <p className="donation-description">{i.description.split(" ").slice(0, 10).join(" ")}{i.description.split(" ").length > 10 ? "..." : ""}</p>
                 </div>
                 <div className="donate-view">
-                    <Link to={"/donate-detail"} onClick={handleCloseDonet}>View Detail</Link>
+                    <Link to={"/request-details"} onClick={handleCloseDonet}>View Detail</Link>
                 </div>
             </div>
             <div className="donate-title">
@@ -47,7 +47,7 @@ const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
                     </div>
                 ) : (
                     <div className="donate-paybtn">
-                        <Link to={"payment"} onClick={handleCloseDonet}>Donate Now</Link>
+                        <Link to={"/request-details"} state={{ item: i }} onClick={handleCloseDonet}>Do Sadaqah</Link>
                     </div>
                 )}
                 <div className="donate-payable">

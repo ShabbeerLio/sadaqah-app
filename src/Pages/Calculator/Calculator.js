@@ -8,7 +8,7 @@ const ZakatCalculator = () => {
   const [cash, setCash] = useState(0);
   const [savings, setSavings] = useState(0);
   const [liabilities, setLiabilities] = useState(0);
-  const [mode, setMode] = useState("yearly");
+  const [mode, setMode] = useState("monthly");
 
   const nisab = 612.36 * 75;
 
@@ -64,33 +64,31 @@ const ZakatCalculator = () => {
                     onChange={(e) => setSilver(e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label>Savings in bank (₹)</label>
+                  <input
+                    type="number"
+                    value={savings}
+                    onChange={(e) => setSavings(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Debts/Liabilities (₹)</label>
+                  <input
+                    type="number"
+                    value={liabilities}
+                    onChange={(e) => setLiabilities(e.target.value)}
+                  />
+                </div>
               </>
             )}
-
             <div className="form-group">
               <label>Cash at hand (₹)</label>
               <input
                 type="number"
                 value={cash}
                 onChange={(e) => setCash(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Savings in bank (₹)</label>
-              <input
-                type="number"
-                value={savings}
-                onChange={(e) => setSavings(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Debts/Liabilities (₹)</label>
-              <input
-                type="number"
-                value={liabilities}
-                onChange={(e) => setLiabilities(e.target.value)}
               />
             </div>
           </div>

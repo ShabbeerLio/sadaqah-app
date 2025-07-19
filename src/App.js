@@ -24,6 +24,7 @@ import Payment from "./Pages/Payment/Payment";
 import StatusPage from "./Pages/Payment/StatusPage";
 import ZakatHistory from "./Pages/ZakatHistory/ZakatHistory";
 import ZakatPayment from "./Pages/Payment/ZakatPayment";
+import DonateReq from "./Pages/DonateReq/DonateReq";
 
 function App() {
   return (
@@ -51,7 +52,8 @@ function MainLayout() {
     location.pathname === "/signup" ||
     location.pathname === "/payment" ||
     location.pathname === "/status"|| 
-    location.pathname === "/zakat-payment";
+    location.pathname === "/zakat-payment" ||
+    location.pathname === "/request-details";
 
   if (loading) {
     return <Loading />;
@@ -77,6 +79,7 @@ function MainLayout() {
         <Route path="/status" element={<StatusPage />} />
         <Route path="/zakat-history" element={<ZakatHistory />} />
         <Route path="/zakat-payment" element={<ZakatPayment />} />
+        <Route path="/request-details" element={<DonateReq />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

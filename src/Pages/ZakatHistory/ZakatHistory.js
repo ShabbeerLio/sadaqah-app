@@ -10,7 +10,7 @@ import ZakatFilters from "../../Components/Filters/ZakatFilter";
 
 const ZakatHistory = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("Donated");
+    const [activeTab, setActiveTab] = useState("Received");
     const [sortedTransactions, setSortedTransactions] = useState([]);
 
     useEffect(() => {

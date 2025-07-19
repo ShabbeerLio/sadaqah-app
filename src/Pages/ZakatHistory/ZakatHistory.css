@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    z-index: 9;
 }
 
 .zakat-filter-box{

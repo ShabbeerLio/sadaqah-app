@@ -8,30 +8,31 @@
   z-index: 999;
 }
 
-.donate-header{
+.donate-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   gap: 10px;
 }
-.donate-details{
+.donate-details {
   width: 80%;
 }
 
-.donate-view{
+.donate-view {
   width: 20%;
 }
-.donate-view a{
+.donate-view a {
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-color: #597445;
-text-decoration: none;
+  color: #597445;
+  text-decoration: none;
+  z-index: 9;
+  position: relative;
 }
-
 
 .donate-box {
   position: fixed;
@@ -73,7 +74,7 @@ text-decoration: none;
   margin-bottom: 0.5rem;
 }
 
-.donation-title{
+.donation-title {
   font-size: 18px;
 }
 
@@ -123,6 +124,7 @@ text-decoration: none;
   font-size: 14px;
   display: flex;
   align-items: center;
+  margin: 0;
 }
 .donation-name p {
   color: black;
@@ -182,7 +184,7 @@ text-decoration: none;
   font-size: 12px;
   width: 80%;
 }
-.donate-paybtn a{
+.donate-paybtn a {
   background-color: #fdb618;
   color: black;
   font-size: 12px;
@@ -191,6 +193,8 @@ text-decoration: none;
   text-align: center;
   padding: 8px;
   text-decoration: none;
+  z-index: 9;
+  position: relative;
 }
 
 .donate-paybtn p:nth-child(2) {
@@ -227,24 +231,25 @@ text-decoration: none;
   height: auto;
   object-fit: contain;
 } */
-.donateCard-tag{
-      position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 20px;
+.donateCard-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
   background-color: #597445;
+  z-index: 1;
 }
 
-.donate-payable{
+.donate-payable {
   width: 50%;
 }
-.donate-payable p{
+.donate-payable p {
   width: 100%;
   padding: 0;
 }
-.donate-payable span{
+.donate-payable span {
   color: black;
   font-size: 12px;
 }
