@@ -10,6 +10,7 @@ import DonateData from "../../Pages/DonateData";
 import {
   LuSquarePlus,
   LuScanQrCode,
+  LuWalletMinimal
 } from "react-icons/lu";
 import dosadaqa from "../../Assets/payment.png"
 import CombinedFeedData from "../../Pages/AppData";
@@ -78,9 +79,9 @@ const Navbar = () => {
                     <p>Help</p>
                   </Link>
                 ) : (
-                  <Link to={"/add"}>
-                    <LuSquarePlus />
-                    <p>Feed</p>
+                  <Link to={"/wallet"}>
+                    <LuWalletMinimal />
+                    <p>Wallet</p>
                   </Link>
                 )}
               </div>

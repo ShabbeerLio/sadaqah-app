@@ -40,7 +40,7 @@ const Collection = () => {
                     {user?.type === "institute" ? (
                         <div className="Collection-box-right institute">
                             <h5>Recent Transactions</h5>
-                            {transactions?.transactions.map((tx) => (
+                            {transactions?.transactions.slice(0,5).map((tx) => (
                                 <HistoryCard tx={tx} />
                             ))}
                             <Link to={"/history"} className="View-more-transatction" >View More <GoArrowRight /></Link>

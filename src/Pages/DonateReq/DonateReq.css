@@ -4,6 +4,10 @@
   height: 91vh;
 }
 
+.donation-request{
+  padding: 10px;
+}
+
 .donatereq-title h5 {
   color: #597445;
   display: flex;

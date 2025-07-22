@@ -67,14 +67,7 @@
   display: flex;
   gap: 10px;
   margin: 0;
-  background: #ffffff;
-  background: linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 1) 0%,
-    #d2dac8 2%,
-    #d2dac8 70%,
-    rgba(255, 255, 255, 1) 100%
-  );
+
 }
 
 .item1 {
@@ -248,14 +241,6 @@
   .Collection-box-right.institute {
     padding: 10px;
     gap: 8px;
-    background: #ffffff;
-    background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 1) 0%,
-      #d2dac8 2%,
-      #d2dac8 70%,
-      rgba(255, 255, 255, 1) 100%
-    );
     border-radius: 0;
   }
 }

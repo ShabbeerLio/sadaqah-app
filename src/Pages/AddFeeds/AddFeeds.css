@@ -1,0 +1,88 @@
+.add-post-container {
+  padding: 10px;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card label {
+  font-weight: bold;
+  color: #2f4f2f;
+  margin: 10px 0px 5px;
+}
+
+/* .post-card input,
+.post-card select,
+.post-card textarea {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+} */
+
+.post-card textarea {
+  resize: vertical;
+  min-height: 180px;
+  border-radius: 25px;
+  font-family: inherit;
+  font-size: inherit;
+  background-color: white;
+  border: none;
+  color: #597445;
+  padding: 0.7rem 1rem;
+  transition: all ease-in-out 0.5s;
+  margin-right: -2.5rem;
+  border: 0.5px solid #597445;
+  width: 100%;
+}
+
+.preview-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.preview-images img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.post-card .post-button {
+  width: 100%;
+    background: #225e34;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.image-preview-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview-wrapper img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.image-preview-wrapper button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

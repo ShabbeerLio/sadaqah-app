@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 const Banners = () => {
   const images = [banner1, banner2, banner3, banner4, banner5, banner6];
+  const user = JSON.parse(localStorage.getItem("authUser"));
 
   const settings = {
     dots: true,
@@ -31,14 +32,20 @@ const Banners = () => {
           {images.map((img, index) => (
             <div className="banner-image" key={index}>
               <img src={img} alt={`banner-${index}`} />
-              <div className="banner-btn">
-                <Link to={"/payment"}>Donate Now</Link>
-              </div>
+              {user?.type === "institute" ? (
+                ""
+              ) : (
+                <div className="banner-btn">
+                  <Link to={"/payment"}>Donate Now</Link>
+                </div>
+              )}
+
             </div>
-          ))}
-        </Slider>
-      </div>
-    </div>
+          ))
+          }
+        </Slider >
+      </div >
+    </div >
   );
 };
 
