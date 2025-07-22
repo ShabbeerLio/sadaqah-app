@@ -3,12 +3,17 @@ import "./Payment.css";
 import CombinedFeedData from "../AppData";
 import ads from "../../Assets/Ads/ads.jpg"
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Ads from "../../Components/Ads/Ads";
 import Searchbox from "../../Components/Searchbox/Searchbox";
 
 
 const Payment = () => {
+  const location = useLocation();
+  const item = location.state?.item;
+  console.log(item, "item")
+
+
   const navigate = useNavigate();
   const institutes = CombinedFeedData.filter((item) => item.type === "institute");
   const [selectedInstituteId, setSelectedInstituteId] = useState("");
@@ -18,9 +23,20 @@ const Payment = () => {
   const dropdownRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const selectedInstitute = institutes.find(
-    (inst) => String(inst.id) === String(selectedInstituteId)
-  );
+
+  let selectedInstitute = [];
+
+  if (item) {
+    selectedInstitute = institutes.find(
+      (inst) => String(inst.username) === String(item.username)
+    );
+  } else {
+    selectedInstitute = institutes.find(
+      (inst) => String(inst.id) === String(selectedInstituteId)
+    );
+  }
+
+  console.log(selectedInstitute, "selectedInstitute")
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -38,24 +54,33 @@ const Payment = () => {
     let fee = 0;
     let percentage = 0;
 
-    if (amount >= 0 && amount <= 500) {
+    if (amount >= 0 && amount <= 1000) {
       percentage = 3;
       fee = amount * 0.03;
-    } else if (amount <= 1000) {
-      percentage = 2;
-      fee = amount * 0.02;
+    } else if (amount <= 2000) {
+      // percentage = 2;
+      // fee = amount * 0.02;
+      percentage = (25 / amount) * 100;
+      fee = 25;
     } else if (amount <= 3000) {
-      percentage = 1.5;
-      fee = amount * 0.015;
+      // percentage = 2;
+      // fee = amount * 0.02;
+      percentage = (30 / amount) * 100;
+      fee = 30;
+    } else if (amount <= 4000) {
+      // percentage = 2;
+      // fee = amount * 0.02;
+      fee = 40;
+      percentage = (40 / amount) * 100;
     } else {
-      percentage = 1;
-      fee = amount * 0.01;
+      // fee = amount * 0.01;
+      percentage = (50 / amount) * 100;
+      fee = 50;
       if (fee > 50) {
         fee = 50;
-        percentage = (50 / amount) * 100;
+        percentage = (50 / amount) * 100; // recalculate actual applied %
       }
     }
-    console.log(fee)
 
     return {
       fee: fee,
@@ -128,11 +153,11 @@ const Payment = () => {
   );
 
   // Search filter
- const filteredPosts = sortedPosts.filter((post) => {
-  const terms = searchTerm.toLowerCase().split(" ");
-  const combined = `${post.username} ${post.location}`.toLowerCase();
-  return terms.every(term => combined.includes(term));
-});
+  const filteredPosts = sortedPosts.filter((post) => {
+    const terms = searchTerm.toLowerCase().split(" ");
+    const combined = `${post.username} ${post.location}`.toLowerCase();
+    return terms.every(term => combined.includes(term));
+  });
 
   return (
     <div className="sadaqah-container">
@@ -217,7 +242,7 @@ const Payment = () => {
             <IoIosArrowBack />
             <h5>Selected Institute</h5>
           </button>
-          <div className="custom-dropdown" ref={dropdownRef}>
+          {/* <div className="custom-dropdown" ref={dropdownRef}>
             <div className="dropdown-selected" onClick={() => setDropdownOpen(!dropdownOpen)}>
               <div className="dropdown-option">
                 <img src={selectedInstitute.avatar || "/default-avatar.png"} alt="avatar" />
@@ -242,7 +267,7 @@ const Payment = () => {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       )}
 
@@ -280,16 +305,50 @@ const Payment = () => {
             </div>
             <div className="summary-detail">
               <div className="checkbox-section">
-                <label className="checkbox-btn">
+                <label class="neon-checkbox">
+                  <input type="checkbox" checked={includeFee}
+                    onChange={() => setIncludeFee(!includeFee)}/>
+                  <div class="neon-checkbox__frame">
+                    <div class="neon-checkbox__box">
+                      <div class="neon-checkbox__check-container">
+                        <svg viewBox="0 0 24 24" class="neon-checkbox__check">
+                          <path d="M3,12.5l7,7L21,5"></path>
+                        </svg>
+                      </div>
+                      <div class="neon-checkbox__glow"></div>
+                      <div class="neon-checkbox__borders">
+                        <span></span><span></span><span></span><span></span>
+                      </div>
+                    </div>
+                    <div class="neon-checkbox__effects">
+                      <div class="neon-checkbox__particles">
+                        <span></span><span></span><span></span><span></span> <span></span
+                        ><span></span><span></span><span></span> <span></span><span></span
+                        ><span></span><span></span>
+                      </div>
+                      <div class="neon-checkbox__rings">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                      </div>
+                      <div class="neon-checkbox__sparks">
+                        <span></span><span></span><span></span><span></span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+                 Platform Fee ({percentage.toFixed(2)}%)
+
+                {/* <label className="checkbox-btn">
                   <label htmlFor="checkbox"></label>
                   <input
                     type="checkbox"
                     checked={includeFee}
                     onChange={() => setIncludeFee(!includeFee)}
                   />
-                  Platform Fee ({percentage}%)
+                  Platform Fee ({percentage.toFixed(2)}%)
                   <span className="checkmark"></span>
-                </label>
+                </label> */}
               </div>
               <p>₹ {fee.toFixed(2)}</p>
             </div>

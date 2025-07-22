@@ -190,6 +190,33 @@
   animation: scroll-tofro 5s ease-in-out infinite;
 }
 
+.transaction-tag.zakat{
+  position: relative;
+  border: 2px solid #fdb618;
+}
+.transaction-tag.sadaqah{
+  position: relative;
+  border: 2px solid #729762;
+}
+
+.transaction-tag.zakat .donateCard-tag,
+.transaction-tag.sadaqah .donateCard-tag{
+  position: absolute;
+    left: -5%;
+    top: -10%;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    /* background-color: #597445; */
+    z-index: 1;
+    /* background: white; */
+    background-color: white;
+    /* border: 1px solid gray; */
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @keyframes scroll-tofro {
   0% {
     transform: translateX(0%);

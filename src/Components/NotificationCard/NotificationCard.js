@@ -11,7 +11,7 @@ const NotificationCard = ({ notifications }) => {
             </div>
             <div className="notification-detali">
                 <p>{notifications.notification}</p>
-                <span>{notifications.from.name}</span>
+                <h5>{notifications.from.name}</h5>
             </div>
             <div className="notificaation-type">
                 {showFollowButton ? (

@@ -20,11 +20,11 @@ const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
                     <p className="donation-description">{i.description.split(" ").slice(0, 10).join(" ")}{i.description.split(" ").length > 10 ? "..." : ""}</p>
                 </div>
                 <div className="donate-view">
-                    <Link to={"/request-details"} onClick={handleCloseDonet}>View Detail</Link>
+                    <Link to={"/request-details"} state={{ item: i }} onClick={handleCloseDonet}>View Detail</Link>
                 </div>
             </div>
             <div className="donate-title">
-                <img src={i.avatar} alt="" />
+                <img style={{ border:`2px solid ${tagColor}`}} src={i.avatar} alt="" />
                 <div className="donate-deatail">
                     <div className="donation-name">
                         <h5>{i.username}
@@ -55,10 +55,10 @@ const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
                     <p>₹{i.amountReceived} / ₹{i.donation}</p>
                 </div>
             </div>
-            <div
+            {/* <div
                 className="donateCard-tag"
                 style={{ backgroundColor: "transparent" , border:`1.5px solid ${tagColor}`}}
-            ></div>
+            ></div> */}
         </div>
     );
 };

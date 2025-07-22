@@ -158,7 +158,7 @@ const CombinedFeedData = [
     password: "12345678",
     avatar: post2,
     followers: 620,
-    location: "Patna",
+    location: "Delhi",
     transactions: [
       {
         id: 1,

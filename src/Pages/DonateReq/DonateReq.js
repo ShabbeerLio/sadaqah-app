@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./DonateReq.css";
-import avtar from "../../Assets/Posts/hadith.png"
+import avtar from "../../Assets/Posts/hadith.png";
 import { Link, useLocation } from "react-router-dom";
 import { IoIosArrowBack, IoIosClose } from "react-icons/io";
 
@@ -8,32 +8,18 @@ const DonateReq = () => {
     const location = useLocation();
     const item = location.state?.item;
 
-    console.log(item, "item")
-    const [responsiblity, setResponsiblity] = useState("")
-    const handleGoBack = () => {
-        window.history.back(); // Simple browser back
-    };
-    const progressPercent = 40;
-
+    const [responsiblity, setResponsiblity] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [fulfillBox, setFulfillBox] = useState("");
     const [showConfirmBox, setShowConfirmBox] = useState(false);
-    const [confirmAction, setConfirmAction] = useState(null); // to store which action to run
+    const [showcancelBox, setShowcancelBox] = useState(false);
+    const [showStatusBox, setShowStatusBox] = useState(false);
+    const [confirmAction, setConfirmAction] = useState(null);
+    const [cancelation, setCancel] = useState(null);
 
-    const handleTakeRes = (index) => {
-        setSelectedIndex(index);
-        setResponsiblity("active");
-    };
-    const handlecloseTakeRes = () => {
-        setResponsiblity("")
-    }
-    const handleFullfilled = (index) => {
-        setSelectedIndex(index); // So we know which item to update
-        setFulfillBox("active");
-    };
-    const handlecloseFullfilled = () => {
-        setFulfillBox("")
-    }
+    const handleGoBack = () => window.history.back();
+
+    const progressPercent = 40;
 
     const [requirementList, setRequirementList] = useState([
         {
@@ -70,6 +56,26 @@ const DonateReq = () => {
         },
     ]);
 
+    const handleTakeRes = (index) => {
+        setSelectedIndex(index);
+        setResponsiblity("active");
+    };
+
+    const handlecloseTakeRes = () => {
+        setResponsiblity("exiting");
+        setTimeout(() => setResponsiblity(""), 300);
+    };
+
+    const handleFullfilled = (index) => {
+        setSelectedIndex(index);
+        setFulfillBox("active");
+    };
+
+    const handlecloseFullfilled = () => {
+        setFulfillBox("exiting");
+        setTimeout(() => setFulfillBox(""), 300);
+    };
+
     const handleConfirmPledge = () => {
         if (selectedIndex !== null) {
             const updatedList = [...requirementList];
@@ -83,8 +89,22 @@ const DonateReq = () => {
     const handleConfirmFulfilled = () => {
         if (selectedIndex !== null) {
             const updatedList = [...requirementList];
-            updatedList[selectedIndex].status = "fulfilled";
+            updatedList[selectedIndex].status = "awaited";
             setRequirementList(updatedList);
+            setShowStatusBox(true);
+
+            // ✅ Hide it after 3 seconds
+            setTimeout(() => {
+                setShowStatusBox(false);
+            }, 5000);
+
+            // ✅ After 5 seconds, update status to 'fulfilled'
+            setTimeout(() => {
+                const fulfilledList = [...updatedList];
+                fulfilledList[selectedIndex].status = "fulfilled";
+                setRequirementList(fulfilledList);
+            }, 8000);
+
             setFulfillBox("");
             setSelectedIndex(null);
         }
@@ -101,17 +121,32 @@ const DonateReq = () => {
     };
 
     const openConfirmation = (actionFn) => {
-        setConfirmAction(() => actionFn); // Store the function to execute
+        setConfirmAction(() => actionFn);
         setShowConfirmBox(true);
     };
 
+    const openCanclation = (actionFn) => {
+        setCancel(() => actionFn);
+        setShowcancelBox(true);
+    };
+
     const handleConfirmYes = () => {
-        if (confirmAction) confirmAction();
+        if (confirmAction) {
+            confirmAction();
+            setConfirmAction(null); // Reset
+        }
+        if (cancelation) {
+            cancelation();
+            setCancel(null); // Reset
+        }
+
         setShowConfirmBox(false);
+        setShowcancelBox(false);
     };
 
     const handleConfirmNo = () => {
         setShowConfirmBox(false);
+        setShowcancelBox(false);
     };
 
     return (
@@ -119,26 +154,25 @@ const DonateReq = () => {
             <div className="Home-main">
                 <div className="donatereq">
                     <div className="donatereq-title">
-                        <h5><button className="back-button" onClick={handleGoBack}>
-                            <IoIosArrowBack />
-                        </button>
-                            Donation Requested
-                        </h5>
+                        <h5><button className="back-button" onClick={handleGoBack}><IoIosArrowBack /></button>Donation Requested</h5>
                         <p>These donations will be used to build what has been requested.</p>
                     </div>
+
                     <div className="SearchCard institute-info">
                         <div className="SearchCard-left">
-                            <img src={item.avatar} alt={""} />
+                            <img src={item.avatar} alt="" />
                         </div>
                         <div className="SearchCard-right">
                             <h6>{item.username}</h6>
                             <p>{item.location}</p>
                         </div>
                     </div>
+
                     <div className="donationreq-box2">
                         <h5>{item.title}</h5>
-                        <p>{item.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, praesentium minima. Aliquam, possimus. Esse nostrum eligendi dolor unde! Ipsum, cumque? fvoinrlnslkrnvlnrlksnrlkvsnrlkvsnrlksr Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem sapiente dolor quam id voluptas eum maiores autem ex aliquid deserunt.</p>
+                        <p>{item.description}</p>
                     </div>
+
                     <h5 className="list-title">List Of Requirements</h5>
                     <div className="donationreq-box3">
                         <div className="donationreq-items">
@@ -150,11 +184,10 @@ const DonateReq = () => {
                                             <p>₹ {item.pricePerUnit} | ₹{item.total.toLocaleString()}</p>
                                         </div>
                                         <div className={`reqtop-right ${item.status}`}>
-                                            {item.status === "available" && (
-                                                <p onClick={() => handleTakeRes(index)}>Take Responsibility</p>
-                                            )}
+                                            {item.status === "available" && <p onClick={() => handleTakeRes(index)}>Take Responsibility</p>}
                                             {item.status === "collected" && <p>Collected</p>}
                                             {item.status === "fulfilled" && <p>Fulfilled</p>}
+                                            {item.status === "awaited" && <p>Awaited</p>}
                                             {item.status === "taken" && <p onClick={() => handleFullfilled(index)}>Responsibility Taken</p>}
                                         </div>
                                     </div>
@@ -165,13 +198,14 @@ const DonateReq = () => {
                             ))}
                         </div>
                     </div>
+
                     <div className="donationreq-box4">
                         <div className="donate-progress-box">
                             <div className="fill" style={{ width: `${progressPercent}%` }}></div>
                         </div>
                         <div className="donate-box4-box">
                             <div className="btn4-reqbtn">
-                                <Link to={"/payment"}>Do Sadaqah</Link>
+                                <Link to={"/payment"} state={{ item: item }}>Do Sadaqah</Link>
                             </div>
                             <div className="donate-payable">
                                 <span>Amount Received / Required</span>
@@ -179,6 +213,8 @@ const DonateReq = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* Pledge Modal */}
                     <div className={`responsiblity-box ${responsiblity}`}>
                         <div className="responsiblity-box-item">
                             <div className="responsiblity-top">
@@ -200,7 +236,6 @@ const DonateReq = () => {
                             )}
                             <div className="responsiblity-note">
                                 <p><span>Note: </span>This pledge will mark canceled if you won’t able to send this product within 7 days from today.</p>
-                                <p>icon</p>
                             </div>
                             <div className="responsiblity-btns">
                                 <p onClick={handlecloseTakeRes}>Cancel</p>
@@ -209,6 +244,8 @@ const DonateReq = () => {
                         </div>
                         <div className="responsiblity-filter"></div>
                     </div>
+
+                    {/* Fulfilled Modal */}
                     <div className={`responsiblity-box ${fulfillBox}`}>
                         <div className="responsiblity-box-item">
                             <div className="responsiblity-top">
@@ -230,19 +267,20 @@ const DonateReq = () => {
                             )}
                             <div className="responsiblity-note">
                                 <p><span>Note: </span>This pledge will mark canceled if you won’t able to send this product within 7 days from today.</p>
-                                <p>icon</p>
                             </div>
                             <div className="responsiblity-btns">
-                                <p onClick={() => openConfirmation(handleCancelFulfilled)}>Cancel</p>
-                                <p className="confirm" onClick={() => openConfirmation(handleConfirmFulfilled)}>Product Sent</p>
+                                <p onClick={() => openCanclation(handleCancelFulfilled)}>Cancel</p>
+                                <p className="confirm" onClick={handleConfirmFulfilled}>Product Sent</p>
                             </div>
                         </div>
                         <div className="responsiblity-filter"></div>
                     </div>
+
+                    {/* Confirmation Modals */}
                     {showConfirmBox && (
                         <div className="confirmation-modal">
                             <div className="confirmation-box">
-                                <p>Are you sure you want to proceed?</p>
+                                <p>Are you sure to take the Pledge?</p>
                                 <div className="confirmation-buttons">
                                     <button onClick={handleConfirmNo}>No</button>
                                     <button onClick={handleConfirmYes}>Yes</button>
@@ -252,6 +290,27 @@ const DonateReq = () => {
                         </div>
                     )}
 
+                    {showcancelBox && (
+                        <div className="confirmation-modal">
+                            <div className="confirmation-box">
+                                <p>Are you sure want to withdraw the Pledge?</p>
+                                <div className="confirmation-buttons">
+                                    <button onClick={handleConfirmNo}>No</button>
+                                    <button onClick={handleConfirmYes}>Yes</button>
+                                </div>
+                            </div>
+                            <div className="confirmation-backdrop" onClick={handleConfirmNo}></div>
+                        </div>
+                    )}
+
+                    {showStatusBox && (
+                        <div className="confirmation-modal">
+                            <div className="confirmation-box">
+                                <p>Institute have received your notificaation. Once they receive the items, they will update the status to ‘Fulfilled’.</p>
+                            </div>
+                            <div className="confirmation-backdrop"></div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

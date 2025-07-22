@@ -15,9 +15,10 @@
 .notification-detali p{
     margin: 0;
     font-size: 14px;
+    line-height: 18px;
 }
-.notification-detali span{
+.notification-detali h5{
     margin: 0;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 800;
 }

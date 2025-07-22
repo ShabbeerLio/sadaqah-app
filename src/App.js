@@ -25,6 +25,7 @@ import StatusPage from "./Pages/Payment/StatusPage";
 import ZakatHistory from "./Pages/ZakatHistory/ZakatHistory";
 import ZakatPayment from "./Pages/Payment/ZakatPayment";
 import DonateReq from "./Pages/DonateReq/DonateReq";
+import Suggest from "./Pages/Suggest/Suggest";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function MainLayout() {
         <Route path="/zakat-history" element={<ZakatHistory />} />
         <Route path="/zakat-payment" element={<ZakatPayment />} />
         <Route path="/request-details" element={<DonateReq />} />
+        <Route path="/suggest" element={<Suggest />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

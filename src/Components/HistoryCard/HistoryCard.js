@@ -52,8 +52,11 @@ const HistoryCard = ({ tx }) => {
             <>
               <div className="history-card-detail-box">
                 <div className="history-card-detail">
-                  <p>
+                  <p className="transaction-tag sadaqah">
                     <GoArrowDownLeft />
+                    <div
+                      className="donateCard-tag"
+                    >S</div>
                   </p>
                   <div className="history-card-title">
                     <span>Received from</span>
@@ -85,8 +88,9 @@ const HistoryCard = ({ tx }) => {
             <>
               <div className="history-card-detail-box">
                 <div className="history-card-detail">
-                  <p>
+                  <p className="transaction-tag zakat">
                     <GoArrowUpRight />
+                    <div className="donateCard-tag">Z</div>
                   </p>
                   <div className="history-card-title">
                     <span>Paid to</span>
@@ -108,17 +112,20 @@ const HistoryCard = ({ tx }) => {
                 </div>
               </div>
               <p className="history-Desc">{percentage}% Taken as platform Fee, We are trying to remove it.</p>
-              <div
+              {/* <div
                 className="donateCard-tag"
                 style={{ backgroundColor: "transparent", border:"1.5px solid #fdb618" }}
-              ></div>
+              ></div> */}
             </>
           ) : (
             <>
               <div className="history-card-detail-box">
                 <div className="history-card-detail">
-                  <p>
+                  <p className="transaction-tag sadaqah">
                     <GoArrowUpRight />
+                    <div
+                      className="donateCard-tag"
+                    >S</div>
                   </p>
                   <div className="history-card-title">
                     <span>Paid to</span>

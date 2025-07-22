@@ -107,10 +107,12 @@
   padding: 10px 0;
 }
 .donate-title img {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50px;
   object-fit: cover;
+  padding: 2px;
+  border: 1px solid #fdb618;
 }
 
 .donate-deatail {

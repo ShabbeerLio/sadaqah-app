@@ -112,16 +112,37 @@ const StatusPage = () => {
                     <div className="reminder-box">
                         <div className="reminder-bot-top">
                             <div className="reminder-bot-detail">
-                                <label className="checkbox-btn">
-                                    <label htmlFor="checkbox"></label>
-                                    <input
-                                        type="checkbox"
-                                    // checked={includeFee}
-                                    // onChange={() => setIncludeFee(!includeFee)}
-                                    />
-                                    {/* Platform Fee ({percentage}%) */}
-                                    <span className="checkmark"></span>
-                                </label>
+                                <label class="neon-checkbox">
+                  <input type="checkbox" />
+                  <div class="neon-checkbox__frame">
+                    <div class="neon-checkbox__box">
+                      <div class="neon-checkbox__check-container">
+                        <svg viewBox="0 0 24 24" class="neon-checkbox__check">
+                          <path d="M3,12.5l7,7L21,5"></path>
+                        </svg>
+                      </div>
+                      <div class="neon-checkbox__glow"></div>
+                      <div class="neon-checkbox__borders">
+                        <span></span><span></span><span></span><span></span>
+                      </div>
+                    </div>
+                    <div class="neon-checkbox__effects">
+                      <div class="neon-checkbox__particles">
+                        <span></span><span></span><span></span><span></span> <span></span
+                        ><span></span><span></span><span></span> <span></span><span></span
+                        ><span></span><span></span>
+                      </div>
+                      <div class="neon-checkbox__rings">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                      </div>
+                      <div class="neon-checkbox__sparks">
+                        <span></span><span></span><span></span><span></span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
                             </div>
                             <div className="reminder-bot-detail">
                                 <h4>{institute?.username ? institute?.username : institute}</h4>

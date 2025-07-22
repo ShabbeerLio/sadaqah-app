@@ -153,14 +153,18 @@
   background-color: #7f2eca;
   color: white;
 }
+.reqtop-right.awaited p {
+  background-color: #81bfec;
+  color: white;
+}
 .reqtop-right.taken p {
   background-color: #45a1e3;
   color: white;
 }
 
 .responsiblity-box {
-  scale: 0;
-  z-index: 2;
+  scale: 1;
+  z-index: -2;
   position: absolute;
   top: 0;
   left: 0;
@@ -170,7 +174,6 @@
   height: 100vh;
   width: 100%;
   padding: 1rem;
-  transition: all 0.3s ease-in-out;
 }
 
 .responsiblity-filter {
@@ -194,8 +197,7 @@
 }
 
 .responsiblity-box.active {
-  scale: 1;
-  transition: all 0.3s ease-in-out;
+  z-index: 2;
 }
 .responsiblity-box.active .responsiblity-box-item {
   scale: 1;
@@ -205,6 +207,21 @@
 .responsiblity-box.active .responsiblity-filter {
   transition: all .6s ease-in-out;
   display: block;
+}
+
+.responsiblity-box.exiting {
+  z-index: 2;
+}
+
+.responsiblity-box.exiting .responsiblity-box-item {
+  scale: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.responsiblity-box.exiting .responsiblity-filter {
+  opacity: 0;
+  transition: all 0.6s ease-in-out;
 }
 
 .responsiblity-top {
