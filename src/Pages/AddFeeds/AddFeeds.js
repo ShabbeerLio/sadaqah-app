@@ -4,10 +4,8 @@ import "./AddFeeds.css";
 const AddFeeds = ({ onAdd }) => {
   const [formData, setFormData] = useState({
     type: "",
-    location: "",
     title: "",
     description: "",
-    time: "",
     images: [],
   });
 
@@ -39,10 +37,8 @@ const AddFeeds = ({ onAdd }) => {
     alert("Post added successfully!");
     setFormData({
       type: "",
-      location: "",
       title: "",
       description: "",
-      time: "",
       images: [],
     });
   };
@@ -68,17 +64,6 @@ const AddFeeds = ({ onAdd }) => {
               <option value="Dua">Dua</option>
             </select>
 
-            <label>Location</label>
-            <input
-              className="search__input"
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Enter location"
-              required
-            />
-
             <label>Title</label>
             <input
               className="search__input"
@@ -92,6 +77,7 @@ const AddFeeds = ({ onAdd }) => {
 
             <label>Description</label>
             <textarea
+            className="search__input"
               name="description"
               value={formData.description}
               onChange={handleChange}

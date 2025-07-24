@@ -5,22 +5,28 @@ import {
 } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
-import donate1 from "../../Assets/Posts/hadith.png"
-import DonateData from "../../Pages/DonateData";
-import {
-  LuSquarePlus,
-  LuScanQrCode,
-  LuWalletMinimal
-} from "react-icons/lu";
+import { LuWalletMinimal } from "react-icons/lu";
 import dosadaqa from "../../Assets/payment.png"
 import CombinedFeedData from "../../Pages/AppData";
+import Sidebar from "./Sidebar";
 
 
 const Navbar = () => {
+  const sideRef = useRef(null);
   const user = JSON.parse(localStorage.getItem("authUser"));
   const location = useLocation();
   const currentPath = location.pathname;
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const [sideactive, setSideactive] = useState("")
+
+  const handleSidebar = () => {
+    setSideactive("active");
+  };
+  const handleCloseSidebar = () => {
+    setSideactive("");
+  };
+
 
   // Handle scroll to toggle "isScrolled"
   useEffect(() => {
@@ -40,7 +46,7 @@ const Navbar = () => {
       <div className="navbar-main">
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid nav-name">
-            <Link className="navbar-brand" to="/profile">
+            <Link className="navbar-brand" onClick={handleSidebar}>
               <img src={data.avatar} alt="" />
               <div className="navbar-title">
                 <h5>Assalamu Alaikum</h5>
@@ -89,14 +95,15 @@ const Navbar = () => {
               {currentPath === "/" && user.type === "user" && (
                 <div className={`nav-pay-now ${isScrolled ? "scrolled" : ""}`}>
                   <Link to="/payment">
-                  <img className="pay-imag" src={dosadaqa} alt="" />
+                    <img className="pay-imag" src={dosadaqa} alt="" />
                     {/* <LuScanQrCode /> */}
                     <span className="pay-text">Do Sadaqah</span>
                   </Link>
                 </div>
               )}
-             
+
             </div>
+            <Sidebar sideactive={sideactive} sideRef={sideRef} handleCloseSidebar={handleCloseSidebar} />
           </div>
         </nav>
       </div>

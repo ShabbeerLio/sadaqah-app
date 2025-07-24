@@ -1,0 +1,36 @@
+.post-card.addreq{
+        display: flex;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.requirement-row {
+  display: grid;
+  /* grid-template-columns: 1fr 60px 100px 80px 1fr 40px; */
+  gap: 8px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.req-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.req-table th, .req-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.req-table th {
+  background-color: #f4f4f4;
+}
+
+.add-red-table{
+        width: 100%;
+    overflow: auto;
+}

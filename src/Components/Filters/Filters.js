@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Filters.css";
 
 const Filters = ({ onFilterChange }) => {
+  const user = JSON.parse(localStorage.getItem("authUser"));
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeType, setActiveType] = useState(""); // new state to track "Zakat"
 
@@ -68,15 +69,27 @@ const Filters = ({ onFilterChange }) => {
     onFilterChange({ from: fromDate, to: toDate, type });
   };
 
-  const filters = [
-    "Zakat",
-    "july",
-    "june",
-    "May",
-    "Last 3 months",
-    "Last 6 months",
-    "2025"
-  ];
+  let filters = [];
+  if (user?.type === "institute") {
+    filters = [
+      "july",
+      "june",
+      "May",
+      "Last 3 months",
+      "Last 6 months",
+      "2025"
+    ];
+  } else {
+    filters = [
+      "Zakat",
+      "july",
+      "june",
+      "May",
+      "Last 3 months",
+      "Last 6 months",
+      "2025"
+    ];
+  }
   return (
     <div className="Filters">
       <div className="filter-ala">

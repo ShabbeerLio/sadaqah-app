@@ -20,14 +20,13 @@
   margin-right: -2.5rem;border: .5px solid #597445;
 }
 
-.search__input:hover,
+/* .search__input:hover,
 .search__input:focus {
   box-shadow: 0 0 1em #00000013;
-}
+} */
 
 .search__input:focus {
   outline: none;
-  background-color: #E7F0DC
 }
 
 .search__input::-webkit-input-placeholder {
@@ -41,7 +40,7 @@
 
 .search__button {
   border: none;
-  background-color: #E7F0DC;
+  background-color: white;
   /* margin-top: 0.1em; */
 }
 

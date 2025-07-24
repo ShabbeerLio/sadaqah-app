@@ -4,10 +4,18 @@ import "./Feeds.css";
 import CombinedFeedData from "../AppData";
 import Searchbox from "../../Components/Searchbox/Searchbox";
 import { useNavigate } from "react-router-dom";
+import { h5 } from "framer-motion/client";
+import Filters from "../../Components/Filters/Filters";
 
 const Feeds = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("authUser"));
+    const [filterRange, setFilterRange] = useState({
+      from: "",
+      to: "",
+      type: "",
+    });
 
   useEffect(() => {
     const authUser = localStorage.getItem("authUser");
@@ -35,17 +43,23 @@ const Feeds = () => {
       year: "numeric",
       month: "short",
       day: "numeric",
-    }); // e.g., "Mar 14, 2025"
+    });
   };
 
   // Flatten and enrich all posts with user info and relative date
-  const allPosts = CombinedFeedData.filter((user) => user.type === "institute") // only institutes
-    .flatMap((user) =>
-      user.posts.map((post) => ({
+  const allPosts = CombinedFeedData
+    .filter((u) => {
+      if (user?.type === "institute") {
+        return u.username === user.username;
+      }
+      return u.type === "institute";
+    })
+    .flatMap((u) =>
+      u.posts.map((post) => ({
         ...post,
-        username: user.username,
-        avatar: user.avatar,
-        followers: user.followers,
+        username: u.username,
+        avatar: u.avatar,
+        followers: u.followers,
         daysAgo: getTimeAgo(post.time),
       }))
     );
@@ -56,16 +70,47 @@ const Feeds = () => {
   );
 
   // Search filter
-  const filteredPosts = sortedPosts.filter((post) => {
+ // Apply institute filters (only if institute)
+let filteredPosts = sortedPosts;
+
+if (user?.type === "institute") {
+  filteredPosts = filteredPosts.filter((post) => {
+    const postDate = new Date(post.time);
+    const fromDate = filterRange.from ? new Date(filterRange.from) : null;
+    const toDate = filterRange.to ? new Date(filterRange.to) : null;
+
+    const matchesDate =
+      (!fromDate || postDate >= fromDate) &&
+      (!toDate || postDate <= toDate);
+
+    const matchesType =
+      !filterRange.type || post.type?.toLowerCase() === filterRange.type.toLowerCase();
+
+    return matchesDate && matchesType;
+  });
+} else {
+  // For users, apply search filtering
+  filteredPosts = filteredPosts.filter((post) => {
     const terms = searchTerm.toLowerCase().split(" ");
     const combined = `${post.username} ${post.location}`.toLowerCase();
     return terms.every((term) => combined.includes(term));
   });
+}
 
   return (
     <div className="Home">
       <div className="Home-main">
-        <Searchbox value={searchTerm} setSearch={setSearchTerm} />
+        {user?.type === "institute" ? (
+          <div className="institute-feeds-box">
+            <h5>Your Feeds</h5>
+            <div className="institute-feeds-filter">
+              <Filters onFilterChange={setFilterRange} />
+            </div>
+          </div>
+        ) : (
+          <Searchbox value={searchTerm} setSearch={setSearchTerm} />
+        )}
+
         <div className="Feeds-box">
           {filteredPosts.map((post, index) => (
             <FeedCard key={index} post={post} />

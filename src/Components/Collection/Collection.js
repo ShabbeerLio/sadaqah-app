@@ -4,15 +4,17 @@ import { GoArrowUpRight, GoShareAndroid, GoArrowRight } from "react-icons/go";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import HistoryCard from "../HistoryCard/HistoryCard";
 import TransactionsData from "../../Pages/TransationData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import makka from "../../Assets/suggest2 (1).png"
 import donate from "../../Assets/donate.png"
 import calender from "../../Assets/calender.png"
 import suggest from "../../Assets/suggest3.png"
 import CombinedFeedData from "../../Pages/AppData";
+import { LuWalletMinimal } from "react-icons/lu";
 
 
 const Collection = () => {
+    const navigate = useNavigate();
     const progressPercent = 60;
     const user = JSON.parse(localStorage.getItem("authUser"));
     const transactions = CombinedFeedData.find((item) => item?.username === user?.username);
@@ -21,14 +23,28 @@ const Collection = () => {
         return acc + tx.amount;
     }, 0);
 
+    const handleWallet = () => {
+        navigate("/wallet");
+    };
+
 
     return (
         <div className="Collection">
             <div className="Collection-main">
                 <div className="Collection-box">
                     <div className="Collection-box-left">
-                        <span>Total {transactions?.transactions.length} Payment</span>
-                        <h2>₹{totalFinalAmount}</h2>
+                        <div className="collection-left-top">
+                            <div className="collection-left-top-left">
+                                <span>Total {transactions?.transactions.length} Payment</span>
+                                <h2>₹{totalFinalAmount}</h2>
+                            </div>
+                            {user?.type === "institute" ? (
+                                <div className="collection-left-top-right" onClick={handleWallet}>
+                                    <span><LuWalletMinimal />Total</span>
+                                    <h2>₹3344</h2>
+                                </div>
+                            ) : ("")}
+                        </div>
                         <div className="collection-left-bottom">
                             <p>
                                 <FaArrowTrendUp />
@@ -40,7 +56,7 @@ const Collection = () => {
                     {user?.type === "institute" ? (
                         <div className="Collection-box-right institute">
                             <h5>Recent Transactions</h5>
-                            {transactions?.transactions.slice(0,5).map((tx) => (
+                            {transactions?.transactions.slice(0, 5).map((tx) => (
                                 <HistoryCard tx={tx} />
                             ))}
                             <Link to={"/history"} className="View-more-transatction" >View More <GoArrowRight /></Link>

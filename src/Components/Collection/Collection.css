@@ -27,6 +27,16 @@
   color: white;
 }
 
+.collection-left-top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.collection-left-top-right svg{
+  font-size: 20px;
+  margin-right: 10px;
+}
+
 .collection-left-bottom {
   display: flex;
   align-items: center;

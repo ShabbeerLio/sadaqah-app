@@ -3,7 +3,7 @@ import "./DonateCard.css";
 import donate1 from "../../Assets/Posts/hadith.png";
 import { Link } from "react-router-dom";
 
-const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
+const DonateCard = ({ user, i, donationType ,handleCloseDonet,handleDonet}) => {
     const progressPercent = Math.min(
         Math.round((i.amountReceived / i.donation) * 100),
         100
@@ -42,8 +42,8 @@ const DonateCard = ({ user, i, donationType ,handleCloseDonet}) => {
             <div className="donate-pay">
                 {user.type === "institute" ? (
                     <div className="donate-paybtn">
-                        <p>View All</p>
-                        <p>+</p>
+                        <p onClick={() => handleDonet("list")}>View All</p>
+                        <p><Link to={"/request-details"} state={{ item: i }} onClick={handleCloseDonet}>+</Link></p>
                     </div>
                 ) : (
                     <div className="donate-paybtn">
