@@ -28,6 +28,7 @@ import DonateReq from "./Pages/DonateReq/DonateReq";
 import Suggest from "./Pages/Suggest/Suggest";
 import DonationReqDetail from "./Pages/DonateReq/DonationReqDetail";
 import AddFeeds from "./Pages/AddFeeds/AddFeeds";
+import Wallet from "./Pages/Wallet/Wallet";
 
 function App() {
   return (
@@ -86,6 +87,7 @@ function MainLayout() {
         <Route path="/request-details" element={<DonationReqDetail />} />
         <Route path="/suggest" element={<Suggest />} />
         <Route path="/add-feed" element={<AddFeeds />} />
+        <Route path="/wallet" element={<Wallet />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

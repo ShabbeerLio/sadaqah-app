@@ -1,0 +1,45 @@
+.wallet-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #597445;
+  color: white;
+  border-radius: 20px;
+  padding: 1rem;
+  margin: 10px;
+}
+
+.wallet-top-left p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.wallet-top-left p svg {
+  font-size: 20px;
+  margin-right: 5px;
+}
+.wallet-top-left h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.wallet-top-right p {
+  background-color: #fdb618;
+  border-radius: 25px;
+  color: black;
+  padding: 5px 20px;
+  margin: 0;
+}
+
+.wallet-status span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    font-size: 10px;
+    background-color: green;
+    color: white;
+    border-radius: 0px 20px 0px 20px;
+    padding: 3px 15px;
+}

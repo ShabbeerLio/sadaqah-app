@@ -174,6 +174,13 @@ const CombinedFeedData = [
         date: "2025-06-25",
         type: "payment",
       },
+      {
+        id: 3,
+        name: "UPI4943223",
+        amount: 500,
+        date: "2025-07-15",
+        type: "withdraw",
+      },
     ],
     posts: [
       {
@@ -223,6 +230,13 @@ const CombinedFeedData = [
         date: "2025-06-20",
         type: "payment",
       },
+      {
+        id: 3,
+        name: "UPI4943223",
+        amount: 1000,
+        date: "2025-07-15",
+        type: "withdraw",
+      },
     ],
     posts: [
       {
@@ -262,6 +276,13 @@ const CombinedFeedData = [
         amount: 2500,
         date: "2025-05-10",
         type: "payment",
+      },
+      {
+        id: 3,
+        name: "UPI4943223",
+        amount: 800,
+        date: "2025-07-15",
+        type: "withdraw",
       },
     ],
     posts: [

@@ -7,6 +7,7 @@ import CombinedFeedData from '../../Pages/AppData';
 import { LuNewspaper } from "react-icons/lu";
 import { TbCreditCardRefund } from "react-icons/tb";
 import { MdWorkOutline } from "react-icons/md";
+import career from "../../Assets/career.png"
 
 const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
     const navigate = useNavigate();
@@ -58,30 +59,38 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                 <div className="sidebar-items">
                     <ul>
                         <li>
-                            <Link onClick={handleProfile} to={"/about"}> <IoMdInformationCircleOutline />About Us</Link>
+                            <Link onClick={handleProfile} to={"/"}> <IoMdHelpCircleOutline />Help</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <IoMdHelpCircleOutline />Help</Link>
+                            <Link onClick={handleProfile} to={"/about"}> <IoMdInformationCircleOutline />About Us</Link>
                         </li>
                         <li>
                             <Link onClick={handleProfile} to={"/"}> <MdOutlinePayments /> Payments</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <MdOutlinePrivacyTip />Privacy policy</Link>
+                            <Link onClick={handleProfile} to={"/"}> <MdOutlinePrivacyTip />Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <LuNewspaper />Term and Conditions</Link>
+                            <Link onClick={handleProfile} to={"/"}> <LuNewspaper />Term And Conditions</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <TbCreditCardRefund />Return and refund</Link>
+                            <Link onClick={handleProfile} to={"/"}> <TbCreditCardRefund />Return And Refund</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link onClick={handleProfile} to={"/"}> <MdWorkOutline />Carrier</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
-                <div className="sidebar-logout">
-                    <p onClick={handleLogout}>Log Out</p>
+                <div className="sidebar-bottom">
+                    <div className="sidebar-career">
+                        <h5>Earn Money With Us!</h5>
+                        <p>Become a Worker</p>
+                        <Link onClick={handleProfile} to={"/career"}>Career</Link>
+                        <img src={career} alt="" />
+                    </div>
+                    <div className="sidebar-logout">
+                        <p onClick={handleLogout}>Log Out</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,11 +11,11 @@ const Feeds = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("authUser"));
-    const [filterRange, setFilterRange] = useState({
-      from: "",
-      to: "",
-      type: "",
-    });
+  const [filterRange, setFilterRange] = useState({
+    from: "",
+    to: "",
+    type: "",
+  });
 
   useEffect(() => {
     const authUser = localStorage.getItem("authUser");
@@ -70,32 +70,32 @@ const Feeds = () => {
   );
 
   // Search filter
- // Apply institute filters (only if institute)
-let filteredPosts = sortedPosts;
+  // Apply institute filters (only if institute)
+  let filteredPosts = sortedPosts;
 
-if (user?.type === "institute") {
-  filteredPosts = filteredPosts.filter((post) => {
-    const postDate = new Date(post.time);
-    const fromDate = filterRange.from ? new Date(filterRange.from) : null;
-    const toDate = filterRange.to ? new Date(filterRange.to) : null;
+  if (user?.type === "institute") {
+    filteredPosts = filteredPosts.filter((post) => {
+      const postDate = new Date(post.time);
+      const fromDate = filterRange.from ? new Date(filterRange.from) : null;
+      const toDate = filterRange.to ? new Date(filterRange.to) : null;
 
-    const matchesDate =
-      (!fromDate || postDate >= fromDate) &&
-      (!toDate || postDate <= toDate);
+      const matchesDate =
+        (!fromDate || postDate >= fromDate) &&
+        (!toDate || postDate <= toDate);
 
-    const matchesType =
-      !filterRange.type || post.type?.toLowerCase() === filterRange.type.toLowerCase();
+      const matchesType =
+        !filterRange.type || post.type?.toLowerCase() === filterRange.type.toLowerCase();
 
-    return matchesDate && matchesType;
-  });
-} else {
-  // For users, apply search filtering
-  filteredPosts = filteredPosts.filter((post) => {
-    const terms = searchTerm.toLowerCase().split(" ");
-    const combined = `${post.username} ${post.location}`.toLowerCase();
-    return terms.every((term) => combined.includes(term));
-  });
-}
+      return matchesDate && matchesType;
+    });
+  } else {
+    // For users, apply search filtering
+    filteredPosts = filteredPosts.filter((post) => {
+      const terms = searchTerm.toLowerCase().split(" ");
+      const combined = `${post.username} ${post.location}`.toLowerCase();
+      return terms.every((term) => combined.includes(term));
+    });
+  }
 
   return (
     <div className="Home">
