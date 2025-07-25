@@ -16,6 +16,7 @@ const History = () => {
     to: "",
     type: "",
   });
+  let [user, setUser] = useState("");
 
   useEffect(() => {
     const authUser = JSON.parse(localStorage.getItem("authUser"));
@@ -23,6 +24,7 @@ const History = () => {
       navigate("/login");
     } else {
       const findUser = CombinedFeedData.find((i) => i.id === authUser.id);
+      setUser(findUser);
       const hardcoded = findUser?.transactions || [];
 
       const localTx =
@@ -49,6 +51,8 @@ const History = () => {
       setLoading(false);
     }
   }, [navigate]);
+
+  console.log(user, "user");
 
   const sortedTransactions = userData
     ? [...userData].sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -97,7 +101,11 @@ const History = () => {
           <div className="history-left">
             <div className="history-left-card">
               <h1>₹{totalAmount}</h1>
-              <span>Total Donated</span>
+              {user?.type === "institute" ? (
+                <span>Total Donations</span>
+              ) : (
+                <span>Total Donated</span>
+              )}
               <p>
                 {totalAmount === 0
                   ? "No Transactions"

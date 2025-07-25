@@ -50,6 +50,7 @@
   color: white;
   font-weight: 600;
   font-size: 20px;
+  margin: 0;
 }
 .history-left span {
   color: white;
@@ -60,6 +61,7 @@
   margin: 0;
   font-size: 14px;
   padding: 5px 20px;
+  margin-top: 5px;
 }
 .history-right {
   width: 50%;

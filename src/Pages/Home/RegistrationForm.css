@@ -1,0 +1,57 @@
+.multi-step-form {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.form-steps {
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* When active, slide to position */
+.step-0,
+.step-1,
+.step-2,
+.step-3,
+.step-4,
+.step-5,
+.step-6,
+.step-7 {
+  animation: slideIn 0.5s ease-in-out forwards;
+  animation-delay: .1s;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+.form-step .search__input {
+  margin-bottom: 10px;
+}
+.multi-step-form .responsiblity-btns{
+  margin-top: 10px;
+}
+.multi-step-form .responsiblity-btns p {
+  padding: 10px 0;
+}
+
+
+.form-step h6{
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color:#597445 ;
+}
+.form-step label{
+    font-size: 14px;
+    color:#597445 ;
+    width: 100%;
+}

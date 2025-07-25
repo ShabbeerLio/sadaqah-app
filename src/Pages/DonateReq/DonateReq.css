@@ -193,7 +193,7 @@
 .responsiblity-box {
   scale: 1;
   z-index: -2;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -225,7 +225,7 @@
 }
 
 .responsiblity-box.active {
-  z-index: 2;
+  z-index: 999998;
 }
 .responsiblity-box.active .responsiblity-box-item {
   scale: 1;
@@ -306,7 +306,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1000;
+  z-index: 999999;
 }
 
 .confirmation-backdrop {

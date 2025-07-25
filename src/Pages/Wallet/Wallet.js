@@ -63,7 +63,6 @@ const Wallet = () => {
         (tx) => tx.type && tx.type.toLowerCase() === "withdraw"
     );
 
-
     const filteredTransactions = withdrawTransactions.filter((tx) => {
         const inDateRange =
             (!filterRange.from || tx.date >= filterRange.from) &&
@@ -76,17 +75,20 @@ const Wallet = () => {
         return inDateRange && typeMatch;
     });
 
-    const totalAmount = filteredTransactions.reduce(
+     const totalAmount = filteredTransactions.reduce(
         (sum, tx) => sum + tx.amount,
         0
     );
 
-    const totalWithdraw = withdrawTransactions.reduce(
-        (sum, tx) => sum + tx.amount,
-        0
-    );
+    const totalDonation = sortedTransactions
+        .filter((tx) => tx.type?.toLowerCase() === "payment")
+        .reduce((sum, tx) => sum + tx.amount, 0);
 
-    const currentBalance = totalAmount - totalWithdraw;
+    const totalWithdraw = sortedTransactions
+        .filter((tx) => tx.type?.toLowerCase() === "withdraw")
+        .reduce((sum, tx) => sum + tx.amount, 0);
+
+    const currentBalance = totalDonation - totalWithdraw;
 
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
@@ -99,10 +101,9 @@ const Wallet = () => {
         );
     });
 
-    const thisMonthAmount = thisMonthTransactions.reduce(
-        (sum, tx) => sum + tx.amount,
-        0
-    );
+    const thisMonthWithdrawAmount = thisMonthTransactions
+    .filter((tx) => tx.type?.toLowerCase() === "withdraw")
+    .reduce((sum, tx) => sum + tx.amount, 0);
 
     if (!userData)
         return <div className="loading">Loading transaction history...</div>;
@@ -113,6 +114,8 @@ const Wallet = () => {
     const handleCloseDonet = () => {
         setDonateActive("");
     };
+
+    console.log(filteredTransactions,"filteredTransactions")
 
     return (
         <div className="Home">
@@ -129,21 +132,21 @@ const Wallet = () => {
                 <div className="history-box">
                     <div className="history-left">
                         <div className="history-left-card">
-                            <h1>₹{totalAmount}</h1>
-                            <span>Total Donated</span>
+                            <h1>₹{totalDonation}</h1>
+                            <span>Total Donations</span>
                             <p>
-                                {totalAmount === 0
+                                {totalDonation === 0
                                     ? "No Transactions"
-                                    : `${filteredTransactions.length} Transactions`}
+                                    : `${sortedTransactions.filter((tx) => tx.type?.toLowerCase() === "payment").length} Transactions`}
                             </p>
                         </div>
                         <div className="history-left-card">
-                            <h1>₹{thisMonthAmount}</h1>
-                            <span>This month</span>
+                            <h1>₹{thisMonthWithdrawAmount}</h1>
+                            <span>Total Withdraw</span>
                             <p>
-                                {thisMonthAmount === 0
+                                {thisMonthWithdrawAmount === 0
                                     ? "No Transactions"
-                                    : `${thisMonthTransactions.length} Transactions`}
+                                    : `${thisMonthTransactions.filter((tx) => tx.type?.toLowerCase() === "withdraw").length} Transactions`}
                             </p>
                         </div>
                     </div>
