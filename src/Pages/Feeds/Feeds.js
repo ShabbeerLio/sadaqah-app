@@ -4,10 +4,15 @@ import "./Feeds.css";
 import CombinedFeedData from "../AppData";
 import Searchbox from "../../Components/Searchbox/Searchbox";
 import { useNavigate } from "react-router-dom";
-import { h5 } from "framer-motion/client";
 import Filters from "../../Components/Filters/Filters";
+import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 const Feeds = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const postIdFromQuery = queryParams.get("postId");
+  const postRefs = useRef({});
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("authUser"));
@@ -97,6 +102,15 @@ const Feeds = () => {
     });
   }
 
+  useEffect(() => {
+    if (postIdFromQuery && postRefs.current[postIdFromQuery]) {
+      postRefs.current[postIdFromQuery].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [postIdFromQuery, filteredPosts]);
+
   return (
     <div className="Home">
       <div className="Home-main">
@@ -113,7 +127,14 @@ const Feeds = () => {
 
         <div className="Feeds-box">
           {filteredPosts.map((post, index) => (
-            <FeedCard key={index} post={post} />
+            <div
+              key={index}
+              ref={(el) => {
+                if (el) postRefs.current[post.id] = el;
+              }}
+            >
+              <FeedCard post={post} user={user}/>
+            </div>
           ))}
         </div>
       </div>

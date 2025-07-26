@@ -92,6 +92,23 @@
     object-fit: cover;
 }
 
+.gallery-item.add-post{
+    border: 1px solid #5974454b;
+    background-color: #59744547;
+    position: relative;
+}
+.gallery-item.add-post .plus-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.gallery-item.add-post svg{
+    font-size: 50px;
+    color: #597445;
+}
+
 @media only screen and (max-width: 680px) {
  .profile-gallery {
     display: grid;

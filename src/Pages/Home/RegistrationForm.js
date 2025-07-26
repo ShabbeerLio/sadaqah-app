@@ -11,7 +11,6 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
         institutionName: "",
         institutionType: "",
         yearEstablished: "",
-        jurisdiction: "",
 
         // Contact Details
         primaryContactName: "",
@@ -29,11 +28,6 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
         // Documents
         registrationCertificate: null,
         panCertificate: null,
-        accountHolder: "",
-        bankName: "",
-        accountNumber: "",
-        ifscCode: "",
-        upiId: "",
 
         // Media
         frontPhoto: null,
@@ -46,12 +40,12 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
         specialAppeals: "",
 
         // Social Media
-        facebook: "",
         website: "",
 
         // Nominee
         nomineeName: "",
         nomineeNumber: "",
+        nomineeEmail: "",
         nomineeRelation: "",
 
         // Consent
@@ -172,24 +166,12 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                             value={formData.yearEstablished}
                             onChange={handleChange}
                         />
-                        <label htmlFor="institutionName">Institution Jurisdiction</label>
-                        <select
-                            className="search__input"
-                            id="type"
-                            value={formData.jurisdiction}
-                            onChange={handleChange}
-                        >
-                            <option value=""></option>
-                            <option value="Sunni">Sunni</option>
-                            <option value="Shia">Shia</option>
-                            <option value="Other">Other</option>
-                        </select>
                     </div>
                 );
             case 1:
                 return (
                     <div className="form-step">
-                        <h6>Contact Details</h6>
+                        <h6>Contact Details (Sadar)</h6>
                         <label htmlFor="institutionName">Primary Contact Name</label>
                         <input
                             type="number"
@@ -293,47 +275,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                             name="panCertificate"
                             onChange={handleChange}
                         />
-                        <label htmlFor="institutionName">Account Holder Name</label>
-                        <input
-                            className="search__input"
-                            name="accountHolder"
-                            // placeholder="Account Holder Name"
-                            value={formData.accountHolder}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="institutionName">Bank Name</label>
-                        <input
-                            className="search__input"
-                            name="bankName"
-                            // placeholder="Bank Name"
-                            value={formData.bankName}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="institutionName">Account Number</label>
-                        <input
-                            type="number"
-                            className="search__input"
-                            name="accountNumber"
-                            // placeholder="Account Number"
-                            value={formData.accountNumber}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="institutionName">IFSC Code</label>
-                        <input
-                            className="search__input"
-                            name="ifscCode"
-                            // placeholder="IFSC Code"
-                            value={formData.ifscCode}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="institutionName">UPI ID</label>
-                        <input
-                            className="search__input"
-                            name="upiId"
-                            // placeholder="UPI ID"
-                            value={formData.upiId}
-                            onChange={handleChange}
-                        />
+                        
                     </div>
                 );
             case 4:
@@ -391,14 +333,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                             value={formData.specialAppeals}
                             onChange={handleChange}
                         />
-                        <label htmlFor="institutionName">Facebook / Instagram</label>
-                        <input
-                            className="search__input"
-                            name="facebook"
-                            //   placeholder="Facebook / Instagram"
-                            value={formData.facebook}
-                            onChange={handleChange}
-                        />
+
                         <label htmlFor="institutionName">Website URL</label>
                         <input
                             className="search__input"
@@ -415,6 +350,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                         <h6>Nominee</h6>
                         <label htmlFor="institutionName">Nominee Name</label>
                         <input
+                        type="name"
                             className="search__input"
                             name="nomineeName"
                             //   placeholder="Nominee Name"
@@ -423,10 +359,20 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                         />
                         <label htmlFor="institutionName">Nominee Number</label>
                         <input
+                        type="number"
                             className="search__input"
                             name="nomineeNumber"
                             //   placeholder="Nominee Number"
                             value={formData.nomineeNumber}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="institutionName">Nominee Email</label>
+                        <input
+                        type="email"
+                            className="search__input"
+                            name="nomineeEmail"
+                            //   placeholder="Relation to Institution"
+                            value={formData.nomineeEmail}
                             onChange={handleChange}
                         />
                         <label htmlFor="institutionName">Relation to Institution</label>

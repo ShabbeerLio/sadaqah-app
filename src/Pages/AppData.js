@@ -125,6 +125,13 @@ const CombinedFeedData = [
         date: "2025-07-01",
         type: "payment",
       },
+      {
+        id: 3,
+        name: "UPI4943223",
+        amount: 100,
+        date: "2025-07-15",
+        type: "withdraw",
+      },
     ],
     posts: [
       {
@@ -135,7 +142,7 @@ const CombinedFeedData = [
         time: "2025-05-11",
         title: "Surah Al-Fatiha",
         description: "Opening chapter of the Quran with deep meanings.",
-        image: [post1, post2, post3],
+        image: [post1],
       },
       {
         id: 2,
@@ -294,7 +301,7 @@ const CombinedFeedData = [
         time: "2025-05-01",
         title: "Maintenance Update",
         description: "The kabristan will be closed for maintenance on Friday.",
-        image: [post2, post2],
+        image: [post2],
       },
     ],
   },

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Profile.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CombinedFeedData from "../AppData";
+import { IoIosAdd } from "react-icons/io";
 
 const Profile = () => {
   const { id } = useParams();
@@ -56,24 +57,27 @@ const Profile = () => {
                   </span>
                 )}
                 {data.followers && (
-                  <span>
+                  <span
+                    onClick={() =>
+                      navigate(`/connections/${data.username}?type=followers`)
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
                     <strong>{data.followers} </strong>
                     followers
                   </span>
                 )}
                 {data.following && (
-                  <span>
+                  <span
+                    onClick={() =>
+                      navigate(`/connections/${data.username}?type=following`)
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
                     <strong>{data.following} </strong>
                     following
                   </span>
                 )}
-
-                {/* <span>
-                  <strong>
-                    {data.followers ? data.followers : data.following}
-                  </strong>
-                  {id ? "followers" : "following"}
-                </span> */}
               </div>
             </div>
           </div>
@@ -119,22 +123,43 @@ const Profile = () => {
           </div>
 
           <div className="profile-gallery">
+            {/* First + Box for Institute */}
+            {!id && user.type === "institute" && (
+              <div
+                className="gallery-item add-post"
+                onClick={() => navigate("/add-feed")}
+                title="Add New Post"
+              >
+                <div className="plus-icon">
+                  {" "}
+                  <IoIosAdd />
+                </div>
+              </div>
+            )}
+
+            {/* Existing Posts */}
             {data?.posts?.map((i) => (
-              <div className="gallery-item" key={i.id}>
+              <div
+                className="gallery-item"
+                key={i.id}
+                onClick={() => navigate(`/feeds?postId=${i.id}`)}
+                style={{ cursor: "pointer" }}
+              >
                 <img src={i.image[0]} alt="" />
               </div>
             ))}
           </div>
           {!id ? (
             <p
-            style={{ marginTop: "1rem" }}
-            onClick={handleLogout}
-            className="highlight"
-          >
-            Log Out
-          </p>
-          ) :("")}
-          
+              style={{ marginTop: "1rem" }}
+              onClick={handleLogout}
+              className="highlight"
+            >
+              Log Out
+            </p>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

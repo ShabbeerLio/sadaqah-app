@@ -59,7 +59,6 @@
   justify-content: space-between;
   padding: 10px 14px;
   align-items: center;
-  margin-top: 10px;
 }
 
 .left-icons {
@@ -102,5 +101,5 @@
 }
 
 .feedcard-carousel .slick-dots {
-    bottom: -4% !important;
+    bottom: -3% !important;
 }
