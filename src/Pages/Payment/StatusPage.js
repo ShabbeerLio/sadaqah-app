@@ -4,6 +4,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { LuCircleCheck } from "react-icons/lu";
 import "./StatusPage.css";
 import ads from "../../Assets/Ads/ads.jpg"
+import Checkbox from "../Items/Checkbox";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const StatusPage = () => {
     const { state } = useLocation();
@@ -36,6 +38,7 @@ const StatusPage = () => {
         paymentDate,
         transactionId,
         success,
+        type,
     } = state;
 
     const handleGoBack = () => navigate(-1);
@@ -45,7 +48,15 @@ const StatusPage = () => {
         paymentMode,
         paymentDate,
         transactionId,
-        success, "data")
+        success,
+        type, "data")
+
+    console.warn = (message) =>
+        message.includes("Buffer size mismatch") ? null : console.warn(message);
+
+    const handleDone = () => {
+        navigate("/");
+    }
 
     return (
         <div className="sadaqah-container">
@@ -55,12 +66,37 @@ const StatusPage = () => {
             </button>
 
             <div className={`status-box ${success ? "success" : "failure"}`}>
-                <h2>{success ? "Payment Success!" : "Payment Failed!"}</h2>
-                <p className="status-message">
+                <div className="status-message">
                     {success
-                        ? "Your payment has been successfully done"
-                        : "Your payment has been declined by your bank"}
-                </p>
+                        ?
+                        <>
+                            <div className="wallet-status">
+                                <DotLottieReact
+                                    className="wallet-success"
+                                    src="https://lottie.host/b08d0607-b021-4196-ba76-e6596d9332e5/o1EFjMW31w.lottie"
+                                    loop
+                                    autoplay
+                                    onError={(e) => console.error("Lottie load error:", e)}
+                                />
+                            </div>
+                            <h2>{type === "withdraw" ? "Withdraw" : "Payment"} Success!</h2>
+                            "Your payment has been successfully done"
+                        </>
+                        :
+                        <>
+                            <div className="wallet-status">
+                                <DotLottieReact
+                                    className="wallet-success"
+                                    src="https://lottie.host/8203a740-c8fe-46c5-98b0-88ee09d7ebc4/NUreWbpTSD.lottie"
+                                    loop
+                                    autoplay
+                                    onError={(e) => console.error("Lottie load error:", e)}
+                                />
+                            </div>
+                            <h2>Payment Failed!</h2>
+                            "Your payment has been declined by your bank"
+                        </>}
+                </div>
                 {/* <p className="status-message" style={{ textAlign: "center", marginTop: "10px" }}>
                     Redirecting to homepage in {timeLeft} seconds...
                 </p> */}
@@ -100,7 +136,7 @@ const StatusPage = () => {
                     />
 
                     {success ? (
-                        <button className="invoice-btn">Download Invoice</button>
+                        <button className="invoice-btn" onClick={handleDone}>Close</button>
                     ) : (
                         <button className="try-again-btn" onClick={() => navigate(-1)}>
                             Try Again
@@ -112,37 +148,7 @@ const StatusPage = () => {
                     <div className="reminder-box">
                         <div className="reminder-bot-top">
                             <div className="reminder-bot-detail">
-                                <label className="neon-checkbox">
-                                    <input type="checkbox" />
-                                    <div className="neon-checkbox__frame">
-                                        <div className="neon-checkbox__box">
-                                            <div className="neon-checkbox__check-container">
-                                                <svg viewBox="0 0 24 24" className="neon-checkbox__check">
-                                                    <path d="M3,12.5l7,7L21,5"></path>
-                                                </svg>
-                                            </div>
-                                            <div className="neon-checkbox__glow"></div>
-                                            <div className="neon-checkbox__borders">
-                                                <span></span><span></span><span></span><span></span>
-                                            </div>
-                                        </div>
-                                        <div className="neon-checkbox__effects">
-                                            <div className="neon-checkbox__particles">
-                                                <span></span><span></span><span></span><span></span> <span></span
-                                                ><span></span><span></span><span></span> <span></span><span></span
-                                                ><span></span><span></span>
-                                            </div>
-                                            <div className="neon-checkbox__rings">
-                                                <div className="ring"></div>
-                                                <div className="ring"></div>
-                                                <div className="ring"></div>
-                                            </div>
-                                            <div className="neon-checkbox__sparks">
-                                                <span></span><span></span><span></span><span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
+                                <Checkbox checked={""} onChange={""} setWithdrawAmount={""} currentBalance={""} />
                             </div>
                             <div className="reminder-bot-detail">
                                 <h4>{institute?.username ? institute?.username : institute}</h4>

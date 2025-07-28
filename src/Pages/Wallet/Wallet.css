@@ -55,42 +55,51 @@
   align-items: center;
   gap: 10px;
 }
+.wallet-withdraw-checkbox p{
+  margin: 0;
+  width: 92%;
+}
 
-.verification-success{
-    width: 100%;
-    text-align: center;
+.verification-success {
+  width: 100%;
+  text-align: center;
 }
-.verification-success .Ads{
-    margin: 0;
-    margin-top: 1rem;
-            height: 15vh;
+.verification-success .Ads {
+  margin: 0;
+  margin-top: 1rem;
+  height: 15vh;
 }
-.verification-success .wallet-success{
-    width: 30%;
-    object-fit: cover;
+
+ .wallet-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+.wallet-success {
+  width: 70%;
 }
-.wallet-note{
-        padding: 1rem;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+.wallet-note {
+  padding: 1rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
 }
-.wallet-note h6{
-    text-align: left;
-    color: red;
-    border-bottom: 1px solid #597445;
-    padding-bottom: 5px;
+.wallet-note h6 {
+  text-align: left;
+  color: red;
+  border-bottom: 1px solid #597445;
+  padding-bottom: 5px;
 }
-.wallet-note ul{
-        padding-left:15px;
-        margin: 0;
+.wallet-note ul {
+  padding-left: 15px;
+  margin: 0;
 }
-.wallet-note ul li{
-       text-align: left;
-       font-size: 14px;
+.wallet-note ul li {
+  text-align: left;
+  font-size: 14px;
 }
-.wallet-note ul li a{
-       font-weight: 600;
-       color: black;
-       text-decoration: none;
+.wallet-note ul li a {
+  font-weight: 600;
+  color: black;
+  text-decoration: none;
 }

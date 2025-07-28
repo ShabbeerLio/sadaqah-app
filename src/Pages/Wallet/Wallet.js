@@ -10,6 +10,11 @@ import { IoIosClose } from "react-icons/io";
 import { LuWalletMinimal } from "react-icons/lu";
 import Ads from "../../Components/Ads/Ads";
 import success from "../../Assets/tick green.gif"
+import failed1 from "../../Assets/Icon Failed.gif"
+import failed2 from "../../Assets/Icon Failed (1).gif"
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import Checkbox from "../Items/Checkbox";
+
 
 
 const Wallet = () => {
@@ -158,13 +163,15 @@ const Wallet = () => {
                 setVerificationSuccess(false);
                 setDonateActive("");
                 setIsVerified(true);
-            }, 5000);
+            }, 10000);
         } else {
             alert("Please fill all fields correctly.");
         }
     };
 
     const handleWithdrawSubmit = () => {
+        const authUser = JSON.parse(localStorage.getItem("authUser"));
+
         if (
             !withdrawAmount ||
             isNaN(withdrawAmount) ||
@@ -175,15 +182,62 @@ const Wallet = () => {
             return;
         }
 
-        setWithdrawSuccess(true);
-        // simulate API or transaction save logic here...
+        const isSuccess = Math.random() < 0.95;
+        const withdrawDate = new Date().toISOString().split("T")[0];
+        const transactionId = "#WD" + Math.floor(Math.random() * 1000000);
 
+        const newWithdraw = {
+            id: Date.now(),
+            name: authUser.username,
+            amount: Number(withdrawAmount),
+            date: withdrawDate,
+            type: "withdraw",
+            transactionId,
+            success: isSuccess,
+            paymentMode: "Bank Transfer",
+            institute: null, // or target institute if needed
+        };
+
+        // Save to USER transactions
+        const userKey = `userTransactions-${authUser.id}`;
+        const existingUserTx = JSON.parse(localStorage.getItem(userKey)) || [];
+        existingUserTx.push(newWithdraw);
+        localStorage.setItem(userKey, JSON.stringify(existingUserTx));
+        const updatedTxs = [...sortedTransactions, newWithdraw];
+        setUserData(updatedTxs);
+
+        // Optional: Save to a global institute or admin tracking
+        const adminKey = `instituteTransactions-admin`;
+        const adminTx = JSON.parse(localStorage.getItem(adminKey)) || [];
+        adminTx.push({ ...newWithdraw, name: authUser.username });
+        localStorage.setItem(adminKey, JSON.stringify(adminTx));
+
+        // Show confirmation
+        setWithdrawSuccess(true);
         setTimeout(() => {
             setWithdrawSuccess(false);
             setDonateActive("");
             setWithdrawAmount("");
             setUseFullBalance(false);
-        }, 20000);
+        }, 10000);
+    };
+
+    const handleCardClick = (tx) => {
+        navigate("/status", {
+            state: {
+                institute: {
+                    username: tx?.institute?.username || tx.name,
+                    location: tx?.institute?.location || tx.location || "Delhi",
+                    avatar: tx?.institute?.avatar || nofund,
+                },
+                total: tx.amount,
+                paymentMode: tx.paymentMode || "UPI",
+                paymentDate: tx.date,
+                transactionId: tx.id,
+                success: tx?.success || "true",
+                type: tx?.type || "payment",
+            },
+        });
     };
     return (
         <div className="Home">
@@ -235,7 +289,7 @@ const Wallet = () => {
                                     </>
                                 ) : (
                                     filteredTransactions.map((tx) => (
-                                        <HistoryCard key={tx.id} tx={tx} />
+                                        <HistoryCard key={tx.id} tx={tx} onClick={handleCardClick} />
                                     ))
                                 )}
                             </>
@@ -338,7 +392,15 @@ const Wallet = () => {
                             <div className="post-card">
                                 {withdrawSuccess ? (
                                     <div className="verification-success">
-                                        <img className="wallet-success" src={success} alt="" />
+                                        <div className="wallet-status">
+                                            <DotLottieReact
+                                                className="wallet-success"
+                                                src="https://lottie.host/b08d0607-b021-4196-ba76-e6596d9332e5/o1EFjMW31w.lottie"
+                                                loop
+                                                autoplay
+                                            />
+                                        </div>
+                                        {/* <img className="wallet-success" src={failed2} alt="" /> */}
                                         <p className="success-msg">Withdraw request for ₹{withdrawAmount} submitted successfully! You will get the update</p>
                                         <div className="wallet-note">
                                             <h6>Note</h6>
@@ -354,50 +416,7 @@ const Wallet = () => {
                                     </div>
                                 ) : (
                                     <>
-
-                                        <div className="wallet-withdraw-checkbox">
-                                            <label className="neon-checkbox">
-                                                <input type="checkbox"
-                                                    checked={useFullBalance}
-                                                    onChange={(e) => {
-                                                        setUseFullBalance(e.target.checked);
-                                                        if (e.target.checked) {
-                                                            setWithdrawAmount(currentBalance);
-                                                        } else {
-                                                            setWithdrawAmount("");
-                                                        }
-                                                    }} />
-                                                <div className="neon-checkbox__frame">
-                                                    <div className="neon-checkbox__box">
-                                                        <div className="neon-checkbox__check-container">
-                                                            <svg viewBox="0 0 24 24" className="neon-checkbox__check">
-                                                                <path d="M3,12.5l7,7L21,5"></path>
-                                                            </svg>
-                                                        </div>
-                                                        <div className="neon-checkbox__glow"></div>
-                                                        <div className="neon-checkbox__borders">
-                                                            <span></span><span></span><span></span><span></span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="neon-checkbox__effects">
-                                                        <div className="neon-checkbox__particles">
-                                                            <span></span><span></span><span></span><span></span> <span></span
-                                                            ><span></span><span></span><span></span> <span></span><span></span
-                                                            ><span></span><span></span>
-                                                        </div>
-                                                        <div className="neon-checkbox__rings">
-                                                            <div className="ring"></div>
-                                                            <div className="ring"></div>
-                                                            <div className="ring"></div>
-                                                        </div>
-                                                        <div className="neon-checkbox__sparks">
-                                                            <span></span><span></span><span></span><span></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                            Withdraw Full Balance
-                                        </div>
+                                        <Checkbox checked={useFullBalance} onChange={setUseFullBalance} setWithdrawAmount={setWithdrawAmount} currentBalance={currentBalance} text={"Withdraw Full Balance"} />
 
                                         <label>Enter Withdraw Amount:</label>
                                         <input

@@ -58,27 +58,20 @@ const Payment = () => {
       percentage = 3;
       fee = amount * 0.03;
     } else if (amount <= 2000) {
-      // percentage = 2;
-      // fee = amount * 0.02;
       percentage = (25 / amount) * 100;
       fee = 25;
     } else if (amount <= 3000) {
-      // percentage = 2;
-      // fee = amount * 0.02;
       percentage = (30 / amount) * 100;
       fee = 30;
     } else if (amount <= 4000) {
-      // percentage = 2;
-      // fee = amount * 0.02;
       fee = 40;
       percentage = (40 / amount) * 100;
     } else {
-      // fee = amount * 0.01;
       percentage = (50 / amount) * 100;
       fee = 50;
       if (fee > 50) {
         fee = 50;
-        percentage = (50 / amount) * 100; // recalculate actual applied %
+        percentage = (50 / amount) * 100; 
       }
     }
 
@@ -114,6 +107,8 @@ const Payment = () => {
       date: paymentDate,
       type: "payment",
       transactionId,
+      success: isSuccess,
+      institute: selectedInstitute,
     };
 
     // Save to USER transactions
@@ -242,32 +237,6 @@ const Payment = () => {
             <IoIosArrowBack />
             <h5>Selected Institute</h5>
           </button>
-          {/* <div className="custom-dropdown" ref={dropdownRef}>
-            <div className="dropdown-selected" onClick={() => setDropdownOpen(!dropdownOpen)}>
-              <div className="dropdown-option">
-                <img src={selectedInstitute.avatar || "/default-avatar.png"} alt="avatar" />
-                <span>{selectedInstitute.username} ({selectedInstitute.location})</span>
-              </div>
-              <span className="arrow">{dropdownOpen ? "▲" : "▼"}</span>
-            </div>
-            {dropdownOpen && (
-              <div className="institute-dropdown">
-                {institutes.map((inst) => (
-                  <div
-                    key={inst.id}
-                    className="dropdown-option"
-                    onClick={() => {
-                      setSelectedInstituteId(String(inst.id));
-                      setDropdownOpen(false);
-                    }}
-                  >
-                    <img src={inst.avatar || "/default-avatar.png"} alt="avatar" />
-                    <span>{inst.username} ({inst.location})</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div> */}
         </div>
       )}
 
@@ -338,17 +307,6 @@ const Payment = () => {
                   </div>
                 </label>
                  Platform Fee ({percentage.toFixed(2)}%)
-
-                {/* <label className="checkbox-btn">
-                  <label htmlFor="checkbox"></label>
-                  <input
-                    type="checkbox"
-                    checked={includeFee}
-                    onChange={() => setIncludeFee(!includeFee)}
-                  />
-                  Platform Fee ({percentage.toFixed(2)}%)
-                  <span className="checkmark"></span>
-                </label> */}
               </div>
               <p>₹ {fee.toFixed(2)}</p>
             </div>

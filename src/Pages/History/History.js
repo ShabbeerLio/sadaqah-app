@@ -52,8 +52,6 @@ const History = () => {
     }
   }, [navigate]);
 
-  console.log(user, "user");
-
   const sortedTransactions = userData
     ? [...userData].sort((a, b) => new Date(b.date) - new Date(a.date))
     : [];
@@ -70,10 +68,9 @@ const History = () => {
     return inDateRange && typeMatch;
   });
 
-  const totalAmount = filteredTransactions.reduce(
-    (sum, tx) => sum + tx.amount,
-    0
-  );
+  const totalAmount = filteredTransactions
+  .filter((tx) => tx.type?.toLowerCase() === "payment")
+  .reduce((sum, tx) => sum + tx.amount, 0);
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -86,13 +83,32 @@ const History = () => {
     );
   });
 
-  const thisMonthAmount = thisMonthTransactions.reduce(
-    (sum, tx) => sum + tx.amount,
-    0
-  );
+  const thisMonthAmount = thisMonthTransactions
+  .filter((tx) => tx.type?.toLowerCase() === "payment")
+  .reduce((sum, tx) => sum + tx.amount, 0);
 
   if (!userData)
     return <div className="loading">Loading transaction history...</div>;
+
+  // console.log(filteredTransactions,"filteredTransactions")
+
+  const handleCardClick = (tx) => {
+    navigate("/status", {
+      state: {
+        institute: {
+          username: tx?.institute?.username || tx.name,
+          location: tx?.institute?.location || tx.location || "Delhi",
+          avatar: tx?.institute?.avatar || nofund,
+        },
+        total: tx.amount,
+        paymentMode: tx.paymentMode || "UPI",
+        paymentDate: tx.date,
+        transactionId: tx.id,
+        success: tx?.success || "true",
+        type: tx?.type || "payment",
+      },
+    });
+  };
 
   return (
     <div className="Home">
@@ -137,7 +153,11 @@ const History = () => {
                   </>
                 ) : (
                   filteredTransactions.map((tx) => (
-                    <HistoryCard key={tx.id} tx={tx} />
+                    <HistoryCard
+                      key={tx.id}
+                      tx={tx}
+                      onClick={handleCardClick}
+                    />
                   ))
                 )}
               </>

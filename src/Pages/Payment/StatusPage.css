@@ -101,7 +101,7 @@
     border-radius: 20px;
     padding: 10px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 10px;
 }
 .reminder-bot-detail svg{

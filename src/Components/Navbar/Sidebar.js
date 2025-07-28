@@ -83,8 +83,8 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                 </div>
                 <div className="sidebar-bottom">
                     <div className="sidebar-career">
-                        <h5>Earn Money With Us!</h5>
-                        <p>Become a Worker</p>
+                        <h5>Join Our Team!</h5>
+                        <p>Become a Member</p>
                         <Link onClick={handleProfile} to={"/career"}>Career</Link>
                         <img src={career} alt="" />
                     </div>

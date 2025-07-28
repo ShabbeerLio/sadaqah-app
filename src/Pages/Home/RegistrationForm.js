@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./RegistrationForm.css";
+import Checkbox from "../Items/Checkbox";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const RegistrationForm = ({ handlecloseTakeRes }) => {
     const user = JSON.parse(localStorage.getItem("authUser"));
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
     const totalSteps = user?.type === "user" ? 1 : 8;
     console.log(user)
@@ -36,8 +40,6 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
 
         // Profile
         description: "",
-        regularNeeds: "",
-        specialAppeals: "",
 
         // Social Media
         website: "",
@@ -79,52 +81,95 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
             return;
         }
 
-        const formPayload = new FormData();
-        for (const key in formData) {
-            formPayload.append(key, formData[key]);
-        }
+        setIsProcessing(true);
 
-        alert("Form Submitted Successfully");
-        handlecloseTakeRes()
-        // fetch("/api/submitInstitution", {
-        //     method: "POST",
-        //     body: formPayload,
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //     })
-        //     .catch((err) => console.error(err));
+        // Simulate form submission delay (e.g., API call)
+        setTimeout(() => {
+            const formPayload = new FormData();
+            for (const key in formData) {
+                formPayload.append(key, formData[key]);
+            }
+
+            // Simulated API call:
+            // fetch("/api/submitInstitution", {
+            //     method: "POST",
+            //     body: formPayload,
+            // })
+            //     .then((res) => res.json())
+            //     .then((data) => {
+            //         setIsSubmitted(true);
+            //         setIsProcessing(false);
+            //         handlecloseTakeRes();
+            //     })
+            //     .catch((err) => {
+            //         console.error(err);
+            //         setIsProcessing(false);
+            //     });
+
+            // For now:
+            setIsProcessing(false);
+            setIsSubmitted(true);
+            setTimeout(() => {
+                handlecloseTakeRes();
+            }, 5000)
+
+        }, 5000); // Simulated delay
     };
+
+    if (isProcessing) {
+        return (
+            <div className="form-step">
+                <div className="wallet-status">
+                    <DotLottieReact
+                        className="wallet-success"
+                        src="https://lottie.host/a42c9eba-8572-4354-9fb0-e0e1bfaf89dd/0Y4lT7fZbk.lottie"
+                        loop
+                        autoplay
+                    />
+                </div>
+                <h5>Submitting your data...</h5>
+                <p>Please wait while we process your form.</p>
+            </div>
+        );
+    }
+
+    if (isSubmitted) {
+        return (
+            <div className="form-step">
+                <div className="wallet-status">
+                    <DotLottieReact
+                        className="wallet-success"
+                        src="https://lottie.host/b08d0607-b021-4196-ba76-e6596d9332e5/o1EFjMW31w.lottie"
+                        loop
+                        autoplay
+                    />
+                </div>
+                <h5>Form Submitted Successfully!</h5>
+                <p>Thank you. Your data has been successfully submitted.</p>
+            </div>
+        );
+    }
 
     const renderStep = () => {
         if (user?.type === "user") {
             return (
                 <>
-                    <div className="form-step">
+                 <div className="form-step">
                         <h6>Consent</h6>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="verificationAgreement"
-                                checked={formData.verificationAgreement}
-                                onChange={handleChange}
-                            />
-                            I authorize platform agent to visit and verify this institution
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="consentDeclaration"
-                                checked={formData.consentDeclaration}
-                                onChange={handleChange}
-                            />
-                            All provided information is true and verified.
-                        </label>
+                        <div className="form-consent">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
+                        </div>
+                        <div className="form-consent-checkbox">
+                            <Checkbox name={"verificationAgreement"} checked={formData.verificationAgreement} handleChange={handleChange} text={"I authorize platform agent to visit and verify this institution"} />
+                            <Checkbox name={"consentDeclaration"} checked={formData.consentDeclaration} handleChange={handleChange} text={"All provided information is true and verified."} />
+                        </div>
                     </div>
+                    
                     <div className="responsiblity-btns">
-                            <p className="confirm" onClick={handleSubmit}>
-                                Submit
-                            </p>
+                        <p className="confirm" onClick={handleSubmit}>
+                            Submit
+                        </p>
                     </div>
                 </>
             );
@@ -275,7 +320,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                             name="panCertificate"
                             onChange={handleChange}
                         />
-                        
+
                     </div>
                 );
             case 4:
@@ -317,22 +362,6 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                             value={formData.description}
                             onChange={handleChange}
                         />
-                        <label htmlFor="institutionName">Regular Needs</label>
-                        <input
-                            className="search__input"
-                            name="regularNeeds"
-                            //   placeholder="Regular Needs"
-                            value={formData.regularNeeds}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor="institutionName">Special Appeals</label>
-                        <input
-                            className="search__input"
-                            name="specialAppeals"
-                            //   placeholder="Special Appeals"
-                            value={formData.specialAppeals}
-                            onChange={handleChange}
-                        />
 
                         <label htmlFor="institutionName">Website URL</label>
                         <input
@@ -350,7 +379,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                         <h6>Nominee</h6>
                         <label htmlFor="institutionName">Nominee Name</label>
                         <input
-                        type="name"
+                            type="name"
                             className="search__input"
                             name="nomineeName"
                             //   placeholder="Nominee Name"
@@ -359,7 +388,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                         />
                         <label htmlFor="institutionName">Nominee Number</label>
                         <input
-                        type="number"
+                            type="number"
                             className="search__input"
                             name="nomineeNumber"
                             //   placeholder="Nominee Number"
@@ -368,7 +397,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                         />
                         <label htmlFor="institutionName">Nominee Email</label>
                         <input
-                        type="email"
+                            type="email"
                             className="search__input"
                             name="nomineeEmail"
                             //   placeholder="Relation to Institution"
@@ -389,24 +418,14 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                 return (
                     <div className="form-step">
                         <h6>Consent</h6>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="verificationAgreement"
-                                checked={formData.verificationAgreement}
-                                onChange={handleChange}
-                            />
-                            I authorize platform agent to visit and verify this institution
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="consentDeclaration"
-                                checked={formData.consentDeclaration}
-                                onChange={handleChange}
-                            />
-                            All provided information is true and verified.
-                        </label>
+                        <div className="form-consent">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
+                        </div>
+                        <div className="form-consent-checkbox">
+                            <Checkbox name={"verificationAgreement"} checked={formData.verificationAgreement} handleChange={handleChange} text={"I authorize platform agent to visit and verify this institution"} />
+                            <Checkbox name={"consentDeclaration"} checked={formData.consentDeclaration} handleChange={handleChange} text={"All provided information is true and verified."} />
+                        </div>
                     </div>
                 );
             default:
@@ -422,7 +441,7 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                 </div>
                 <div className="responsiblity-btns">
                     {currentStep > 0 && <p onClick={handlePrevious}>Previous</p>}
-                    {currentStep === 7 && (
+                    {currentStep === 7 && !isProcessing && !isSubmitted && (
                         <p className="confirm" onClick={handleSubmit}>
                             Submit
                         </p>

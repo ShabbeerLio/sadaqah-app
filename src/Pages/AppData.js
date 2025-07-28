@@ -128,6 +128,7 @@ const CombinedFeedData = [
       {
         id: 3,
         name: "UPI4943223",
+        transactionId: "UPI4943223",
         amount: 100,
         date: "2025-07-15",
         type: "withdraw",
@@ -184,6 +185,7 @@ const CombinedFeedData = [
       {
         id: 3,
         name: "UPI4943223",
+        transactionId: "UPI4943223",
         amount: 500,
         date: "2025-07-15",
         type: "withdraw",
@@ -240,6 +242,7 @@ const CombinedFeedData = [
       {
         id: 3,
         name: "UPI4943223",
+        transactionId: "UPI4943223",
         amount: 1000,
         date: "2025-07-15",
         type: "withdraw",
@@ -287,6 +290,7 @@ const CombinedFeedData = [
       {
         id: 3,
         name: "UPI4943223",
+        transactionId: "UPI4943223",
         amount: 800,
         date: "2025-07-15",
         type: "withdraw",
