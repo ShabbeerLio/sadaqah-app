@@ -76,3 +76,8 @@
     color:#597445 ;
     width: 100%;
 }
+
+.form-consent-checkbox{
+    display: grid;
+    gap: 8px;
+}
