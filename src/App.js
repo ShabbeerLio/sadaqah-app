@@ -33,6 +33,7 @@ import About from "./Pages/Extra/About";
 import PrivacyPolicy from "./Pages/Extra/PrivacyPolicy";
 import TermsAndConditions from "./Pages/Extra/TermsAndConditions";
 import ReturnRefund from "./Pages/Extra/ReturnRefund";
+import Career from "./Pages/Extra/Career";
 
 function App() {
   return (
@@ -96,6 +97,7 @@ function MainLayout() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/term-and-conditions" element={<TermsAndConditions />} />
         <Route path="/return-refund" element={<ReturnRefund />} />
+        <Route path="/career" element={<Career />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>
