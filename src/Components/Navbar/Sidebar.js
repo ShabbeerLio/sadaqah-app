@@ -59,22 +59,22 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                 <div className="sidebar-items">
                     <ul>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <IoMdHelpCircleOutline />Help</Link>
-                        </li>
-                        <li>
                             <Link onClick={handleProfile} to={"/about"}> <IoMdInformationCircleOutline />About Us</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <MdOutlinePayments /> Payments</Link>
+                            <Link onClick={handleProfile} to={"/help"}> <IoMdHelpCircleOutline />Help</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <MdOutlinePrivacyTip />Privacy Policy</Link>
+                            <Link onClick={handleProfile} to={"/history"}> <MdOutlinePayments /> Payments</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <LuNewspaper />Term And Conditions</Link>
+                            <Link onClick={handleProfile} to={"/privacy-policy"}> <MdOutlinePrivacyTip />Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/"}> <TbCreditCardRefund />Return And Refund</Link>
+                            <Link onClick={handleProfile} to={"/term-and-conditions"}> <LuNewspaper />Term And Conditions</Link>
+                        </li>
+                        <li>
+                            <Link onClick={handleProfile} to={"/return-refund"}> <TbCreditCardRefund />Return And Refund</Link>
                         </li>
                         {/* <li>
                             <Link onClick={handleProfile} to={"/"}> <MdWorkOutline />Carrier</Link>

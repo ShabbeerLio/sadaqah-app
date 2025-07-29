@@ -17,7 +17,7 @@ import Loading from "./Components/Loading/Loading";
 import Feeds from "./Pages/Feeds/Feeds";
 import ProfileEdit from "./Pages/Profile/ProfileEdit";
 import Search from "./Pages/Search/Search";
-import Help from "./Pages/Help/Help";
+import Help from "./Pages/Extra/Help";
 import Notification from "./Pages/Notification/Notification";
 import ZakatCalculator from "./Pages/Calculator/Calculator";
 import Payment from "./Pages/Payment/Payment";
@@ -29,6 +29,10 @@ import Suggest from "./Pages/Suggest/Suggest";
 import DonationReqDetail from "./Pages/DonateReq/DonationReqDetail";
 import AddFeeds from "./Pages/AddFeeds/AddFeeds";
 import Wallet from "./Pages/Wallet/Wallet";
+import About from "./Pages/Extra/About";
+import PrivacyPolicy from "./Pages/Extra/PrivacyPolicy";
+import TermsAndConditions from "./Pages/Extra/TermsAndConditions";
+import ReturnRefund from "./Pages/Extra/ReturnRefund";
 
 function App() {
   return (
@@ -88,6 +92,10 @@ function MainLayout() {
         <Route path="/suggest" element={<Suggest />} />
         <Route path="/add-feed" element={<AddFeeds />} />
         <Route path="/wallet" element={<Wallet />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/term-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/return-refund" element={<ReturnRefund />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

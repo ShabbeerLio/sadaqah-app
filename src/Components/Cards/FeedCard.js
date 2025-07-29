@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import Slider from "react-slick";
 import "./FeedCard.css";
 import { GoHeart, GoPaperAirplane } from "react-icons/go";
@@ -6,7 +6,7 @@ import { LuMessageCircle, LuBookmark } from "react-icons/lu";
 import defaultimg from "../../Assets/Posts/vecteezy_holy-book-quran-and-tasbih-isolated-on-white-background_5714464.jpg";
 import hadith from "../../Assets/Posts/hadith.png";
 
-const FeedCard = ({ index, post }) => {
+const FeedCard = forwardRef(({ index, post }, ref) => {
   const [showFull, setShowFull] = useState(false);
 
   const sliderSettings = {
@@ -15,12 +15,14 @@ const FeedCard = ({ index, post }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
   };
 
   // console.log(post,"post")
 
   return (
-    <div className="feedcard" key={index}>
+    <div ref={ref} className="feedcard" key={index} >
       {/* Header */}
       <div className="feedcard-header">
         <img src={post.avatar} alt="avatar" className="avatar" />
@@ -157,6 +159,6 @@ const FeedCard = ({ index, post }) => {
       <span className="time">{post.daysAgo}</span>
     </div>
   );
-};
+});
 
 export default FeedCard;

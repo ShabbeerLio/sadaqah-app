@@ -12,6 +12,8 @@ const Feeds = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const postIdFromQuery = queryParams.get("postId");
+
+  console.log(postIdFromQuery,"postIdFromQuery")
   const postRefs = useRef({});
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
@@ -127,14 +129,14 @@ const Feeds = () => {
 
         <div className="Feeds-box">
           {filteredPosts.map((post, index) => (
-            <div
+            <FeedCard
               key={index}
               ref={(el) => {
                 if (el) postRefs.current[post.id] = el;
               }}
-            >
-              <FeedCard post={post} user={user}/>
-            </div>
+              post={post}
+              user={user}
+            />
           ))}
         </div>
       </div>
