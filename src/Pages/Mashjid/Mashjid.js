@@ -50,38 +50,41 @@ const Mashjid = () => {
         }
     };
 
-      const [isBroadcasting, setIsBroadcasting] = useState(false);
-  const wsRef = useRef(null);
-  const recorderRef = useRef(null);
+    const [isBroadcasting, setIsBroadcasting] = useState(false);
+    const wsRef = useRef(null);
+    const recorderRef = useRef(null);
 
-  const startBroadcast = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    wsRef.current = new WebSocket("https://structured-backend.onrender.com"); // Replace with your IP
+    const startBroadcast = async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        wsRef.current = new WebSocket("wss://structured-backend.onrender.com");
 
-    wsRef.current.onopen = () => {
-      wsRef.current.send(JSON.stringify({ type: "broadcaster" }));
+        wsRef.current.onopen = () => {
+            wsRef.current.send(JSON.stringify({ type: "broadcaster" }));
 
-      const recorder = new MediaRecorder(stream);
-      recorderRef.current = recorder;
+            const recorder = new MediaRecorder(stream, {
+                mimeType: "audio/webm; codecs=opus",
+            });
 
-      recorder.ondataavailable = (event) => {
-        if (event.data.size > 0 && wsRef.current.readyState === WebSocket.OPEN) {
-          event.data.arrayBuffer().then((buffer) => {
-            wsRef.current.send(JSON.stringify({ type: "media", payload: Array.from(new Uint8Array(buffer)) }));
-          });
-        }
-      };
+            recorderRef.current = recorder;
 
-      recorder.start(500); // send every 500ms
-      setIsBroadcasting(true);
+            recorder.ondataavailable = (event) => {
+                if (event.data.size > 0 && wsRef.current.readyState === WebSocket.OPEN) {
+                    event.data.arrayBuffer().then((buffer) => {
+                        wsRef.current.send(buffer);
+                    });
+                }
+            };
+
+            recorder.start(500);
+            setIsBroadcasting(true);
+        };
     };
-  };
 
-  const stopBroadcast = () => {
-    recorderRef.current?.stop();
-    wsRef.current?.close();
-    setIsBroadcasting(false);
-  };
+    const stopBroadcast = () => {
+        recorderRef.current?.stop();
+        wsRef.current?.close();
+        setIsBroadcasting(false);
+    };
 
     return (
         <div className="Home">

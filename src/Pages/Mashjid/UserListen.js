@@ -1,46 +1,48 @@
 import React, { useEffect, useRef } from "react";
 
 const UserListener = () => {
-  const audioRef = useRef(null);
+  const audioContextRef = useRef(null);
   const wsRef = useRef(null);
-  const mediaSourceRef = useRef(null);
-  const sourceBufferRef = useRef(null);
 
   useEffect(() => {
-    wsRef.current = new WebSocket("https://structured-backend.onrender.com");
+    // Create audio context
+    audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Connect to WebSocket
+    wsRef.current = new WebSocket("wss://structured-backend.onrender.com");
     wsRef.current.binaryType = "arraybuffer";
 
+    // Identify as listener
     wsRef.current.onopen = () => {
       wsRef.current.send(JSON.stringify({ type: "listener" }));
     };
 
-    mediaSourceRef.current = new MediaSource();
-    mediaSourceRef.current.addEventListener("sourceopen", () => {
-      sourceBufferRef.current = mediaSourceRef.current.addSourceBuffer('audio/webm; codecs="opus"');
-    });
-
-    audioRef.current.src = URL.createObjectURL(mediaSourceRef.current);
-    audioRef.current.play();
-
-    wsRef.current.onmessage = (msg) => {
-      const data = JSON.parse(msg.data);
-      if (data.type === "media" && sourceBufferRef.current) {
-        const buffer = new Uint8Array(data.payload);
-        if (!sourceBufferRef.current.updating) {
-          sourceBufferRef.current.appendBuffer(buffer);
-        }
+    // Play received audio chunks
+    wsRef.current.onmessage = async (event) => {
+      try {
+        const arrayBuffer = event.data;
+        audioContextRef.current.decodeAudioData(arrayBuffer, (audioBuffer) => {
+          const source = audioContextRef.current.createBufferSource();
+          source.buffer = audioBuffer;
+          source.connect(audioContextRef.current.destination);
+          source.start();
+        }, (err) => {
+          console.error("decodeAudioData error:", err);
+        });
+      } catch (err) {
+        console.error("Playback error:", err);
       }
     };
 
     return () => {
-      wsRef.current.close();
+      wsRef.current?.close();
     };
   }, []);
 
   return (
     <div>
       <h2>User Listener</h2>
-      <audio ref={audioRef} controls />
+      <p>Listening to live audio broadcast...</p>
     </div>
   );
 };
