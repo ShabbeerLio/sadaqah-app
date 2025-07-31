@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GoArrowUpRight, GoArrowDownLeft } from "react-icons/go";
 import { CiBank } from "react-icons/ci";
-import { LuWalletMinimal } from "react-icons/lu";
+import { Landmark, WalletMinimal } from "lucide-react";
 
 
 const HistoryCard = ({ tx, onClick }) => {
@@ -59,7 +59,7 @@ const HistoryCard = ({ tx, onClick }) => {
                     <div className="history-card-detail">
 
                       <div className="transaction-tag sadaqah">
-                        <CiBank />
+                        <Landmark />
                         <div
                           className="donateCard-tag"
                         >W</div>
@@ -88,7 +88,7 @@ const HistoryCard = ({ tx, onClick }) => {
                   <>
                     <div className="history-card-detail">
                       <div className="transaction-tag sadaqah">
-                        <LuWalletMinimal />
+                        <WalletMinimal />
                         <div
                           className="donateCard-tag"
                         >S</div>

@@ -110,6 +110,13 @@ const CombinedFeedData = [
     avatar: post1,
     followers: 1050,
     location: "Kolkata",
+    adhanTimes: {
+      Fajr: "05:10",
+      Dhuhr: "12:40",
+      Asr: "16:20",
+      Maghrib: "18:55",
+      Isha: "20:15",
+    },
     transactions: [
       {
         id: 1,

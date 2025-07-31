@@ -1,11 +1,38 @@
 .adhaz-box {
   display: flex;
   gap: 1rem;
-  height: 175px;
+  height: 120px;
   align-items: flex-end;
   margin-top: 2.5rem !important;
   position: relative;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 10px 10px 0px 10px;
+}
+
+.adhan-middle{
+  padding: 10px;
+  margin: 0 10px;
+  background-color: #597445;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.adhan-middle svg{
+  color: #fdb618;
+  font-size: 20px;
+}
+
+.adhan-middle h5{
+  color: white;
+  margin: 0;
+  font-size: 16px;
+  padding: 5px 1rem;
+  display: flex;
+  align-items: center;
+}
+.adhan-middle h5 svg{
+  margin-right: 8px;
 }
 
 .adhan-left {
@@ -18,9 +45,9 @@
   color: white;
 }
 .adhan-left h2 {
-  font-size: 45px;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  /* font-size: 45px; */
+  font-weight: 800;
+  margin-bottom: 0px;
   color: #e7f0dc;
 }
 .adhan-left h2 span {
@@ -80,7 +107,12 @@
 .next-time p {
   margin: 0;
   font-size: 12px;
-  line-height: 0.2;
+  /* line-height: 0.2; */
+  margin-top: 5px;
+  background-color: #fdb618;
+  color: black;
+  border-radius: 25px;
+  padding: 8px 20px;
 }
 .next-time span {
   font-size: 10px;
@@ -99,12 +131,13 @@
 .adhan-sunrise svg {
   font-size: 18px;
   margin-right: 5px;
+  width: 18px;
 }
 
 /* loader */
 
 .Collection-box-left.adhaz-box.adhan-loading {
-  height: 175px;
+  height: 120px;
   width: 100%;
 }
 .Collection-box-right.adhan.adhan-loading {
@@ -141,9 +174,9 @@
 
 @media only screen and (max-width: 680px) {
   .adhan-right img {
-    width: 57%;
+    width: 45%;
     position: absolute;
     bottom: 0%;
-    right: 0%;
+    right: 2%;
   }
 }

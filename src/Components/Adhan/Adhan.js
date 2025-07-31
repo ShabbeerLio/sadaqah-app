@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Adhan.css";
 import mashjid from "../../Assets/mashjid6.png";
-import { IoMdTime } from "react-icons/io";
 import {
     PiSunHorizon,
     PiSun,
     PiCloudSun,
     PiCloudMoon,
     PiMoonStars,
-    PiSunDim,
-    PiCalendarDots
 } from "react-icons/pi";
 import axios from "axios";
-import Loading from "../Loading/Loading";
+import { CalendarDays } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const Adhan = () => {
+    const location = useLocation();
+    const isHome = location.pathname === "/";
     const ALADHAN_API_BASE_URL = "https://api.aladhan.com/v1/timingsByCity";
     const BIGDATACLOUD_BASE_URL =
         "https://api.bigdatacloud.net/data/reverse-geocode-client";
@@ -217,75 +217,126 @@ const Adhan = () => {
     return (
         <div className="Collection">
             <div className="Collection-main">
-                <div className="Collection-box">
-                    {loading === true ? (
-                        <div className="Collection-box-left adhaz-box adhan-loading"></div>
-                    ) : (
-                        <div className="Collection-box-left adhaz-box">
-                            <div className="adhan-left">
-                                <p className="adhan-sunrise">
+                {isHome ? (
+                    <div className="Collection-box">
+                        {loading === true ? (
+                            <div className="Collection-box-left adhaz-box adhan-loading"></div>
+                        ) : (
+                            <div className="Collection-box-left adhaz-box">
+                                <div className="adhan-left">
+                                    {/* <p className="adhan-sunrise">
                                     <PiSunDim /> Sunrise {prayerTimess ? formatTo12Hour(prayerTimess.Sunrise) : "--:--"}
-                                </p>
-                                <p className="adhan-sunrise">
-                                    <PiCalendarDots/>
-                                    {date
-                                        ? `${date.hijri.day} ${hijriMonthNames[date.hijri.month]} ${date.hijri.year} AH`
-                                        : ""}
-                                </p>
+                                </p> */}
+                                    <h2>
+                                        {nextPrayer ? (
+                                            <>
+                                                {formatTo12Hour(nextPrayer.time).split(" ")[0]}
+                                                <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
+                                                <span> ({locationName?.city})</span>
+                                            </>
+                                        ) : "--:--"}
+                                    </h2>
+                                    <p className="adhan-sunrise">
+                                        <CalendarDays />
+                                        {date
+                                            ? `${date.hijri.day} ${hijriMonthNames[date.hijri.month]} ${date.hijri.year} AH`
+                                            : ""}
+                                    </p>
 
-                                <h2>
-                                    {nextPrayer ? (
-                                        <>
-                                            {formatTo12Hour(nextPrayer.time).split(" ")[0]}
-                                            <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
-                                            <span> ({locationName?.city})</span>
-                                        </>
-                                    ) : "--:--"}
-                                </h2>
 
-                                <div className="next-prayer">
-                                    <IoMdTime />
-                                    <div className="next-time">
-                                        <p>{nextPrayer ? nextPrayer.name : "-"} Time Starting</p>
-                                        <span>{timeRemaining}</span>
+                                    <div className="next-prayer">
+                                        {/* <IoMdTime /> */}
+                                        <div className="next-time">
+                                            <p>Mashjid-e-haram</p>
+                                            {/* <p>{nextPrayer ? nextPrayer.name : "-"} Time Starting</p>
+                                        <span>{timeRemaining}</span> */}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="adhan-right">
-                                <img src={mashjid} alt="Masjid" />
+                                <div className="adhan-right">
+                                    <img src={mashjid} alt="Masjid" />
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    {loading === true ? (
+                        )}
+
+                        {/* {loading === true ? (
                         <div className="Collection-box-right adhan adhan-loading"></div>
                     ) : (
                         <div className="Collection-box-right adhan">
-                        <div className="adhan-right-box">
-                            {prayerTimes.map((prayer, index) => (
-                                <div className="adhan-card" key={index}>
-                                    <p>{prayer.name}</p>
-                                    {prayer.image}
-                                    <p>{formatTo12Hour(prayer.time)}</p>
-                                </div>
-                            ))}
+                            <div className="adhan-right-box">
+                                {prayerTimes.map((prayer, index) => (
+                                    <div className="adhan-card" key={index}>
+                                        <p>{prayer.name}</p>
+                                        {prayer.image}
+                                        <p>{formatTo12Hour(prayer.time)}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
+                    )} */}
                     </div>
-                    )}
-                    
+                ) : (
+                    <div className="Collection-box">
+                        {loading === true ? (
+                            <div className="Collection-box-left adhaz-box adhan-loading"></div>
+                        ) : (
+                            <div className="Collection-box-left adhaz-box">
+                                <div className="adhan-left">
+                                    {/* <p className="adhan-sunrise">
+                                    <PiSunDim /> Sunrise {prayerTimess ? formatTo12Hour(prayerTimess.Sunrise) : "--:--"}
+                                </p> */}
+                                    <h2>
+                                        {nextPrayer ? (
+                                            <>
+                                                {formatTo12Hour(nextPrayer.time).split(" ")[0]}
+                                                <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
+                                                <span> ({locationName?.city})</span>
+                                            </>
+                                        ) : "--:--"}
+                                    </h2>
+                                    <p className="adhan-sunrise">
+                                        <CalendarDays />
+                                        {date
+                                            ? `${date.hijri.day} ${hijriMonthNames[date.hijri.month]} ${date.hijri.year} AH`
+                                            : ""}
+                                    </p>
 
-                    {/* <div className="Collection-box-right adhan">
-                        <div className="adhan-right-box">
-                            {prayerTimes.map((prayer, index) => (
-                                <div className="adhan-card" key={index}>
-                                    <p>{prayer.name}</p>
-                                    {prayer.image}
-                                    <p>{formatTo12Hour(prayer.time)}</p>
+
+                                    <div className="next-prayer">
+                                        {/* <IoMdTime /> */}
+                                        <div className="next-time">
+                                            <p>Mashjid-e-haram</p>
+                                            {/* <p>{nextPrayer ? nextPrayer.name : "-"} Time Starting</p>
+                                        <span>{timeRemaining}</span> */}
+                                        </div>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div> */}
-                </div>
+
+                                <div className="adhan-right">
+                                    <img src={mashjid} alt="Masjid" />
+                                </div>
+                            </div>
+                        )}
+
+                        {loading === true ? (
+                            <div className="Collection-box-right adhan adhan-loading"></div>
+                        ) : (
+                            <div className="Collection-box-right adhan">
+                                <div className="adhan-right-box">
+                                    {prayerTimes.map((prayer, index) => (
+                                        <div className="adhan-card" key={index}>
+                                            <p>{prayer.name}</p>
+                                            {prayer.image}
+                                            <p>{formatTo12Hour(prayer.time)}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+
             </div>
         </div>
     );

@@ -43,6 +43,7 @@
 .profile svg {
   font-size: 25px;
   color: #597445;
+  width: 22px;
 }
 .profile .help a {
   display: flex;

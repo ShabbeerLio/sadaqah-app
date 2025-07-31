@@ -1,14 +1,10 @@
 import "./Navbar.css";
 import { Link, useLocation } from "react-router-dom";
-import {
-  IoMdHelpCircleOutline,
-} from "react-icons/io";
-import { IoNotificationsOutline } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
-import { LuWalletMinimal } from "react-icons/lu";
 import dosadaqa from "../../Assets/payment.png"
 import CombinedFeedData from "../../Pages/AppData";
 import Sidebar from "./Sidebar";
+import { Bell, CircleQuestionMark, WalletMinimal } from "lucide-react";
 
 
 const Navbar = () => {
@@ -75,18 +71,18 @@ const Navbar = () => {
             <div className="profile">
               <div className="notification">
                 <Link to={"/notification"}>
-                  <IoNotificationsOutline />
+                  <Bell />
                 </Link>
               </div>
               <div className="help">
                 {user.type === "user" ? (
                   <Link to={"/help"}>
-                    <IoMdHelpCircleOutline />
+                    <CircleQuestionMark />
                     <p>Help</p>
                   </Link>
                 ) : (
                   <Link to={"/wallet"}>
-                    <LuWalletMinimal />
+                    <WalletMinimal />
                     <p>Wallet</p>
                   </Link>
                 )}

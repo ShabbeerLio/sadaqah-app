@@ -1,0 +1,85 @@
+/* The switch - the box around the slider */
+.container-adhan {
+  width: 51px;
+  height: 31px;
+  position: relative;
+}
+
+/* Hide default HTML checkbox */
+.container-adhan .checkbox {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.container-adhan .switch {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #e9e9eb;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+/* The slider */
+.container-adhan .slider {
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  left: calc(50% - 27px / 2 - 10px);
+  top: calc(50% - 27px / 2);
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.container-adhan label {
+  margin: 0;
+}
+
+.container-adhan .checkbox:checked + .switch {
+  background-color: #597445;
+}
+
+.container-adhan .checkbox:checked + .switch .slider {
+  left: calc(50% - 27px / 2 + 10px);
+  top: calc(50% - 27px / 2);
+}
+
+/* main box */
+.masjid-box {
+  padding: 10px;
+  padding-top: 0;
+}
+
+.adhan-times {
+  margin-top: 10px;
+}
+.adhan-times ul {
+  padding: 0;
+}
+.adhan-times ul li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.adhan-times ul li p {
+  margin: 0;
+  padding: 10px;
+  font-family: 600;
+  font-size: 14px;
+}
+
+.mashjid-adan-add {
+  display: flex;
+  flex-direction: column;
+}

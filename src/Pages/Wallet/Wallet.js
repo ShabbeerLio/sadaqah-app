@@ -6,14 +6,10 @@ import HistoryCard from "../../Components/HistoryCard/HistoryCard";
 import Filters from "../../Components/Filters/Filters";
 import CombinedFeedData from "../AppData";
 import TransactionsData from "../TransationData";
-import { IoIosClose } from "react-icons/io";
-import { LuWalletMinimal } from "react-icons/lu";
 import Ads from "../../Components/Ads/Ads";
-import success from "../../Assets/tick green.gif"
-import failed1 from "../../Assets/Icon Failed.gif"
-import failed2 from "../../Assets/Icon Failed (1).gif"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Checkbox from "../Items/Checkbox";
+import { WalletMinimal, X } from "lucide-react";
 
 
 
@@ -244,7 +240,7 @@ const Wallet = () => {
             <div className="Home-main">
                 <div className="wallet-top">
                     <div className="wallet-top-left">
-                        <p> <LuWalletMinimal />Current Balance</p>
+                        <p> <WalletMinimal />Current Balance</p>
                         <h2>₹{currentBalance}</h2>
                     </div>
                     <div className="wallet-top-right">
@@ -303,7 +299,7 @@ const Wallet = () => {
                         <div className="donate-top-head">
                             <div className="institute-donatereq">
                                 <h4>{isVerified ? "Withdraw" : "Active Wallet"} </h4>
-                                <IoIosClose onClick={handleCloseDonet} />
+                                <X onClick={handleCloseDonet} />
                             </div>
                         </div>
                     </div>
@@ -312,7 +308,14 @@ const Wallet = () => {
                             verificationSuccess ? (
                                 <div className="post-card">
                                     <div className="verification-success">
-                                        <img className="wallet-success" src={success} alt="" />
+                                        <div className="wallet-status">
+                                            <DotLottieReact
+                                                className="wallet-success"
+                                                src="https://lottie.host/b08d0607-b021-4196-ba76-e6596d9332e5/o1EFjMW31w.lottie"
+                                                loop
+                                                autoplay
+                                            />
+                                        </div>
                                         <h3>Account Verified</h3>
                                         <p>Closing in 3 seconds...</p>
                                         <Ads />

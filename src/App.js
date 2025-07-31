@@ -3,7 +3,6 @@ import {
   Routes,
   BrowserRouter,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
@@ -34,6 +33,8 @@ import PrivacyPolicy from "./Pages/Extra/PrivacyPolicy";
 import TermsAndConditions from "./Pages/Extra/TermsAndConditions";
 import ReturnRefund from "./Pages/Extra/ReturnRefund";
 import Career from "./Pages/Extra/Career";
+import Mashjid from "./Pages/Mashjid/Mashjid";
+import UserListen from "./Pages/Mashjid/UserListen";
 
 function App() {
   return (
@@ -98,6 +99,8 @@ function MainLayout() {
         <Route path="/term-and-conditions" element={<TermsAndConditions />} />
         <Route path="/return-refund" element={<ReturnRefund />} />
         <Route path="/career" element={<Career />} />
+        <Route path="/adhan" element={<Mashjid />} />
+        <Route path="/userlisten" element={<UserListen />} />
       </Routes>
       {!hideNav && <Pnav />}
     </div>

@@ -1,16 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Pnav.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import {
-  LuHouse,
-  LuSearch,
-  LuTvMinimalPlay,
-  LuSquarePlus
-} from "react-icons/lu";
-import { GrTransaction } from "react-icons/gr";
 import { motion } from "framer-motion";
 import doantebtn from "../../Assets/donate (2).png"
 import donatechange from "../../Assets/donate (3).png"
+import { House, Megaphone, Search, TvMinimalPlay, SquarePlus } from "lucide-react";
 
 const Pnav = () => {
   const navigate = useNavigate();
@@ -37,8 +31,8 @@ const Pnav = () => {
 
     const links =
       user.type === "user"
-        ? ["/", "/feeds", "/donation-request", "/search", "/history"]
-        : ["/", "/feeds", "/donation-request", "/add-feed", "/history"];
+        ? ["/", "/feeds", "/donation-request", "/search", "/adhan"]
+        : ["/", "/feeds", "/donation-request", "/add-feed", "/adhan"];
 
     const current = navRefs.current.find(
       (ref) => ref && ref.dataset.path === location.pathname
@@ -93,7 +87,7 @@ const Pnav = () => {
             data-path={"/"}
             ref={(el) => (navRefs.current[0] = el)}
           >
-            <LuHouse />
+            <House />
           </NavLink>
         </li>
         <li>
@@ -103,7 +97,7 @@ const Pnav = () => {
             data-path={"/feeds"}
             ref={(el) => (navRefs.current[1] = el)}
           >
-            <LuTvMinimalPlay />
+            <TvMinimalPlay />
           </NavLink>
         </li>
         {user?.type === "user" ? (
@@ -129,7 +123,7 @@ const Pnav = () => {
                 data-path={"/search"}
                 ref={(el) => (navRefs.current[3] = el)}
               >
-                <LuSearch />
+                <Search />
               </NavLink>
             </li>
           </>
@@ -142,7 +136,7 @@ const Pnav = () => {
                 data-path={"/add-feed"}
                 ref={(el) => (navRefs.current[3] = el)}
               >
-                <LuSquarePlus />
+                <SquarePlus />
               </NavLink>
             </li>
             <li>
@@ -164,12 +158,12 @@ const Pnav = () => {
 
         <li>
           <NavLink
-            to={"/history"}
+            to={"/adhan"}
             className="nav-link"
-            data-path={"/history"}
+            data-path={"/adhan"}
             ref={(el) => (navRefs.current[4] = el)}
           >
-            <GrTransaction />
+            <Megaphone />
           </NavLink>
         </li>
       </ul>

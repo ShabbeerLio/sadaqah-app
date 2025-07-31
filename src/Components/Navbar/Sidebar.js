@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { IoIosArrowForward, IoIosClose, IoIosAdd, IoMdInformationCircleOutline, IoMdHelpCircleOutline } from "react-icons/io";
-import { MdOutlinePayments, MdOutlinePrivacyTip } from "react-icons/md";
 import "./Sidebar.css"
 import { Link, useNavigate } from 'react-router-dom';
 import CombinedFeedData from '../../Pages/AppData';
-import { LuNewspaper } from "react-icons/lu";
-import { TbCreditCardRefund } from "react-icons/tb";
-import { MdWorkOutline } from "react-icons/md";
 import career from "../../Assets/career.png"
+import { ArrowRightLeft, BanknoteArrowUp, ChevronRight, Info, MessageCircleQuestionMark, Newspaper, ShieldAlert, X } from 'lucide-react';
 
 const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
     const navigate = useNavigate();
@@ -35,7 +31,7 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
     return (
         <div className={`Sidebar ${sideactive}`} ref={sideRef}>
             <div className='Sidebar-main'>
-                <IoIosClose className='sidebar-closebnt' onClick={handleCloseSidebar} />
+                <X className='sidebar-closebnt' onClick={handleCloseSidebar} />
                 <div className="sidebar-top">
                     <Link to={"/profile"} onClick={handleProfile}>
                         <div className="SearchCard" >
@@ -51,7 +47,7 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                                 <p>{userData?.location}</p>
                             </div>
                             <div className="sidebar-profile-visit">
-                                <IoIosArrowForward />
+                                <ChevronRight />
                             </div>
                         </div>
                     </Link>
@@ -59,22 +55,22 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                 <div className="sidebar-items">
                     <ul>
                         <li>
-                            <Link onClick={handleProfile} to={"/about"}> <IoMdInformationCircleOutline />About Us</Link>
+                            <Link onClick={handleProfile} to={"/about"}> <Info />About Us</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/help"}> <IoMdHelpCircleOutline />Help</Link>
+                            <Link onClick={handleProfile} to={"/help"}> <MessageCircleQuestionMark />Help</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/history"}> <MdOutlinePayments /> Payments</Link>
+                            <Link onClick={handleProfile} to={"/history"}> <ArrowRightLeft /> History</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/privacy-policy"}> <MdOutlinePrivacyTip />Privacy Policy</Link>
+                            <Link onClick={handleProfile} to={"/privacy-policy"}> <ShieldAlert />Privacy Policy</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/term-and-conditions"}> <LuNewspaper />Term And Conditions</Link>
+                            <Link onClick={handleProfile} to={"/term-and-conditions"}> <Newspaper />Term And Conditions</Link>
                         </li>
                         <li>
-                            <Link onClick={handleProfile} to={"/return-refund"}> <TbCreditCardRefund />Return And Refund</Link>
+                            <Link onClick={handleProfile} to={"/return-refund"}> <BanknoteArrowUp />Return And Refund</Link>
                         </li>
                         {/* <li>
                             <Link onClick={handleProfile} to={"/"}> <MdWorkOutline />Carrier</Link>
