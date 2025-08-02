@@ -4,6 +4,7 @@ import CombinedFeedData from "../AppData"; // assuming it's relative path
 import Adhan from "../../Components/Adhan/Adhan";
 import Ads from "../../Components/Ads/Ads";
 import { useNavigate } from "react-router-dom";
+import TestApp from "./TestApp";
 
 const Mashjid = () => {
     const navigate = useNavigate();
@@ -25,12 +26,6 @@ const Mashjid = () => {
     const masjids = CombinedFeedData.filter(
         (item) => item.type === "institute" && item.instituteType === "masjid"
     );
-    const handleAdhanChange = (id, prayer, value) => {
-        const masjid = masjids.find((m) => m.id === id);
-        if (!masjid.adhanTimes) masjid.adhanTimes = {};
-        masjid.adhanTimes[prayer] = value;
-        alert("Adhan time updated");
-    };
 
     const handleCheckboxChange = (prayer) => {
         console.log(prayer, "prayer")
@@ -50,41 +45,41 @@ const Mashjid = () => {
         }
     };
 
-    const [isBroadcasting, setIsBroadcasting] = useState(false);
-    const wsRef = useRef(null);
-    const recorderRef = useRef(null);
+    // const [isBroadcasting, setIsBroadcasting] = useState(false);
+    // const wsRef = useRef(null);
+    // const recorderRef = useRef(null);
 
-    const startBroadcast = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        wsRef.current = new WebSocket("wss://structured-backend.onrender.com");
+    // const startBroadcast = async () => {
+    //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    //     wsRef.current = new WebSocket("https://structured-backend.onrender.com"); // or wss://yourdomain.com
 
-        wsRef.current.onopen = () => {
-            wsRef.current.send(JSON.stringify({ type: "broadcaster" }));
+    //     wsRef.current.binaryType = "arraybuffer";
 
-            const recorder = new MediaRecorder(stream, {
-                mimeType: "audio/webm; codecs=opus",
-            });
+    //     wsRef.current.onopen = () => {
+    //         wsRef.current.send(JSON.stringify({ type: "broadcaster" }));
 
-            recorderRef.current = recorder;
+    //         const recorder = new MediaRecorder(stream, {
+    //             mimeType: "audio/webm; codecs=opus"
+    //         });
 
-            recorder.ondataavailable = (event) => {
-                if (event.data.size > 0 && wsRef.current.readyState === WebSocket.OPEN) {
-                    event.data.arrayBuffer().then((buffer) => {
-                        wsRef.current.send(buffer);
-                    });
-                }
-            };
+    //         recorderRef.current = recorder;
 
-            recorder.start(500);
-            setIsBroadcasting(true);
-        };
-    };
+    //         recorder.ondataavailable = (event) => {
+    //             if (event.data.size > 0 && wsRef.current.readyState === WebSocket.OPEN) {
+    //                 wsRef.current.send(event.data); // send raw binary
+    //             }
+    //         };
 
-    const stopBroadcast = () => {
-        recorderRef.current?.stop();
-        wsRef.current?.close();
-        setIsBroadcasting(false);
-    };
+    //         recorder.start(500); // Send every 500ms
+    //         setIsBroadcasting(true);
+    //     };
+    // };
+
+    // const stopBroadcast = () => {
+    //     recorderRef.current?.stop();
+    //     wsRef.current?.close();
+    //     setIsBroadcasting(false);
+    // };
 
     return (
         <div className="Home">
@@ -93,12 +88,12 @@ const Mashjid = () => {
                 <div className="masjid-box">
                     {user.type === "institute" && user.instituteType === "masjid" ? (
                         <div className="post-card">
-                            <button className="post-button" onClick={isBroadcasting ? stopBroadcast : startBroadcast}>
+                            {/* <button className="post-button" onClick={isBroadcasting ? stopBroadcast : startBroadcast}>
                                 {isBroadcasting ? "Stop Adhan" : "Start Adhan"}
-                            </button>
+                            </button> */}
                             <label>Adhan Times</label>
 
-                            {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].map((prayer) => (
+                            {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha","Jumma"].map((prayer) => (
                                 <div className="mashjid-adan-add" key={prayer}>
                                     <label>{prayer.toUpperCase()}: </label>
                                     <input

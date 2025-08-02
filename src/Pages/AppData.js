@@ -112,10 +112,11 @@ const CombinedFeedData = [
     location: "Kolkata",
     adhanTimes: {
       Fajr: "05:10",
-      Dhuhr: "12:40",
+      Dhuhr: "01:00",
       Asr: "16:20",
       Maghrib: "18:55",
       Isha: "20:15",
+      Jumma: "12:30",
     },
     transactions: [
       {

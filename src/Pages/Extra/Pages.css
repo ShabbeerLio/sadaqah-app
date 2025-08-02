@@ -1,3 +1,141 @@
-.notification-box h5{
-    color: #597445;
+.notification-box h5 {
+  color: #597445;
+}
+
+.position-boxes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.position-box {
+  /* background-color: white; */
+  border-radius: 20px;
+  padding: 1rem;
+  position: relative;
+}
+.position-box .career-info {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  background-color: #fdb618;
+  border-radius: 25px;
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.position-box .career-status {
+   position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-100%);
+}
+.position-box .career-status p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.submitted-list {
+  margin-top: 1rem;
+}
+
+.submitted-item {
+  background-color: white;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 10px;
+}
+
+.position-box img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.career-info {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.career-tooltip {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background-color: #fff;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  z-index: 10;
+  font-size: 14px;
+}
+
+
+/* help */
+.help-ticket-boxes{
+  background-color: white;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.help-ticket-box{
+  border-top: 1px solid rgb(194, 194, 194);
+  padding: 10px 0;
+}
+.help-ticket-box span{
+  border-radius: 25px;
+  padding: 5px 10px;
+  background-color: #fdb618;
+  font-size: 12px;
+}
+.help-ticket-box p{
+  margin: 0;
+  color: gray;
+}
+
+.notification-box h5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notification-box h5 span{
+  background-color: #597445;
+  border-radius: 25px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notification-box h5 span svg{
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.help-detail-box{
+  background-color: white;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+/* About page */
+.about-box{
+  background-color: white;
+  border-radius: 20px;
+  padding: 1rem;
 }
