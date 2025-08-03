@@ -2,7 +2,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { useEffect, useState } from "react";
 import Ads from "../../Components/Ads/Ads";
 import { useNavigate } from "react-router-dom";
-import { Info } from "lucide-react";
+import { ChevronLeft, Info } from "lucide-react";
 import poster1 from "../../Assets/team-ansar.png"
 import poster2 from "../../Assets/team-Rahmah.png"
 import poster3 from "../../Assets/team-amanah.png"
@@ -86,7 +86,16 @@ const Career = () => {
     <div className="Home">
       <div className="Home-main">
         <div className="notification-box">
-          <h5>Career Opportunities</h5>
+          <div className="page-heading">
+          <h5> {selectedPosition && !submitted && (
+            <button
+              className="back-button"
+              onClick={() => setSelectedPosition("")}
+            >
+              <ChevronLeft />
+            </button>
+          )}Career Opportunities</h5>
+          </div>
           {/* Position Boxes */}
           {!selectedPosition && !showConfirmation && (
             <div className="position-boxes">
@@ -101,7 +110,7 @@ const Career = () => {
                   <div className="career-info">
                     <Info onClick={() => setActiveTooltip(activeTooltip === pos.id ? null : pos.id)} />
                     {activeTooltip === pos.id && (
-                      <div className="career-tooltip">
+                      <div className={`career-tooltip ${pos.id}`}>
                         {pos.description}
                       </div>
                     )}

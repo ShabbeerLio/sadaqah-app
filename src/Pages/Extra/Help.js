@@ -2,17 +2,15 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { useEffect, useState } from "react";
 import Ads from "../../Components/Ads/Ads";
 import { useNavigate } from "react-router-dom";
-import { Info, SquarePlus } from "lucide-react";
-import poster1 from "../../Assets/team-ansar.png";
-import poster2 from "../../Assets/team-Rahmah.png";
-import poster3 from "../../Assets/team-amanah.png";
-import poster4 from "../../Assets/team-fikr.png";
+import { ChevronLeft, Info, SquarePlus } from "lucide-react";
 import "./Pages.css";
 
 const Tickets = [
   {
     id: 1,
     ticket: "#8rj39",
+    postedBy: "Shabbeer",
+    date: "1 Aug, 2025",
     status: "Replied",
     title: "this is ticket1",
     lastUpdate: "1 Aug, 2025 06:45 PM",
@@ -22,6 +20,8 @@ const Tickets = [
   {
     id: 2,
     ticket: "#8rj34",
+    postedBy: "System",
+    date: "2 Aug, 2025",
     status: "Closed",
     title: "this is ticket2",
     lastUpdate: "1 Aug, 2025 06:45 PM",
@@ -31,6 +31,8 @@ const Tickets = [
   {
     id: 3,
     ticket: "#8rj37",
+    postedBy: "System",
+    date: "2 Aug, 2025",
     status: "Closed",
     title: "this is ticket3",
     lastUpdate: "1 Aug, 2025 06:45 PM",
@@ -40,6 +42,8 @@ const Tickets = [
   {
     id: 4,
     ticket: "#8rj38",
+    postedBy: "Nawaz Akhtar",
+    date: "1 Aug, 2025",
     status: "On Going",
     title: "this is ticket4",
     lastUpdate: "1 Aug, 2025 06:45 PM",
@@ -53,6 +57,7 @@ const Career = () => {
   const [selectedPosition, setSelectedPosition] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [newTicketMode, setNewTicketMode] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -108,13 +113,36 @@ const Career = () => {
     setFormData({ ...formData, position: positionId });
   };
 
+  const handleFormOpen = () => {
+    setNewTicketMode(true);
+    setSelectedPosition(""); // make sure no ticket is selected
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+      attachments: null,
+    });
+  };
+
   return (
     <div className="Home">
       <div className="Home-main">
         <div className="notification-box">
-          <h5>Help and Support <span> <SquarePlus />Open New Ticket</span></h5>
+          <div className="page-heading">
+            <h5>
+              {(selectedPosition || newTicketMode) && !submitted && (<button
+                className="back-button"
+                onClick={() => {
+                  setNewTicketMode(false);
+                  setSelectedPosition("");
+                }}
+              >
+                <ChevronLeft />
+              </button>)} Help and Support </h5>
+            <span onClick={handleFormOpen}> <SquarePlus />Open New Ticket</span>
+          </div>
           {/* Position Boxes */}
-          {!selectedPosition && !showConfirmation && (
+          {!selectedPosition && !showConfirmation && !newTicketMode && (
             <div className="help-ticket-boxes">
               <h5>Recent Support Tickets</h5>
               {Tickets.map((pos) => (
@@ -132,15 +160,56 @@ const Career = () => {
             </div>
           )}
 
-          {/* Application Form */}
-          {selectedPosition && !submitted && (
-            <>
-              <div className="help-detail-box">
-                <h5>{Tickets.find((p) => p.id === selectedPosition)?.ticket || ""}</h5>
-                <h5>Subject : {Tickets.find((p) => p.id === selectedPosition)?.title || ""}</h5>
-                <p>{Tickets.find((p) => p.id === selectedPosition)?.description || ""}</p>
+          {/* Confirmation Modal */}
+          {showConfirmation && (
+            <div className="confirmation-modal">
+              <div className="confirmation-box">
+                <div className="wallet-status">
+                  <DotLottieReact
+                    className="wallet-success"
+                    src="https://lottie.host/b08d0607-b021-4196-ba76-e6596d9332e5/o1EFjMW31w.lottie"
+                    loop
+                    autoplay
+                  />
+                </div>
+                <h5>Application Submitted</h5>
+                <p>Thank you for applying! We will contact you soon.</p>
+                <Ads />
               </div>
+            </div>
+          )}
+
+          {(selectedPosition || newTicketMode) && !submitted && (
+            <>
+              {selectedPosition && (
+                <div className="help-detail-box">
+                  <h5>{Tickets.find((p) => p.id === selectedPosition)?.ticket || ""}</h5>
+                  <h5>Subject : {Tickets.find((p) => p.id === selectedPosition)?.title || ""}</h5>
+                  <h6>
+                    Posted By : {Tickets.find((p) => p.id === selectedPosition)?.postedBy || ""} On{" "}
+                    {Tickets.find((p) => p.id === selectedPosition)?.date || ""}
+                  </h6>
+                  <p>{Tickets.find((p) => p.id === selectedPosition)?.description || ""}</p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="post-card">
+                {newTicketMode && (
+                  <>
+                    <label>Subject</label>
+                    <input
+                      className="search__input"
+                      type="text"
+                      name="position"
+                      placeholder="Ticket Subject"
+                      value={formData.position || ""}
+                      onChange={handleChange}
+                      required
+                    />
+                  </>
+                )}
+
+                {/* common fields */}
                 <label>Name</label>
                 <input
                   className="search__input"
@@ -182,27 +251,19 @@ const Career = () => {
                 <button className="post-button" type="submit">
                   Submit Ticket
                 </button>
+
+                <button
+                  type="button"
+                  className="post-button cancel-button"
+                  onClick={() => {
+                    setNewTicketMode(false);
+                    setSelectedPosition("");
+                  }}
+                >
+                  Cancel
+                </button>
               </form>
             </>
-          )}
-
-          {/* Confirmation Modal */}
-          {showConfirmation && (
-            <div className="confirmation-modal">
-              <div className="confirmation-box">
-                <div className="wallet-status">
-                  <DotLottieReact
-                    className="wallet-success"
-                    src="https://lottie.host/b08d0607-b021-4196-ba76-e6596d9332e5/o1EFjMW31w.lottie"
-                    loop
-                    autoplay
-                  />
-                </div>
-                <h5>Application Submitted</h5>
-                <p>Thank you for applying! We will contact you soon.</p>
-                <Ads />
-              </div>
-            </div>
           )}
 
           {/* Show Submitted Applications after confirmation */}
@@ -224,7 +285,7 @@ const Career = () => {
             )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

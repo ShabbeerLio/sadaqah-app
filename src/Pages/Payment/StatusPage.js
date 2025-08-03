@@ -6,6 +6,7 @@ import "./StatusPage.css";
 import ads from "../../Assets/Ads/ads.jpg"
 import Checkbox from "../Items/Checkbox";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { ChevronLeft } from "lucide-react";
 
 const StatusPage = () => {
     const { state } = useLocation();
@@ -61,7 +62,7 @@ const StatusPage = () => {
     return (
         <div className="sadaqah-container">
             <button className="back-button" onClick={handleGoBack}>
-                <IoIosArrowBack />
+                <ChevronLeft />
                 <p>Confirmation</p>
             </button>
 
