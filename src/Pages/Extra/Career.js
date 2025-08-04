@@ -27,6 +27,7 @@ const Career = () => {
     phone: "",
     position: "",
     coverLetter: "",
+    status: "Processing",
     resume: null,
   });
 
@@ -80,21 +81,19 @@ const Career = () => {
     setFormData({ ...formData, position: positionId });
   };
 
-  console.log(activeTooltip, "activeTooltip")
-
   return (
     <div className="Home">
       <div className="Home-main">
         <div className="notification-box">
           <div className="page-heading">
-          <h5> {selectedPosition && !submitted && (
-            <button
-              className="back-button"
-              onClick={() => setSelectedPosition("")}
-            >
-              <ChevronLeft />
-            </button>
-          )}Career Opportunities</h5>
+            <h5> {selectedPosition && !submitted && (
+              <button
+                className="back-button"
+                onClick={() => setSelectedPosition("")}
+              >
+                <ChevronLeft />
+              </button>
+            )}Career Opportunities</h5>
           </div>
           {/* Position Boxes */}
           {!selectedPosition && !showConfirmation && (
@@ -217,6 +216,7 @@ const Career = () => {
               <h5>Submitted Applications</h5>
               {applications.map((app, idx) => (
                 <div className="submitted-item" key={idx}>
+                  <p className={`application-status ${app.status}`}>{app.status}</p>
                   <strong>{app.name}</strong> ({app.email})<br />
                   Applied for:{" "}
                   {

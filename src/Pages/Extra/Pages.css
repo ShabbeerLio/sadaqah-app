@@ -55,8 +55,26 @@
   border-radius: 20px;
   padding: 1rem;
   margin-bottom: 10px;
+  position: relative;
 }
 
+.application-status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  font-size: 10px !important;
+  background-color: #fdb618;
+  color: white !important;
+  border-radius: 0px 20px 0px 20px;
+  padding: 3px 15px;
+}
+.application-status.Rejected {
+  background-color: red;
+}
+.application-status.Accepted {
+  background-color: #597445;
+}
 .position-box img {
   width: 100%;
   object-fit: cover;
@@ -91,14 +109,17 @@
 
 /* help */
 .help-ticket-boxes {
-  background-color: white;
+  /* background-color: white; */
   border-radius: 20px;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .help-ticket-box {
-  border-top: 1px solid rgb(194, 194, 194);
-  padding: 10px 0;
+  background-color: white;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 10px;
+  position: relative;
 }
 .help-ticket-box span {
   border-radius: 25px;
@@ -109,6 +130,13 @@
 .help-ticket-box p {
   margin: 0;
   color: gray;
+}
+
+.help.application-status.Closed {
+  background-color: #597445;
+}
+.help.application-status.Replied {
+  background-color: blueviolet;
 }
 
 .page-heading {
@@ -131,12 +159,12 @@
   width: 20px;
   height: 20px;
 }
-.page-heading h5{
+.page-heading h5 {
   display: flex;
   align-items: center;
   margin: 0;
 }
-.page-heading h5 button{
+.page-heading h5 button {
   padding: 0;
 }
 
@@ -145,11 +173,11 @@
   border-radius: 20px;
   padding: 1rem;
 }
-.help-detail-box p{
+.help-detail-box p {
   margin: 0;
-  font-size: 14px
+  font-size: 14px;
 }
-.help-detail-box h6{
+.help-detail-box h6 {
   color: gray;
   font-weight: 600;
   font-size: 14px;
@@ -160,4 +188,27 @@
   background-color: white;
   border-radius: 20px;
   padding: 1rem;
+}
+.about-box a{
+  color: #597445;
+}
+.about-box p span {
+  font-weight: 700;
+}
+.about-box ul {
+  padding-left: 20px;
+}
+
+.page-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.page-contact a{
+  text-decoration: none;
+}
+.page-contact svg{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }

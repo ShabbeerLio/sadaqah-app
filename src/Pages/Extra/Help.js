@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Info, SquarePlus } from "lucide-react";
 import "./Pages.css";
 
-const Tickets = [
+const StaticTickets = [
   {
     id: 1,
     ticket: "#8rj39",
@@ -14,6 +14,20 @@ const Tickets = [
     status: "Replied",
     title: "this is ticket1",
     lastUpdate: "1 Aug, 2025 06:45 PM",
+    messages: [
+      {
+        title: "Initial title",
+        message: "initial message",
+        attachments: null,
+        timestamp: "2025-08-01T18:45:00",
+      },
+      {
+        title: "Follow up",
+        message: "Some reply...",
+        attachments: null,
+        timestamp: "2025-08-04T15:49:00",
+      }
+    ],
     description:
       "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care.",
   },
@@ -25,6 +39,20 @@ const Tickets = [
     status: "Closed",
     title: "this is ticket2",
     lastUpdate: "1 Aug, 2025 06:45 PM",
+    messages: [
+      {
+        title: "Initial title",
+        message: "initial message",
+        attachments: null,
+        timestamp: "2025-08-01T18:45:00",
+      },
+      {
+        title: "Follow up",
+        message: "Some reply...",
+        attachments: null,
+        timestamp: "2025-08-04T15:49:00",
+      }
+    ],
     description:
       "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring.",
   },
@@ -36,6 +64,20 @@ const Tickets = [
     status: "Closed",
     title: "this is ticket3",
     lastUpdate: "1 Aug, 2025 06:45 PM",
+    messages: [
+      {
+        title: "Initial title",
+        message: "initial message",
+        attachments: null,
+        timestamp: "2025-08-01T18:45:00",
+      },
+      {
+        title: "Follow up",
+        message: "Some reply...",
+        attachments: null,
+        timestamp: "2025-08-04T15:49:00",
+      }
+    ],
     description:
       "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform.",
   },
@@ -47,32 +89,66 @@ const Tickets = [
     status: "On Going",
     title: "this is ticket4",
     lastUpdate: "1 Aug, 2025 06:45 PM",
+    messages: [
+      {
+        title: "Initial title",
+        message: "initial message",
+        attachments: null,
+        timestamp: "2025-08-01T18:45:00",
+      },
+      {
+        title: "Follow up",
+        message: "Some reply...",
+        attachments: null,
+        timestamp: "2025-08-04T15:49:00",
+      }
+    ],
     description:
       "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact.",
   },
 ];
 
-const Career = () => {
+const Help = () => {
   const navigate = useNavigate();
   const [selectedPosition, setSelectedPosition] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [newTicketMode, setNewTicketMode] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    title: "",
     message: "",
     attachments: null,
   });
 
   const [applications, setApplications] = useState([]);
+  const [ticketReplies, setTicketReplies] = useState({});
 
   useEffect(() => {
-    const saved = localStorage.getItem("applications");
+    const saved = localStorage.getItem("ticket");
     if (saved) {
-      setApplications(JSON.parse(saved));
+      const parsed = JSON.parse(saved);
+      const updated = parsed.map((t, index) => ({
+        id: StaticTickets.length + index + 1,
+        status: t.status || "On Going",
+        ticket: t.ticket || `#${Math.random().toString(36).substring(2, 9).toUpperCase()}`,
+        postedBy: t.name || "User",
+        date: t.date,
+        lastUpdate: t.lastUpdate || t.date,
+        title: t.title,
+        description: t.message,
+        ...t,
+      }));
+      setApplications(updated);
+    }
+
+    const savedReplies = localStorage.getItem("ticketReplies");
+    if (savedReplies) {
+      setTicketReplies(JSON.parse(savedReplies));
     }
   }, []);
+
+  const mergedTickets = [...StaticTickets, ...applications];
+  const selectedTicket = mergedTickets.find((t) => t.id === selectedPosition);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -86,11 +162,45 @@ const Career = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newApp = { ...formData, date: new Date().toLocaleString() };
-    const updatedApps = [...applications, newApp];
+    if (selectedPosition) {
+      // Add reply to existing ticket
+      const newReply = {
+        title: formData.title,
+        message: formData.message,
+        attachments: formData.attachments,
+        timestamp: new Date().toISOString(),
+      };
+      const existing = ticketReplies[selectedPosition] || [];
+      const updatedReplies = {
+        ...ticketReplies,
+        [selectedPosition]: [newReply, ...existing],
+      };
+      setTicketReplies(updatedReplies);
+      localStorage.setItem("ticketReplies", JSON.stringify(updatedReplies));
+      setFormData({ title: "", message: "", attachments: null });
+      return;
+    }
 
-    localStorage.setItem("applications", JSON.stringify(updatedApps));
+    const uniqueTicketId = `#${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+    const newApp = {
+      id: StaticTickets.length + applications.length + 1,
+      status: "On Going",
+      ticket: uniqueTicketId,
+      postedBy: formData.name || "User",
+      date: new Date().toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
+      lastUpdate: new Date().toLocaleString(),
+      title: formData.title,
+      description: formData.message,
+      ...formData,
+    };
+
+    const updatedApps = [...applications, newApp];
     setApplications(updatedApps);
+    localStorage.setItem("ticket", JSON.stringify(updatedApps));
 
     setSubmitted(true);
     setShowConfirmation(true);
@@ -100,25 +210,30 @@ const Career = () => {
       setShowConfirmation(false);
       setSelectedPosition("");
       setFormData({
-        name: "",
-        email: "",
+        title: "",
         message: "",
         attachments: null,
       });
-    }, 5000); // 5 seconds confirmation modal
+    }, 5000);
+  };
+
+  const handleCloseTicket = (id) => {
+    const updated = applications.map((ticket) =>
+      ticket.id === id ? { ...ticket, status: "Closed" } : ticket
+    );
+    setApplications(updated);
+    localStorage.setItem("ticket", JSON.stringify(updated));
   };
 
   const handlePositionSelect = (positionId) => {
     setSelectedPosition(positionId);
-    setFormData({ ...formData, position: positionId });
   };
 
   const handleFormOpen = () => {
     setNewTicketMode(true);
-    setSelectedPosition(""); // make sure no ticket is selected
+    setSelectedPosition("");
     setFormData({
-      name: "",
-      email: "",
+      title: "",
       message: "",
       attachments: null,
     });
@@ -130,37 +245,41 @@ const Career = () => {
         <div className="notification-box">
           <div className="page-heading">
             <h5>
-              {(selectedPosition || newTicketMode) && !submitted && (<button
-                className="back-button"
-                onClick={() => {
-                  setNewTicketMode(false);
-                  setSelectedPosition("");
-                }}
-              >
-                <ChevronLeft />
-              </button>)} Help and Support </h5>
-            <span onClick={handleFormOpen}> <SquarePlus />Open New Ticket</span>
+              {(selectedPosition || newTicketMode) && !submitted && (
+                <button
+                  className="back-button"
+                  onClick={() => {
+                    setNewTicketMode(false);
+                    setSelectedPosition("");
+                  }}
+                >
+                  <ChevronLeft />
+                </button>
+              )}
+              Help and Support
+            </h5>
+            <span onClick={handleFormOpen}>
+              <SquarePlus />
+              Open New Ticket
+            </span>
           </div>
-          {/* Position Boxes */}
+
           {!selectedPosition && !showConfirmation && !newTicketMode && (
             <div className="help-ticket-boxes">
-              <h5>Recent Support Tickets</h5>
-              {Tickets.map((pos) => (
+              {applications.concat(StaticTickets).map((pos) => (
                 <div
                   key={pos.id}
-                  className={`help-ticket-box ${selectedPosition === pos.id ? "selected" : ""
-                    }`}
+                  className={`help-ticket-box ${selectedPosition === pos.id ? "selected" : ""}`}
                   onClick={() => handlePositionSelect(pos.id)}
                 >
                   <h6>{pos.ticket} - {pos.title}</h6>
-                  <span>{pos.status}</span>
+                  <p className={`help application-status ${pos.status}`}>{pos.status}</p>
                   <p>Last Updated : {pos.lastUpdate}</p>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Confirmation Modal */}
           {showConfirmation && (
             <div className="confirmation-modal">
               <div className="confirmation-box">
@@ -182,53 +301,60 @@ const Career = () => {
           {(selectedPosition || newTicketMode) && !submitted && (
             <>
               {selectedPosition && (
-                <div className="help-detail-box">
-                  <h5>{Tickets.find((p) => p.id === selectedPosition)?.ticket || ""}</h5>
-                  <h5>Subject : {Tickets.find((p) => p.id === selectedPosition)?.title || ""}</h5>
-                  <h6>
-                    Posted By : {Tickets.find((p) => p.id === selectedPosition)?.postedBy || ""} On{" "}
-                    {Tickets.find((p) => p.id === selectedPosition)?.date || ""}
-                  </h6>
-                  <p>{Tickets.find((p) => p.id === selectedPosition)?.description || ""}</p>
-                </div>
+                <>
+                  <div className="help-detail-box">
+                    <h5>{selectedTicket?.ticket}</h5>
+                    <h5>Subject : {selectedTicket?.title}</h5>
+                    <h6>
+                      Posted By : {selectedTicket?.postedBy} On {selectedTicket?.date}
+                    </h6>
+                    <p>{selectedTicket?.description}</p>
+                  </div>
+                  {ticketReplies[selectedPosition]?.length > 0 && (
+                    <>
+                      {
+                        ticketReplies[selectedPosition].map((msg, index) => (
+                          <div className="help-detail-box post-card">
+                            <h5>Subject : {msg.title}</h5>
+                            <h6>
+                              Posted By : {selectedTicket?.postedBy} On{" "}
+                              {new Date(msg.timestamp).toLocaleString("en-GB", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true,
+                              })}
+                            </h6>
+                            <p>{msg.message}</p>
+                          </div>
+
+                        ))
+                      }
+                    </>
+                  )}
+                  {selectedTicket?.status !== "Closed" && (
+                    <div className="post-card">
+                      <button
+                        className="post-button"
+                        onClick={() => handleCloseTicket(selectedTicket.id)}
+                      >
+                        Close Ticket
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
 
               <form onSubmit={handleSubmit} className="post-card">
-                {newTicketMode && (
-                  <>
-                    <label>Subject</label>
-                    <input
-                      className="search__input"
-                      type="text"
-                      name="position"
-                      placeholder="Ticket Subject"
-                      value={formData.position || ""}
-                      onChange={handleChange}
-                      required
-                    />
-                  </>
-                )}
-
-                {/* common fields */}
-                <label>Name</label>
+                <label>Title</label>
                 <input
                   className="search__input"
-                  type="text"
-                  name="name"
-                  placeholder="Full Name"
-                  value={formData.name}
+                  name="title"
+                  placeholder="title"
+                  value={formData.title}
                   onChange={handleChange}
-                  required
-                />
-                <label>Email</label>
-                <input
-                  className="search__input"
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
                 />
                 <label>Message</label>
                 <textarea
@@ -239,6 +365,7 @@ const Career = () => {
                   onChange={handleChange}
                   rows={5}
                 />
+
                 <label>Attachments</label>
                 <input
                   className="search__input"
@@ -246,10 +373,10 @@ const Career = () => {
                   name="attachments"
                   accept=".pdf,.doc,.docx"
                   onChange={handleChange}
-                  required
                 />
+
                 <button className="post-button" type="submit">
-                  Submit Ticket
+                  {selectedPosition ? "Add Reply" : "Submit Ticket"}
                 </button>
 
                 <button
@@ -265,28 +392,11 @@ const Career = () => {
               </form>
             </>
           )}
-
-          {/* Show Submitted Applications after confirmation */}
-          {!selectedPosition &&
-            !showConfirmation &&
-            applications.length > 0 && (
-              <div className="submitted-list">
-                <h5>Submitted Applications</h5>
-                {applications.map((app, idx) => (
-                  <div className="submitted-item" key={idx}>
-                    <strong>{app.name}</strong> ({app.email})<br />
-                    Applied for:{" "}
-                    {Tickets.find((p) => p.id === app.position)?.label ||
-                      app.position}{" "}
-                    on {app.date}
-                  </div>
-                ))}
-              </div>
-            )}
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
-export default Career;
+
+export default Help;
