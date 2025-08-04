@@ -11,7 +11,7 @@ const Footer = () => {
                 </div>
                 <div className="Footer-text">
                     <h2>#doSadaqah</h2>
-                    <p>❤️ Born in Delhi - Build For 🇮🇳 India</p>
+                    <p>❤️ Crafted in Delhi - Build For 🇮🇳 India</p>
                     <p>Connecting The 👆🏻 Ummah</p>
                 </div>
             </div>

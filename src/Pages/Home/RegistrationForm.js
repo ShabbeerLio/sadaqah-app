@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./RegistrationForm.css";
 import Checkbox from "../Items/Checkbox";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { Link } from "react-router-dom";
 
 const RegistrationForm = ({ handlecloseTakeRes }) => {
     const user = JSON.parse(localStorage.getItem("authUser"));
@@ -154,18 +155,30 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
         if (user?.type === "user") {
             return (
                 <>
-                 <div className="form-step">
+                    <div className="form-step">
                         <h6>Consent</h6>
                         <div className="form-consent">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
+                            <p style={{textAlign:"center", fontSize:"16px"}}>﷽</p>
+                            <p>By registering your institution on the Sadaqah App, you acknowledge and agree to the following:</p>
+                            <ul>
+                                <li>We confirm that our institution is an authentic Islamic organization (such as a Masjid, Madrasah, NGO, or Waqf Trust) and is committed to serving the community in accordance with the teachings of Islam.</li>
+                                <li>We provide true and verifiable information regarding our institution’s identity, registration status, bank account details, and the purpose for which we seek support through this platform.</li>
+                                <li>We consent to our information being verified by the Sadaqah App team for the sake of transparency and protection of donors' trust (Amanah).</li>
+                                <li>We understand that listing on the app is subject to approval and may be revoked if any misuse, misrepresentation, or violation of trust is found.</li>
+                                <li>We agree to use all received donations strictly for the purposes stated in our fundraising requests and in accordance with Islamic principles (Shari’ah-compliant spending).</li>
+                                <li>We accept that our activities and donation utilization may be reviewed, and we commit to providing periodic updates if requested.</li>
+                                <li>We agree to abide by the app’s Privacy Policy, Terms & Conditions, and all relevant guidelines.</li>
+                                <li>🤝 Our intention is to serve the Ummah and uphold trust (Amanah) with sincerity and transparency.</li>
+                                <li>📩 For support or queries, please contact us at <Link>support@sadaqahappindia.com</Link>  or call <Link>+91 83838 74007.</Link></li>
+                            </ul>
+
                         </div>
                         <div className="form-consent-checkbox">
                             <Checkbox name={"verificationAgreement"} checked={formData.verificationAgreement} handleChange={handleChange} text={"I authorize platform agent to visit and verify this institution"} />
                             <Checkbox name={"consentDeclaration"} checked={formData.consentDeclaration} handleChange={handleChange} text={"All provided information is true and verified."} />
                         </div>
                     </div>
-                    
+
                     <div className="responsiblity-btns">
                         <p className="confirm" onClick={handleSubmit}>
                             Submit
@@ -419,8 +432,18 @@ const RegistrationForm = ({ handlecloseTakeRes }) => {
                     <div className="form-step">
                         <h6>Consent</h6>
                         <div className="form-consent">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum voluptatibus autem repellendus eum ducimus praesentium sit minima nisi officia, facere eligendi illo similique fuga excepturi voluptatem nulla repudiandae exercitationem natus quae itaque voluptatum eveniet, dolore eaque. Nam animi amet, molestias autem vero suscipit illo hic reiciendis laboriosam quia facere dicta quidem ipsa. Aut tempora dolore itaque aliquam natus nesciunt nam quam modi? Quam fugiat blanditiis debitis veritatis minus, rem dolores laudantium quis sapiente, aliquid fugit magnam, ad doloribus ipsam. Ullam inventore nam corrupti facere aliquam harum reprehenderit soluta debitis. Ipsa veritatis aut rerum quae maiores laudantium rem fugiat deleniti ut.</p>
+                            <p style={{textAlign:"center", fontSize:"16px"}}>﷽</p>
+                            <p>By registering on the Sadaqah App, you acknowledge and agree to the following:</p>
+                            <ul>
+                                <li>I am registering to support and participate in acts of Sadaqah, Zakat, and other forms of Islamic charity for the sake of Allah (ﷻ).</li>
+                                <li>I affirm that the information I provide is truthful and will be used only for charitable purposes in accordance with Islamic principles.</li>
+                                <li>I give consent for the app to collect and securely use my personal information (such as name, contact details, and donation history) to maintain transparency and trust in donation processes.</li>
+                                <li>I understand that this data will never be misused or sold, and will only be shared with verified Islamic institutions or Masakeen (deserving individuals) for the distribution of aid.</li>
+                                <li>I consent to be contacted for donation updates, Islamic reminders, and transparency reports, in line with the mission of the app.</li>
+                                <li>I agree to the terms outlined in the Privacy Policy and Terms & Conditions, and I understand I may request account deletion or data removal at any time.</li>
+                                <li>📿 May Allah accept our intentions and deeds.</li>
+                                <li>📩 For concerns or questions, please contact: <Link>support@sadaqahappindia.com</Link> </li>
+                            </ul>
                         </div>
                         <div className="form-consent-checkbox">
                             <Checkbox name={"verificationAgreement"} checked={formData.verificationAgreement} handleChange={handleChange} text={"I authorize platform agent to visit and verify this institution"} />

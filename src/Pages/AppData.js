@@ -3,6 +3,8 @@ import post1 from "../Assets/Posts/post3.jpg";
 import post2 from "../Assets/Posts/post4.jpg";
 import post3 from "../Assets/Posts/vecteezy_islamic-cute-3d-mosque-for-ramadan-and-eid-greeting-background_26045410.jpg";
 import avatarImg from "../Assets/Banner/Banner.jpg";
+import jamaMasjid from "../Assets/Institute/84_big.jpg";
+import sunherimasjid from "../Assets/Institute/sunehri-masjid.png"
 
 const CombinedFeedData = [
   // USERS
@@ -104,12 +106,12 @@ const CombinedFeedData = [
     id: 3,
     type: "institute",
     instituteType: "masjid",
-    username: "Mashjid-e-hind",
+    username: "Jama Masjid",
     email: "mashjid@gmail.com",
     password: "12345678",
-    avatar: post1,
+    avatar: jamaMasjid,
     followers: 1050,
-    location: "Kolkata",
+    location: "Haider Ganj Karah, Silao, Nalanda, Bihar: 803117",
     adhanTimes: {
       Fajr: "05:10",
       Dhuhr: "01:00",
@@ -146,17 +148,17 @@ const CombinedFeedData = [
       {
         id: 1,
         type: "Quran",
-        location: "Delhi",
+        location: "Haider Ganj Karah, Silao, Nalanda, Bihar: 803117",
         likes: 720,
         time: "2025-05-11",
         title: "Surah Al-Fatiha",
         description: "Opening chapter of the Quran with deep meanings.",
-        image: [post1],
+        image: [jamaMasjid],
       },
       {
         id: 2,
         type: "Hadith",
-        location: "Gurgaon",
+        location: "Haider Ganj Karah, Silao, Nalanda, Bihar: 803117",
         likes: 520,
         time: "2025-05-10",
         title: "Virtue of Prayer",
@@ -314,6 +316,40 @@ const CombinedFeedData = [
         title: "Maintenance Update",
         description: "The kabristan will be closed for maintenance on Friday.",
         image: [post2, post1, post3],
+      },
+    ],
+  },
+  {
+    id: 7,
+    type: "institute",
+    instituteType: "masjid",
+    username: "Sunehri Masjid",
+    email: "mashjid2@gmail.com",
+    password: "12345678",
+    avatar: sunherimasjid,
+    followers: 1050,
+    location:
+      "Street-6, Kanti Nagar Extension, Block A, Seelampur, Shahdara, Delhi 110031",
+    adhanTimes: {
+      Fajr: "05:10",
+      Dhuhr: "01:00",
+      Asr: "16:20",
+      Maghrib: "18:55",
+      Isha: "20:15",
+      Jumma: "12:30",
+    },
+    transactions: [],
+    posts: [
+      {
+        id: 1,
+        type: "Quran",
+        location:
+          "Street-6, Kanti Nagar Extension, Block A, Seelampur, Shahdara, Delhi 110031",
+        likes: 720,
+        time: "2025-05-11",
+        title: "Surah Al-Fatiha",
+        description: "Opening chapter of the Quran with deep meanings.",
+        image: [sunherimasjid],
       },
     ],
   },

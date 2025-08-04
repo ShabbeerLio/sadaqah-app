@@ -31,6 +31,8 @@
   font-style: italic;
 }
 .Footer-text p {
-  /* font-weight: 200; */
-  margin: 0;
+      margin: 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
 }

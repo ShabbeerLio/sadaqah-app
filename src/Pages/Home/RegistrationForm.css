@@ -71,7 +71,7 @@
     width: 100%;
 }
 .form-step p{
-    text-align: center;
+    /* text-align: center; */
     font-size: 14px;
     color:#597445 ;
     width: 100%;
@@ -80,4 +80,15 @@
 .form-consent-checkbox{
     display: grid;
     gap: 8px;
+}
+.form-consent ul{
+    padding-left: 10px;
+}
+
+.form-consent ul li{
+    color: #597445;
+    font-size: 12px;
+}
+.form-consent ul li a{
+    color: #597445;
 }

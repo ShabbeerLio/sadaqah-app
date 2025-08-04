@@ -40,7 +40,7 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                             </div>
                             <div className="SearchCard-right">
                                 <h6>{userData?.username} {userData?.type === "institute" ? (
-                                    <span>({userData?.instituteType})  <span className="verified">Verified</span></span>
+                                      <span className="verified">Verified</span>
                                 ) : (
                                     <span>({userData?.type})</span>
                                 )} </h6>
