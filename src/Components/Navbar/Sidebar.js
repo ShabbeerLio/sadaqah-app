@@ -3,7 +3,7 @@ import "./Sidebar.css"
 import { Link, useNavigate } from 'react-router-dom';
 import CombinedFeedData from '../../Pages/AppData';
 import career from "../../Assets/career.png"
-import { ArrowRightLeft, BanknoteArrowUp, ChevronRight, Info, MessageCircleQuestionMark, Newspaper, ShieldAlert, X } from 'lucide-react';
+import { ArrowRightLeft, BanknoteArrowUp, ChevronRight, Info, MessageCircleQuestionMark, Newspaper, ShieldAlert, ShieldCheck, X } from 'lucide-react';
 
 const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
     const navigate = useNavigate();
@@ -71,6 +71,9 @@ const Sidebar = ({ sideactive, sideRef, handleCloseSidebar }) => {
                         </li>
                         <li>
                             <Link onClick={handleProfile} to={"/return-refund"}> <BanknoteArrowUp />Return And Refund</Link>
+                        </li>
+                        <li>
+                            <Link onClick={handleProfile} to={""}> <ShieldCheck />Certificates</Link>
                         </li>
                         {/* <li>
                             <Link onClick={handleProfile} to={"/"}> <MdWorkOutline />Carrier</Link>

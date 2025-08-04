@@ -11,6 +11,7 @@ import calender from "../../Assets/calender.png"
 import suggest from "../../Assets/suggest3.png"
 import CombinedFeedData from "../../Pages/AppData";
 import { LuWalletMinimal } from "react-icons/lu";
+import calculator from "../../Assets/calculator.png"
 
 
 const Collection = () => {
@@ -90,7 +91,7 @@ const Collection = () => {
                                     <h6>Zakat Calculator</h6>
                                     <p>Calculate your Zakat</p>
                                     <Link to={"/calculator"} className="donate-btn">Calculate</Link>
-                                    <img src={donate} alt="" />
+                                    <img src={calculator} alt="" />
                                 </div>
                             </div>
                             <div className="collection-right-card item4">

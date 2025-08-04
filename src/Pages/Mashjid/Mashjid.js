@@ -93,7 +93,7 @@ const Mashjid = () => {
                             </button> */}
                             <label>Adhan Times</label>
 
-                            {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha","Jumma"].map((prayer) => (
+                            {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha", "Jumma"].map((prayer) => (
                                 <div className="mashjid-adan-add" key={prayer}>
                                     <label>{prayer.toUpperCase()}: </label>
                                     <input
@@ -165,11 +165,11 @@ const Mashjid = () => {
                                                         <input
                                                             type="checkbox"
                                                             className="checkbox"
-                                                            id={index}
+                                                            id={`adhan-toggle-${index}`}
                                                             checked={selectedAdhans.includes(prayer)}
                                                             onChange={() => handleCheckboxChange(prayer)}
                                                         />
-                                                        <label className="switch" htmlFor="checkbox">
+                                                        <label className="switch" htmlFor={`adhan-toggle-${index}`}>
                                                             <span className="slider"></span>
                                                         </label>
                                                     </div>

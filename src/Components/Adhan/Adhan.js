@@ -232,7 +232,7 @@ const Adhan = () => {
                                             <>
                                                 {formatTo12Hour(nextPrayer.time).split(" ")[0]}
                                                 <span> {formatTo12Hour(nextPrayer.time).split(" ")[1]}</span>
-                                                <span> ({locationName?.city})</span>
+                                                <span> ({nextPrayer ? nextPrayer.name : "-"})</span>
                                             </>
                                         ) : "--:--"}
                                     </h2>

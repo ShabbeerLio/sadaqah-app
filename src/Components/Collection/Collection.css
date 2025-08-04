@@ -27,12 +27,12 @@
   color: white;
 }
 
-.collection-left-top{
+.collection-left-top {
   display: flex;
   justify-content: space-between;
 }
 
-.collection-left-top-right svg{
+.collection-left-top-right svg {
   font-size: 20px;
   margin-right: 10px;
 }
@@ -77,7 +77,6 @@
   display: flex;
   gap: 10px;
   margin: 0;
-
 }
 
 .item1 {
@@ -147,10 +146,10 @@
   width: 70%;
 } */
 .collection-right-card.item3 img {
-  width: 50%;
+  width: 45%;
   position: absolute;
-  bottom: -8%;
-  right: -10%;
+  bottom: -3%;
+  right: 0%;
 }
 .collection-right-card h6 {
   color: white;

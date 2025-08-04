@@ -11,7 +11,7 @@
 .Footer-image img {
   width: 100%;
   object-fit: cover;
-      opacity: 0.8;
+  opacity: 0.4;
 }
 
 .Footer-text {
@@ -19,9 +19,11 @@
   bottom: 5%;
   left: 0;
   padding: 1rem;
+  width: 100%;
+  text-align: center;
 }
 .Footer-text h2 {
-  color: #b3b3b3c8;
+  color: #597445;
   font-size: 40px;
   font-weight: 700;
   margin: 0;
@@ -29,6 +31,6 @@
   font-style: italic;
 }
 .Footer-text p {
-    /* font-weight: 200; */
+  /* font-weight: 200; */
   margin: 0;
 }

@@ -27,8 +27,8 @@
   width: 10px;
   height: 10px;
   border-radius: 100%;
-  box-shadow: 0 0 10px #d8d8d8;
-  background: #d8d8d8;
+  box-shadow: 0 0 10px #597445;
+  background: #597445;
   float: left;
   margin: 5px;
   transform: scale(1.5);
@@ -65,35 +65,35 @@
 }
 @keyframes anm-BL-53-move1 {
   50% {
-    background: #d8d8d8;
+    background: #597445;
     transform: scale(0.5);
   }
 }
 
 @keyframes anm-BL-53-move2 {
   50% {
-    background: #d8d8d8;
+    background: #597445;
     transform: scale(0.5);
   }
 }
 
 @keyframes anm-BL-53-move3 {
   50% {
-    background: #d8d8d8;
+    background: #597445;
     transform: scale(0.5);
   }
 }
 
 @keyframes anm-BL-53-move4 {
   50% {
-    background: #d8d8d8;
+    background: #597445;
     transform: scale(0.5);
   }
 }
 
 @keyframes anm-BL-53-move5 {
   50% {
-    background: #d8d8d8;
+    background: #597445;
     transform: scale(0.5);
   }
 }
@@ -105,9 +105,9 @@
 .loader-quote p{
     margin: 0;
     font-size: 14px;
-    color: gray;
+    color: #597445;
     text-align: center;
-    border: 1px solid #d8d8d8;
+    border: 1px solid #597445;
     border-radius: 8px;
     padding: 8px;
 }
