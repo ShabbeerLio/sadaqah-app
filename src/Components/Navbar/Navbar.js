@@ -43,7 +43,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid nav-name">
             <Link className="navbar-brand" onClick={handleSidebar}>
-              <img src={data.avatar} alt="" />
+              <img src={data?.avatar} alt="" />
               <div className="navbar-title">
                 <h5>Assalamu Alaikum</h5>
                 <span>{user?.username}</span>
