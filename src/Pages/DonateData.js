@@ -1,15 +1,14 @@
-import sampleImg from "../Assets/Banner/Banner.jpg";
-import post1 from "../Assets/Posts/post3.jpg";
-import post2 from "../Assets/Posts/post4.jpg";
-import post3 from "../Assets/Posts/vecteezy_islamic-cute-3d-mosque-for-ramadan-and-eid-greeting-background_26045410.jpg";
-import avatarImg from "../Assets/Banner/Banner.jpg";
+import BagmariMuslim from "../Assets/Institute/Bagmari Muslim Burial Ground.png";
+import MadrasaRazvia from "../Assets/Institute/Madrasa Razvia Shahbajul Uloom.png";
+import khanqah from "../Assets/Institute/Jama Masjid, Maulanapur.png";
+import jamaMasjid from "../Assets/Institute/84_big.jpg";
 
 const DonateData = [
   {
     id: 1,
-    avatar: post3,
-    username: "Khanqah-e-Rahmat",
-    location: "Lucknow",
+    avatar: khanqah,
+    username: "Jama Masjid, Maulanapur",
+    location: "6XR9+2HW, Tilkamanjhi, Bhagalpur, Bihar 812002",
     title: "making of wazu khana making of wazu khanamaking of wazu khana",
     description:
       "making of wazu khana making of wazu khana making of wazu khana making of wazu khana",
@@ -18,9 +17,10 @@ const DonateData = [
   },
   {
     id: 2,
-    avatar: post2,
-    username: "Al-Noor Madrasa",
-    location: "Delhi",
+    avatar: MadrasaRazvia,
+    username: "Madrasa Razvia Shahbajul Uloom",
+    location:
+      "Khiribandh, Bhagalpur-Hansdiha Rd, Jamni, Bhairopur, Bihar 812005",
     title: "making of wazu khana",
     description:
       "making of wazu khana making of wazu khana making of wazu khana making of wazu khana",
@@ -29,9 +29,10 @@ const DonateData = [
   },
   {
     id: 3,
-    avatar: post2,
-    username: "Al-Noor Madrasa",
-    location: "Delhi",
+    avatar: MadrasaRazvia,
+    username: "Madrasa Razvia Shahbajul Uloom",
+    location:
+      "Khiribandh, Bhagalpur-Hansdiha Rd, Jamni, Bhairopur, Bihar 812005",
     title: "making of wazu khana",
     description:
       "making of wazu khana making of wazu khana making of wazu khana making of wazu khana",
@@ -40,9 +41,9 @@ const DonateData = [
   },
   {
     id: 4,
-    avatar: avatarImg,
-    username: "Khiribandh Kabristan",
-    location: "Bihar",
+    avatar: BagmariMuslim,
+    username: "Bagmari Muslim Burial Ground",
+    location: "Bagmari Lane, Kankurgachi, Kolkata, West Bengal 700054",
     title: "making of wazu khana",
     description:
       "making of wazu khana making of wazu khana making of wazu khana making of wazu khana",
@@ -51,9 +52,9 @@ const DonateData = [
   },
   {
     id: 5,
-    avatar: post2,
-    username: "Al-Noor Madrasa",
-    location: "Delhi",
+    avatar: jamaMasjid,
+    username: "Jama Masjid",
+    location: "Haider Ganj Karah, Silao, Nalanda, Bihar: 803117",
     title: "making of wazu khana",
     description:
       "making of wazu khana making of wazu khana making of wazu khana making of wazu khana",

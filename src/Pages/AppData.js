@@ -1,10 +1,16 @@
 import sampleImg from "../Assets/Banner/Banner.jpg";
 import post1 from "../Assets/Posts/post3.jpg";
-import post2 from "../Assets/Posts/post4.jpg";
-import post3 from "../Assets/Posts/vecteezy_islamic-cute-3d-mosque-for-ramadan-and-eid-greeting-background_26045410.jpg";
-import avatarImg from "../Assets/Banner/Banner.jpg";
 import jamaMasjid from "../Assets/Institute/84_big.jpg";
-import sunherimasjid from "../Assets/Institute/sunehri-masjid.png"
+import sunherimasjid from "../Assets/Institute/sunehri-masjid.png";
+import khanqah from "../Assets/Institute/Jama Masjid, Maulanapur.png";
+import khanqah1 from "../Assets/Institute/Jama Masjid, Maulanapur1.png";
+import jamamashjidhusainabad from "../Assets/Institute/Jama Masjid Hussainabad.png";
+import MadrasaRazvia from "../Assets/Institute/Madrasa Razvia Shahbajul Uloom.png"
+import MadrasaRazvia1 from "../Assets/Institute/Madrasa Razvia Shahbajul Uloom1.png"
+import MadrasaRazvia2 from "../Assets/Institute/Madrasa Razvia Shahbajul Uloom2.png"
+import BagmariMuslim from "../Assets/Institute/Bagmari Muslim Burial Ground.png"
+import BagmariMuslim1 from "../Assets/Institute/Bagmari Muslim Burial Ground1.png"
+import BagmariMuslim2 from "../Assets/Institute/Bagmari Muslim Burial Ground2.png"
 
 const CombinedFeedData = [
   // USERS
@@ -16,7 +22,7 @@ const CombinedFeedData = [
     password: "user123",
     avatar: post1,
     following: 200,
-    location: "Delhi",
+    location: "Khiribandh, Bhagalpur-Hansdiha Rd, Jamni, Bhairopur, Bihar 812005",
     transactions: [
       {
         id: 1,
@@ -163,7 +169,7 @@ const CombinedFeedData = [
         time: "2025-05-10",
         title: "Virtue of Prayer",
         description: "Prophet (PBUH) emphasized the importance of Salah.",
-        image: [sampleImg],
+        image: [jamaMasjid],
       },
     ],
   },
@@ -171,12 +177,12 @@ const CombinedFeedData = [
     id: 4,
     type: "institute",
     instituteType: "madrasa",
-    username: "Al-Noor Madrasa",
+    username: "Madrasa Razvia Shahbajul Uloom",
     email: "madarasa@gmail.com",
     password: "12345678",
-    avatar: post2,
+    avatar: MadrasaRazvia,
     followers: 620,
-    location: "Delhi",
+    location: "Khiribandh, Bhagalpur-Hansdiha Rd, Jamni, Bhairopur, Bihar 812005",
     transactions: [
       {
         id: 1,
@@ -205,22 +211,22 @@ const CombinedFeedData = [
       {
         id: 3,
         type: "Quran",
-        location: "Patna",
+        location: "Khiribandh, Bhagalpur-Hansdiha Rd, Jamni, Bhairopur, Bihar 812005",
         likes: 450,
         time: "2025-05-08",
         title: "Surah Ikhlas",
         description: "Understanding monotheism in Islam.",
-        image: [post1, post2, post3],
+        image: [MadrasaRazvia, MadrasaRazvia1, MadrasaRazvia2],
       },
       {
         id: 4,
         type: "Quran",
-        location: "Patna",
+        location: "Khiribandh, Bhagalpur-Hansdiha Rd, Jamni, Bhairopur, Bihar 812005",
         likes: 450,
         time: "2025-05-08",
         title: "Surah Ikhlas",
         description: "Understanding monotheism in Islam.",
-        image: [post3, post2],
+        image: [MadrasaRazvia2, MadrasaRazvia],
       },
     ],
   },
@@ -228,12 +234,12 @@ const CombinedFeedData = [
     id: 5,
     type: "institute",
     instituteType: "khanqah",
-    username: "Khanqah-e-Rahmat",
+    username: "Jama Masjid, Maulanapur",
     email: "khanqah@gmail.com",
     password: "12345678",
-    avatar: post3,
+    avatar: khanqah,
     followers: 800,
-    location: "Lucknow",
+    location: "6XR9+2HW, Tilkamanjhi, Bhagalpur, Bihar 812002",
     transactions: [
       {
         id: 1,
@@ -262,13 +268,13 @@ const CombinedFeedData = [
       {
         id: 5,
         type: "Hadith",
-        location: "Lucknow",
+        location: "6XR9+2HW, Tilkamanjhi, Bhagalpur, Bihar 812002",
         likes: 390,
         time: "2025-05-05",
         title: "Love for Humanity",
         description:
           "Hadith about loving for your brother what you love for yourself.",
-        image: [post1],
+        image: [khanqah, khanqah1],
       },
     ],
   },
@@ -276,12 +282,12 @@ const CombinedFeedData = [
     id: 6,
     type: "institute",
     instituteType: "kabristan",
-    username: "Khiribandh Kabristan",
+    username: "Bagmari Muslim Burial Ground",
     email: "kabristan@gmail.com",
     password: "kabristan123",
-    avatar: avatarImg,
+    avatar: BagmariMuslim,
     followers: 290,
-    location: "Bihar",
+    location: "Bagmari Lane, Kankurgachi, Kolkata, West Bengal 700054",
     transactions: [
       {
         id: 1,
@@ -310,12 +316,12 @@ const CombinedFeedData = [
       {
         id: 6,
         type: "Notice",
-        location: "Bihar",
+        location: "Bagmari Lane, Kankurgachi, Kolkata, West Bengal 700054",
         likes: 150,
         time: "2025-05-01",
         title: "Maintenance Update",
         description: "The kabristan will be closed for maintenance on Friday.",
-        image: [post2, post1, post3],
+        image: [BagmariMuslim, BagmariMuslim1, BagmariMuslim2],
       },
     ],
   },
@@ -341,7 +347,7 @@ const CombinedFeedData = [
     transactions: [],
     posts: [
       {
-        id: 1,
+        id: 7,
         type: "Quran",
         location:
           "Street-6, Kanti Nagar Extension, Block A, Seelampur, Shahdara, Delhi 110031",
@@ -350,6 +356,40 @@ const CombinedFeedData = [
         title: "Surah Al-Fatiha",
         description: "Opening chapter of the Quran with deep meanings.",
         image: [sunherimasjid],
+      },
+    ],
+  },
+  {
+    id: 8,
+    type: "institute",
+    instituteType: "masjid",
+    username: "Jama Masjid Hussainabad",
+    email: "mashjid2@gmail.com",
+    password: "12345678",
+    avatar: jamamashjidhusainabad,
+    followers: 1050,
+    location:
+      "Hosainabad, KATGHAR LANE, Tilkamanjhi, Kutubganj, Bhagalpur, Bihar 812005",
+    adhanTimes: {
+      Fajr: "05:10",
+      Dhuhr: "01:00",
+      Asr: "16:20",
+      Maghrib: "18:55",
+      Isha: "20:15",
+      Jumma: "12:30",
+    },
+    transactions: [],
+    posts: [
+      {
+        id: 8,
+        type: "Quran",
+        location:
+          "Hosainabad, KATGHAR LANE, Tilkamanjhi, Kutubganj, Bhagalpur, Bihar 812005",
+        likes: 720,
+        time: "2025-05-11",
+        title: "Surah Al-Fatiha",
+        description: "Opening chapter of the Quran with deep meanings.",
+        image: [jamamashjidhusainabad],
       },
     ],
   },

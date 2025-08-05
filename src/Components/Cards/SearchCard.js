@@ -15,7 +15,7 @@ const SearchCard = ({ searchItem }) => {
                 <img src={searchItem.avatar} alt={searchItem.username} />
             </div>
             <div className="SearchCard-right">
-                <h6>{searchItem.username} {searchItem?.type === "institute" ? (
+                <h6>{searchItem.username.slice(0,25)} {searchItem?.type === "institute" ? (
                     <span>({searchItem?.instituteType})  <span className="verified">Verified</span></span>
                 ) : (
                     <span>({searchItem?.type})</span>

@@ -180,54 +180,7 @@ const Payment = () => {
                 </div>
               </div>
             ))}
-            {filteredPosts.map((inst) => (
-              <div className="SearchCard"
-                onClick={() => setSelectedInstituteId(String(inst.id))}>
-                <div className="SearchCard-left">
-                  <img src={inst.avatar} alt={inst.username} />
-                </div>
-                <div className="SearchCard-right">
-                  <h6>{inst.username} {inst?.type === "institute" ? (
-                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
-                  ) : (
-                    <span>({inst?.type})</span>
-                  )} </h6>
-                  <p>{inst.location}</p>
-                </div>
-              </div>
-            ))}
-            {filteredPosts.map((inst) => (
-              <div className="SearchCard"
-                onClick={() => setSelectedInstituteId(String(inst.id))}>
-                <div className="SearchCard-left">
-                  <img src={inst.avatar} alt={inst.username} />
-                </div>
-                <div className="SearchCard-right">
-                  <h6>{inst.username} {inst?.type === "institute" ? (
-                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
-                  ) : (
-                    <span>({inst?.type})</span>
-                  )} </h6>
-                  <p>{inst.location}</p>
-                </div>
-              </div>
-            ))}
-            {filteredPosts.map((inst) => (
-              <div className="SearchCard"
-                onClick={() => setSelectedInstituteId(String(inst.id))}>
-                <div className="SearchCard-left">
-                  <img src={inst.avatar} alt={inst.username} />
-                </div>
-                <div className="SearchCard-right">
-                  <h6>{inst.username} {inst?.type === "institute" ? (
-                    <span>({inst?.instituteType})  <span className="verified">Verified</span></span>
-                  ) : (
-                    <span>({inst?.type})</span>
-                  )} </h6>
-                  <p>{inst.location}</p>
-                </div>
-              </div>
-            ))}
+            
           </div>
           <Ads />
         </div>

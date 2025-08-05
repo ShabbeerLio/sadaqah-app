@@ -23,6 +23,7 @@
 }
 .SearchCard-right {
   width: 80%;
+  padding: 10px 0;
 }
 .SearchCard-right h6{
   font-weight: 600;
@@ -37,5 +38,5 @@
 }
 .SearchCard-right p{
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
 }
