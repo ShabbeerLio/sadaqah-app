@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Payment.css";
 import CombinedFeedData from "../AppData";
 import ads from "../../Assets/Ads/ads.jpg"
-import { IoIosArrowBack } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import Ads from "../../Components/Ads/Ads";
 import Searchbox from "../../Components/Searchbox/Searchbox";
+import { ChevronLeft } from "lucide-react";
 
 
 const Payment = () => {
@@ -159,7 +159,7 @@ const Payment = () => {
       {!selectedInstitute ? (
         <div className="section">
           <button className="back-button" onClick={handleGoBack}>
-            <IoIosArrowBack />
+            <ChevronLeft />
             <h5>Select an Institute</h5>
           </button>
           <Searchbox value={searchTerm} setSearch={setSearchTerm} />
@@ -187,7 +187,7 @@ const Payment = () => {
       ) : (
         <div className="section">
           <button className="back-button" onClick={handleGoBack}>
-            <IoIosArrowBack />
+            <ChevronLeft />
             <h5>Selected Institute</h5>
           </button>
         </div>

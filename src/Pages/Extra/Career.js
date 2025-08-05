@@ -9,10 +9,10 @@ import poster3 from "../../Assets/team-amanah.png"
 import poster4 from "../../Assets/team-fikr.png"
 
 const positions = [
-  { id: "Team Ansar", label: "Team Ansar", poster: poster1, status: "Coming Soon", description: "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care." },
-  { id: "Team Rahmah", label: "Team Rahmah", poster: poster2, status: "Coming Soon", description: "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring." },
-  { id: "Team Amanah", label: "Team Amanah", poster: poster3, status: "Coming Soon", description: "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform." },
-  { id: "Team Fikr", label: "Team Fikr", poster: poster4, status: "Coming Soon", description: "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact." },
+  { id: "Team Ansar", label: "Team Ansar", poster: poster1, status: "Join Team", description: "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care.", detail: "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care." },
+  { id: "Team Rahmah", label: "Team Rahmah", poster: poster2, status: "Coming Soon", description: "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring.", detail: "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring." },
+  { id: "Team Amanah", label: "Team Amanah", poster: poster3, status: "Coming Soon", description: "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform.", detail: "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform." },
+  { id: "Team Fikr", label: "Team Fikr", poster: poster4, status: "Coming Soon", description: "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact.", detail: "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact." },
 ];
 
 const Career = () => {
@@ -98,97 +98,112 @@ const Career = () => {
           {/* Position Boxes */}
           {!selectedPosition && !showConfirmation && (
             <div className="position-boxes">
-              {positions.map((pos) => (
-                <div
-                  key={pos.id}
-                  className={`position-box ${selectedPosition === pos.id ? "selected" : ""
-                    }`}
-
-                >
-                  <img onClick={() => handlePositionSelect(pos.id)} src={pos.poster} alt="" />
-                  <div className="career-info">
-                    <Info onClick={() => setActiveTooltip(activeTooltip === pos.id ? null : pos.id)} />
-                    {activeTooltip === pos.id && (
-                      <div className={`career-tooltip ${pos.id}`}>
-                        {pos.description}
-                      </div>
-                    )}
+              {positions.map((pos) => {
+                const isComingSoon = pos.status === "Coming Soon";
+                return (
+                  <div
+                    key={pos.id}
+                    className={`position-box ${selectedPosition === pos.id ? "selected" : ""} ${isComingSoon ? "disabled" : ""}`}
+                  >
+                    <img
+                      onClick={() => {
+                        if (!isComingSoon) handlePositionSelect(pos.id);
+                      }}
+                      src={pos.poster}
+                      alt=""
+                      style={{ cursor: isComingSoon ? "not-allowed" : "pointer", opacity: isComingSoon ? 0.6 : 1 }}
+                    />
+                    <div className="career-info">
+                      <Info
+                        onClick={() =>
+                          setActiveTooltip(activeTooltip === pos.id ? null : pos.id)
+                        }
+                      />
+                      {activeTooltip === pos.id && (
+                        <div className={`career-tooltip ${pos.id}`}>
+                          {pos.description}
+                        </div>
+                      )}
+                    </div>
+                    <div className="career-status">
+                      <p>{pos.status}</p>
+                    </div>
                   </div>
-                  <div className="career-status">
-                    <p>
-                      {pos.status}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
           {/* Application Form */}
           {selectedPosition && !submitted && (
-            <form onSubmit={handleSubmit} className="post-card">
-              <label>Name</label>
-              <input
-                className="search__input"
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-              <label>Email</label>
-              <input
-                className="search__input"
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <label>Number</label>
-              <input
-                className="search__input"
-                type="tel"
-                name="phone"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-              <label>Position</label>
-              <input
-                className="search__input"
-                type="text"
-                name="position"
-                value={
-                  positions.find((p) => p.id === selectedPosition)?.label || ""
-                }
-                disabled
-              />
-              <label>About Yourself</label>
-              <textarea
-                className="search__input"
-                name="coverLetter"
-                placeholder="Cover Letter"
-                value={formData.coverLetter}
-                onChange={handleChange}
-                rows={5}
-              />
-              <label>CV (.pdf, .doc, .docx)</label>
-              <input
-                className="search__input"
-                type="file"
-                name="resume"
-                accept=".pdf,.doc,.docx"
-                onChange={handleChange}
-                required
-              />
-              <button className="post-button" type="submit">
-                Submit Application
-              </button>
-            </form>
+            <>
+            <div className="team-detail">
+              <p>{positions.find((p) => p.id === selectedPosition)?.detail || ""}</p>
+            </div>
+              <form onSubmit={handleSubmit} className="post-card">
+                <label>Name</label>
+                <input
+                  className="search__input"
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <label>Email</label>
+                <input
+                  className="search__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <label>Number</label>
+                <input
+                  className="search__input"
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+                <label>Position</label>
+                <input
+                  className="search__input"
+                  type="text"
+                  name="position"
+                  value={
+                    positions.find((p) => p.id === selectedPosition)?.label || ""
+                  }
+                  disabled
+                />
+                <label>About Yourself</label>
+                <textarea
+                  className="search__input"
+                  name="coverLetter"
+                  placeholder="Cover Letter"
+                  value={formData.coverLetter}
+                  onChange={handleChange}
+                  rows={5}
+                />
+                <label>CV (.pdf, .doc, .docx)</label>
+                <input
+                  className="search__input"
+                  type="file"
+                  name="resume"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleChange}
+                  required
+                />
+                <button className="post-button" type="submit">
+                  Submit Application
+                </button>
+              </form>
+            </>
           )}
 
           {/* Confirmation Modal */}

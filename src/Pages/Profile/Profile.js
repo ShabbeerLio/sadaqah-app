@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Profile.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CombinedFeedData from "../AppData";
-import { IoIosAdd } from "react-icons/io";
+import { Plus } from "lucide-react";
 
 const Profile = () => {
   const { id } = useParams();
@@ -132,7 +132,7 @@ const Profile = () => {
               >
                 <div className="plus-icon">
                   {" "}
-                  <IoIosAdd />
+                 <Plus />
                 </div>
               </div>
             )}

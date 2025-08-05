@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "../../Assets/Logo/logo-sadaqah-app-white.png";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";

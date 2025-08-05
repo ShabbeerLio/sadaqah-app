@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Suggest.css";
 import { Link } from "react-router-dom";
-import { IoIosArrowBack, IoIosClose } from "react-icons/io";
 import Ads from "../../Components/Ads/Ads";
+import { X } from "lucide-react";
 
 const Suggest = () => {
   const [name, setName] = useState("");
@@ -85,7 +85,7 @@ const Suggest = () => {
           <div className="responsiblity-box-item">
             <div className="responsiblity-top">
               <p>Suggested</p>
-              <IoIosClose onClick={handlecloseFullfilled} />
+              <X onClick={handlecloseFullfilled} />
             </div>
             <div className="donationreq-card">
               <div className="req-card-top">

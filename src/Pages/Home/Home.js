@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Banners from "../../Components/Banner/Banner";
 import Collection from "../../Components/Collection/Collection";
-import Searchbox from "../../Components/Searchbox/Searchbox";
 import Footer from "../../Components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import Ads from "../../Components/Ads/Ads";
 import Adhan from "../../Components/Adhan/Adhan";
-import { IoIosArrowBack, IoIosClose } from "react-icons/io";
 import RegistrationForm from "./RegistrationForm";
+import { X } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ const Home = () => {
           <div className="responsiblity-box-item">
             <div className="responsiblity-top">
               <h5>Registration Form</h5>
-              <IoIosClose onClick={handlecloseTakeRes} />
+              <X onClick={handlecloseTakeRes} />
             </div>
             <div className="responsiblity-note">
               <RegistrationForm handlecloseTakeRes={handlecloseTakeRes}/>

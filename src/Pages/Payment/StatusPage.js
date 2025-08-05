@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import { LuCircleCheck } from "react-icons/lu";
 import "./StatusPage.css";
 import ads from "../../Assets/Ads/ads.jpg"
 import Checkbox from "../Items/Checkbox";

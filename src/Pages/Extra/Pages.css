@@ -86,6 +86,16 @@
   cursor: pointer;
 }
 
+.team-detail{
+  background-color: white;
+  border-radius: 20px;
+  padding: 1rem;
+}
+.team-detail p{
+  margin: 0;
+  font-size: 14px;
+}
+
 .career-tooltip {
   position: absolute;
   top: 120%;

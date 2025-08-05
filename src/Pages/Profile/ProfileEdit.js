@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProfileEdit.css"; // Import raw CSS
 import ProfileData from "./ProfileData";
-import { IoIosArrowBack } from "react-icons/io";
+import { ChevronLeft } from "lucide-react";
 
 const ProfileEdit = () => {
   const handleEdit = (field) => {
@@ -19,7 +19,7 @@ const ProfileEdit = () => {
     <div className="profile-container">
       <div className="profile-header">
         <button className="back-button" onClick={handleGoBack}>
-         <IoIosArrowBack/>
+         <ChevronLeft />
         </button>
         <h2>Edit profile</h2>
       </div>

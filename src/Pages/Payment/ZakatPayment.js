@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import ads from "../../Assets/Ads/ads.jpg";
-import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import CombinedFeedData from "../AppData";
 import zakatprof from "../../Assets/Posts/post4.jpg"
+import { ChevronLeft } from "lucide-react";
 
 const ZakatPayment = () => {
     const navigate = useNavigate();
@@ -109,7 +108,7 @@ const ZakatPayment = () => {
         <div className="sadaqah-container">
             <div className="section">
                 <button className="back-button" onClick={handleGoBack}>
-                    <IoIosArrowBack />
+                    <ChevronLeft />
                 </button>
             </div>
             <div className="section">
