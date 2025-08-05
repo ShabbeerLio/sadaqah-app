@@ -364,7 +364,7 @@ const CombinedFeedData = [
     type: "institute",
     instituteType: "masjid",
     username: "Jama Masjid Hussainabad",
-    email: "mashjid2@gmail.com",
+    email: "mashjid3@gmail.com",
     password: "12345678",
     avatar: jamamashjidhusainabad,
     followers: 1050,
