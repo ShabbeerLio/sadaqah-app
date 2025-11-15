@@ -3,16 +3,52 @@ import React, { useEffect, useState } from "react";
 import Ads from "../../Components/Ads/Ads";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, Info } from "lucide-react";
-import poster1 from "../../Assets/team-ansar.png"
-import poster2 from "../../Assets/team-Rahmah.png"
-import poster3 from "../../Assets/team-amanah.png"
-import poster4 from "../../Assets/team-fikr.png"
+import poster1 from "../../Assets/team-ansar.png";
+import poster2 from "../../Assets/team-Rahmah.png";
+import poster3 from "../../Assets/team-amanah.png";
+import poster4 from "../../Assets/team-fikr.png";
 
 const positions = [
-  { id: "Team Ansar", label: "Team Ansar", poster: poster1, status: "Join Team", description: "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care.", detail: "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care." },
-  { id: "Team Rahmah", label: "Team Rahmah", poster: poster2, status: "Coming Soon", description: "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring.", detail: "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring." },
-  { id: "Team Amanah", label: "Team Amanah", poster: poster3, status: "Coming Soon", description: "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform.", detail: "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform." },
-  { id: "Team Fikr", label: "Team Fikr", poster: poster4, status: "Coming Soon", description: "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact.", detail: "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact." },
+  {
+    id: "Team Ansar",
+    label: "Team Ansar",
+    poster: poster1,
+    status: "Join Team",
+    description:
+      "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care.",
+    detail:
+      "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care.",
+  },
+  {
+    id: "Team Rahmah",
+    label: "Team Rahmah",
+    poster: poster2,
+    status: "Coming Soon",
+    description:
+      "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring.",
+    detail:
+      "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring.",
+  },
+  {
+    id: "Team Amanah",
+    label: "Team Amanah",
+    poster: poster3,
+    status: "Coming Soon",
+    description:
+      "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform.",
+    detail:
+      "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform.",
+  },
+  {
+    id: "Team Fikr",
+    label: "Team Fikr",
+    poster: poster4,
+    status: "Coming Soon",
+    description:
+      "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact.",
+    detail:
+      "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact.",
+  },
 ];
 
 const Career = () => {
@@ -82,18 +118,27 @@ const Career = () => {
   };
 
   return (
-    <div className="Home">
+    <div className="Home other">
       <div className="Home-main">
+        <div className="profile-header other" style={{ marginTop: "1rem" }}>
+          <button className="back-button" onClick={() => navigate(-1)}>
+            <ChevronLeft />
+          </button>
+          <h2>Career Opportunities</h2>
+        </div>
         <div className="notification-box">
           <div className="page-heading">
-            <h5> {selectedPosition && !submitted && (
-              <button
-                className="back-button"
-                onClick={() => setSelectedPosition("")}
-              >
-                <ChevronLeft />
-              </button>
-            )}Career Opportunities</h5>
+            <h5>
+              {" "}
+              {selectedPosition && !submitted && (
+                <button
+                  className="back-button"
+                  onClick={() => setSelectedPosition("")}
+                >
+                  <ChevronLeft />
+                </button>
+              )}
+            </h5>
           </div>
           {/* Position Boxes */}
           {!selectedPosition && !showConfirmation && (
@@ -103,7 +148,9 @@ const Career = () => {
                 return (
                   <div
                     key={pos.id}
-                    className={`position-box ${selectedPosition === pos.id ? "selected" : ""} ${isComingSoon ? "disabled" : ""}`}
+                    className={`position-box ${
+                      selectedPosition === pos.id ? "selected" : ""
+                    } ${isComingSoon ? "disabled" : ""}`}
                   >
                     <img
                       onClick={() => {
@@ -111,12 +158,17 @@ const Career = () => {
                       }}
                       src={pos.poster}
                       alt=""
-                      style={{ cursor: isComingSoon ? "not-allowed" : "pointer", opacity: isComingSoon ? 0.6 : 1 }}
+                      style={{
+                        cursor: isComingSoon ? "not-allowed" : "pointer",
+                        opacity: isComingSoon ? 0.6 : 1,
+                      }}
                     />
                     <div className="career-info">
                       <Info
                         onClick={() =>
-                          setActiveTooltip(activeTooltip === pos.id ? null : pos.id)
+                          setActiveTooltip(
+                            activeTooltip === pos.id ? null : pos.id
+                          )
                         }
                       />
                       {activeTooltip === pos.id && (
@@ -137,9 +189,12 @@ const Career = () => {
           {/* Application Form */}
           {selectedPosition && !submitted && (
             <>
-            <div className="team-detail">
-              <p>{positions.find((p) => p.id === selectedPosition)?.detail || ""}</p>
-            </div>
+              <div className="team-detail">
+                <p>
+                  {positions.find((p) => p.id === selectedPosition)?.detail ||
+                    ""}
+                </p>
+              </div>
               <form onSubmit={handleSubmit} className="post-card">
                 <label>Name</label>
                 <input
@@ -177,7 +232,8 @@ const Career = () => {
                   type="text"
                   name="position"
                   value={
-                    positions.find((p) => p.id === selectedPosition)?.label || ""
+                    positions.find((p) => p.id === selectedPosition)?.label ||
+                    ""
                   }
                   disabled
                 />
@@ -226,23 +282,25 @@ const Career = () => {
           )}
 
           {/* Show Submitted Applications after confirmation */}
-          {!selectedPosition && !showConfirmation && applications.length > 0 && (
-            <div className="submitted-list">
-              <h5>Submitted Applications</h5>
-              {applications.map((app, idx) => (
-                <div className="submitted-item" key={idx}>
-                  <p className={`application-status ${app.status}`}>{app.status}</p>
-                  <strong>{app.name}</strong> ({app.email})<br />
-                  Applied for:{" "}
-                  {
-                    positions.find((p) => p.id === app.position)?.label ||
-                    app.position
-                  }{" "}
-                  on {app.date}
-                </div>
-              ))}
-            </div>
-          )}
+          {!selectedPosition &&
+            !showConfirmation &&
+            applications.length > 0 && (
+              <div className="submitted-list">
+                <h5>Submitted Applications</h5>
+                {applications.map((app, idx) => (
+                  <div className="submitted-item" key={idx}>
+                    <p className={`application-status ${app.status}`}>
+                      {app.status}
+                    </p>
+                    <strong>{app.name}</strong> ({app.email})<br />
+                    Applied for:{" "}
+                    {positions.find((p) => p.id === app.position)?.label ||
+                      app.position}{" "}
+                    on {app.date}
+                  </div>
+                ))}
+              </div>
+            )}
         </div>
       </div>
     </div>

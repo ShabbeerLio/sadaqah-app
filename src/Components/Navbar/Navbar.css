@@ -194,6 +194,14 @@
 .radio-label.blue {
   color: #0e98c1;
 }
+/* green for System Requested */
+.radio-label.green input[type="radio"] {
+  accent-color: green;
+}
+
+.radio-label.green {
+  color: green;
+}
 
 .pay-imag {
   width: 30px !important;

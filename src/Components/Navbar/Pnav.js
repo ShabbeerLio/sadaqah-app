@@ -1,12 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Pnav.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import doantebtn from "../../Assets/donate (2).png"
-import donatechange from "../../Assets/donate (3).png"
-import { House, Megaphone, Search, TvMinimalPlay, SquarePlus } from "lucide-react";
+import doantebtn from "../../Assets/donate (2).png";
+import donatechange from "../../Assets/donate (3).png";
+import {
+  House,
+  Megaphone,
+  Search,
+  TvMinimalPlay,
+  SquarePlus,
+} from "lucide-react";
+import NoteContext from "../../Context/SadaqahContext";
 
 const Pnav = () => {
+  const { userDetail, getAccountDetails } = useContext(NoteContext);
   const navigate = useNavigate();
   const location = useLocation();
   const [highlightProps, setHighlightProps] = useState({
@@ -15,14 +23,13 @@ const Pnav = () => {
   });
   const navRefs = useRef([]);
   const [tail, setTail] = useState(null);
-  const [user, setUser] = useState()
+  const user = userDetail;
 
   useEffect(() => {
-    const authUser = localStorage.getItem("authUser");
-    if (!authUser) {
+    if (!localStorage.getItem("token")) {
       navigate("/login");
     } else {
-      setUser(JSON.parse(authUser));
+      getAccountDetails();
     }
   }, [navigate]);
 
@@ -30,7 +37,7 @@ const Pnav = () => {
     if (!user) return;
 
     const links =
-      user.type === "user"
+      user.role === "user"
         ? ["/", "/feeds", "/donation-request", "/search", "/adhan"]
         : ["/", "/feeds", "/donation-request", "/add-feed", "/adhan"];
 
@@ -100,7 +107,7 @@ const Pnav = () => {
             <TvMinimalPlay />
           </NavLink>
         </li>
-        {user?.type === "user" ? (
+        {user?.role === "user" ? (
           <>
             <li>
               <NavLink
@@ -110,7 +117,11 @@ const Pnav = () => {
                 ref={(el) => (navRefs.current[2] = el)}
               >
                 {location.pathname === "/donation-request" ? (
-                  <img className="navdonate" src={donatechange} alt="donate active" />
+                  <img
+                    className="navdonate"
+                    src={donatechange}
+                    alt="donate active"
+                  />
                 ) : (
                   <img className="navdonate" src={doantebtn} alt="donate" />
                 )}
@@ -147,7 +158,11 @@ const Pnav = () => {
                 ref={(el) => (navRefs.current[2] = el)}
               >
                 {location.pathname === "/donation-request" ? (
-                  <img className="navdonate" src={donatechange} alt="donate active" />
+                  <img
+                    className="navdonate"
+                    src={donatechange}
+                    alt="donate active"
+                  />
                 ) : (
                   <img className="navdonate" src={doantebtn} alt="donate" />
                 )}
@@ -167,7 +182,6 @@ const Pnav = () => {
           </NavLink>
         </li>
       </ul>
-
     </div>
   );
 };

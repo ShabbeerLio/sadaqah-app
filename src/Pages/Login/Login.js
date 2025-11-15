@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import CombinedFeedData from "../AppData";
 import Loading from "../../Components/Loading/Loading";
+import Host from "../../Host";
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -11,38 +12,61 @@ const Signup = () => {
   const [orgActive, setOrgActive] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const handleClickOrg = (isInstitute) => {
     setOrgActive(null);
     setTimeout(() => {
       navigate("/signup", { state: { orgActive: isInstitute } });
     }, 500);
   };
-  // console.log(orgActive, "orgActive")
-  const handleClickLogin = () => {
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
     setOrgActive(null);
-    setTimeout(() => {
-      setLoading(true);
-    }, 1000);
-    const user = CombinedFeedData.find(
-      (u) => u.email === email && u.password === password
-    );
-    if (user) {
-      localStorage.setItem(
-        "authUser",
-        JSON.stringify({
-          id: user.id,
-          username: user.username,
-          type: user.type,
-        })
-      );
+    try {
+      const res = await fetch(`${Host}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setTimeout(() => {
+          setLoading(true);
+        }, 1000);
+        localStorage.setItem("token", data.authToken);
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/");
+        }, 4000);
+      } else {
+        setLoading(false);
+        setErrorMessage(data.error || "Invalid email or password");
+        setOrgActive(false);
+      }
+    } catch (err) {
+      console.error("Login error:", err);
       setTimeout(() => {
         setLoading(false);
-        navigate("/");
-      }, 4000);
-    } else {
-      alert("Invalid email or password");
+      }, 1100);
+      setOrgActive(false);
+      setErrorMessage("Server error. Please try again later.");
     }
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 2000);
   };
+
+  const handleGoogleSignup = () => {
+    window.location.href = `${Host}/auth/google`;
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -50,13 +74,12 @@ const Signup = () => {
     <div className="Login">
       <div className="Login-main">
         <div
-          className={`signup-box ${
-            orgActive === true
-              ? "active"
-              : orgActive === false
+          className={`signup-box ${orgActive === true
+            ? "active"
+            : orgActive === false
               ? ""
               : "nonactive"
-          }`}
+            }`}
         >
           <div className="form-box register-user">
             <form onSubmit={(e) => e.preventDefault()}>
@@ -82,11 +105,22 @@ const Signup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              {errorMessage && (
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: "14px",
+                    margin: "0",
+                  }}
+                >
+                  {errorMessage}
+                </p>
+              )}
               <div className="forgot-link">
                 <Link>Forgot Password</Link>
               </div>
               <button
-                onClick={handleClickLogin}
+                onClick={handleLoginSubmit}
                 type="button"
                 className="submit-button"
               >

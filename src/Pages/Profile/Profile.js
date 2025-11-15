@@ -1,33 +1,84 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Profile.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CombinedFeedData from "../AppData";
-import { Plus } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
+import NoteContext from "../../Context/SadaqahContext";
+import Host from "../../Host";
+import avatar2 from "../../Assets/avtar2.jpg";
 
 const Profile = () => {
+  const { userDetail, getAccountDetails } = useContext(NoteContext);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  // console.log(id, "id");
+
+  // console.log(userDetail,"userDetail")
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    } else {
+      getAccountDetails();
+      if (id !== undefined) {
+        fetchProfile(id);
+        fetchPostbyInstituteId(id);
+      }
+    }
+  }, [id, navigate]);
 
   useEffect(() => {
-    const authUser = localStorage.getItem("authUser");
-    if (!authUser) {
-      navigate("/login");
-    }
-  }, [navigate]);
-  const user = JSON.parse(localStorage.getItem("authUser"));
-  console.log(user, "user");
-
-  if (!user) return null;
-
-  let data = [];
-  if (id) {
-    data = CombinedFeedData.find((item) => item.id === Number(id));
-  } else {
-    data = CombinedFeedData.find((item) => item.username === user.username);
+  if (userDetail?.role === "institute") {
+    const instituteId = userDetail?._id;
+    fetchProfile(instituteId);
+    fetchPostbyInstituteId(instituteId);
   }
+}, [userDetail]);
 
-  console.log(CombinedFeedData, "user");
-  console.log(data, "dara");
+  const fetchProfile = async (id) => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(`${Host}/auth/institute/${id}`, {
+        method: "GET",
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      });
+      const json = await response.json();
+
+      setProfileData(json);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchPostbyInstituteId = async (id) => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(`${Host}/posts/institute/${id}`, {
+        method: "GET",
+      });
+      const json = await response.json();
+
+      setPosts(json.posts);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const user = userDetail;
+  const data = profileData ? profileData.institute : user;
+  console.log(posts, "posts");
+  // console.log(user, "user");
+  console.log(data, "data");
+
   if (!data) {
     return (
       <div className="Home">
@@ -36,58 +87,114 @@ const Profile = () => {
     );
   }
   const handleLogout = () => {
-    localStorage.removeItem("authUser");
+    localStorage.removeItem("token");
     navigate("/login");
   };
+
+  const handleFollow = async () => {
+    const response = await fetch(`${Host}/follow/follow/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const json = await response.json();
+    if (json.success) {
+      getAccountDetails()
+    } else {
+      console.log("error")
+    }
+  }
+
+  const handleUnfollow = async () => {
+    const response = await fetch(`${Host}/follow/unfollow/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const json = await response.json();
+    if (json.success) {
+      getAccountDetails()
+    } else {
+      console.log("error")
+    }
+  }
+
+  console.log(user, "user")
 
   return (
     <div className="Home">
       <div className="Home-main">
         <div className="profile-container">
           <div className="profile-header">
+            <button className="back-button" onClick={() => navigate(-1)}>
+              <ChevronLeft />
+            </button>
+            <h2>Profile</h2>
+          </div>
+          <div className="profile-header-top">
             <div className="profile-pic">
-              <img src={data.avatar} alt="Profile" />
+              <img src={data.avatar ? data.avatar : avatar2} alt="Profile" />
             </div>
             <div className="profile-info">
               <div className="profile-stats">
-                {data.posts && data.posts.length > 0 && (
+                {posts && posts?.length > 0 && (
                   <span>
-                    <strong>{data.posts.length} </strong>
+                    <strong>{posts?.length} </strong>
                     posts
                   </span>
                 )}
-                {data.followers && (
-                  <span
-                    onClick={() =>
-                      navigate(`/connections/${data.username}?type=followers`)
-                    }
-                    style={{ cursor: "pointer" }}
-                  >
-                    <strong>{data.followers} </strong>
-                    followers
-                  </span>
-                )}
-                {data.following && (
-                  <span
-                    onClick={() =>
-                      navigate(`/connections/${data.username}?type=following`)
-                    }
-                    style={{ cursor: "pointer" }}
-                  >
-                    <strong>{data.following} </strong>
-                    following
-                  </span>
-                )}
+                {data.followers &&
+                  (user.role === "institute" ? (
+                    <span
+                      onClick={() =>
+                        navigate(`/connections/${data.userName}?type=followers`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      <strong>{data.followers.length} </strong>
+                      followers
+                    </span>
+                  ) : (
+                    <span style={{ cursor: "pointer" }}>
+                      <strong>{data.followers.length} </strong>
+                      followers
+                    </span>
+                  ))}
+                {data.followingInstitutes &&
+                  (user.role === "user" ? (
+                    <span
+                      onClick={() =>
+                        navigate(`/connections/${data.userName}?type=following`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      <strong>{data.followingInstitutes.length} </strong>
+                      following
+                    </span>
+                  ) : (
+                    <span style={{ cursor: "pointer" }}>
+                      <strong>{data.followingInstitutes.length} </strong>
+                      following
+                    </span>
+                  ))}
               </div>
             </div>
           </div>
           <div className="profile-details">
-            <p>{data.username}</p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus,
-              et.
-            </p>
-            <Link>Lorem, ipsum dolor.</Link>
+            <p>{data.userName} {data.role === "institute" && <span className="verified">Verified</span>} </p>
+            {data.role === "institute" &&
+              (<>
+                <p>{data.instituteType}</p>
+              </>
+              )
+            }
+            <p>{data.location}</p>
+            <p>{data.pincode}</p>
+            <p>{data.email}</p>
           </div>
 
           <div className="profile-highlights">
@@ -97,21 +204,25 @@ const Profile = () => {
                 <Link to="/profile-edit" className="highlight follow">
                   Edit Profile
                 </Link>
-                <Link className="highlight">Share Profile</Link>
+                <Link to="/blocked-post" className="highlight">Blocked Posts</Link>
               </>
             ) : (
               // Viewing someone else's profile
               <>
-                {user.type === "institute" ? (
-                  data.type === "user" ? (
+                {user.role === "institute" ? (
+                  data.role === "user" ? (
                     <Link className="highlight follow">Invite</Link>
                   ) : (
                     <Link className="highlight follow">Share Profile</Link>
                   )
-                ) : user.type === "user" ? (
-                  data.type === "institute" ? (
+                ) : user.role === "user" ? (
+                  data.role === "institute" ? (
                     <>
-                      <Link className="highlight follow">Follow</Link>
+                      {user?.followingInstitutes?.includes(data._id) ? (
+                        <Link className="highlight" onClick={handleUnfollow}>Following</Link>
+                      ) : (
+                        <Link className="highlight follow" onClick={handleFollow}>Follow</Link>
+                      )}
                       <Link className="highlight">Share Profile</Link>
                     </>
                   ) : (
@@ -132,17 +243,17 @@ const Profile = () => {
               >
                 <div className="plus-icon">
                   {" "}
-                 <Plus />
+                  <Plus />
                 </div>
               </div>
             )}
 
             {/* Existing Posts */}
-            {data?.posts?.map((i) => (
+            {posts?.map((i) => (
               <div
                 className="gallery-item"
                 key={i.id}
-                onClick={() => navigate(`/feeds?postId=${i.id}`)}
+                onClick={() => navigate(`/feeds?postId=${i._id}`)}
                 style={{ cursor: "pointer" }}
               >
                 <img src={i.image[0]} alt="" />

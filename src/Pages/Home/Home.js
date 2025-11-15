@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import Banners from "../../Components/Banner/Banner";
 import Collection from "../../Components/Collection/Collection";
@@ -8,17 +8,22 @@ import Ads from "../../Components/Ads/Ads";
 import Adhan from "../../Components/Adhan/Adhan";
 import RegistrationForm from "./RegistrationForm";
 import { X } from "lucide-react";
+import NoteContext from "../../Context/SadaqahContext";
 
 const Home = () => {
+  const { userDetail, getAccountDetails } = useContext(NoteContext);
   const navigate = useNavigate();
-  const [registerformopen, setRegisterformopen] = useState("");
+  const token = localStorage.getItem("token");
+  const [registerformopen, setRegisterformopen] = useState("active");
 
   useEffect(() => {
-    const authUser = localStorage.getItem("authUser");
-    if (!authUser) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       navigate("/login");
+    } else {
+      getAccountDetails();
+      // setTimeout(() => setRegisterformopen("active"), 1000);
     }
-    setTimeout(() => setRegisterformopen("active"), 1000);
   }, [navigate]);
 
   const handleTakeRes = () => {
@@ -29,6 +34,12 @@ const Home = () => {
     setRegisterformopen("exiting");
     setTimeout(() => setRegisterformopen(""), 300);
   };
+
+  useEffect(() => {
+    if (userDetail?.consent === true) {
+      setRegisterformopen("");
+    }
+  });
 
   return (
     <div className="Home">
@@ -45,7 +56,7 @@ const Home = () => {
               <X onClick={handlecloseTakeRes} />
             </div>
             <div className="responsiblity-note">
-              <RegistrationForm handlecloseTakeRes={handlecloseTakeRes}/>
+              <RegistrationForm userDetail={userDetail} handlecloseTakeRes={handlecloseTakeRes} />
             </div>
           </div>
           <div className="responsiblity-filter"></div>

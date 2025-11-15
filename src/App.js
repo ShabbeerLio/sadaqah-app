@@ -1,9 +1,4 @@
-import {
-  Route,
-  Routes,
-  BrowserRouter,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import Pnav from "./Components/Navbar/Pnav";
@@ -35,6 +30,8 @@ import ReturnRefund from "./Pages/Extra/ReturnRefund";
 import Career from "./Pages/Extra/Career";
 import Mashjid from "./Pages/Mashjid/Mashjid";
 import UserListen from "./Pages/Mashjid/UserListen";
+import ContextState from "./Context/ContextState";
+import BlockedPosts from "./Pages/Feeds/BlockedPosts";
 
 function App() {
   return (
@@ -61,8 +58,21 @@ function MainLayout() {
     location.pathname === "/login" ||
     location.pathname === "/signup" ||
     location.pathname === "/payment" ||
-    location.pathname === "/status"|| 
+    location.pathname === "/status" ||
     location.pathname === "/zakat-payment" ||
+    location.pathname === "/zakat-history" ||
+    location.pathname === "/profile" ||
+    location.pathname === "/profile-edit" ||
+    location.pathname === "/history" ||
+    location.pathname === "/notification" ||
+    location.pathname === "/about" ||
+    location.pathname === "/help" ||
+    location.pathname === "/privacy-policy" ||
+    location.pathname === "/term-and-conditions" ||
+    location.pathname === "/return-refund" ||
+    location.pathname === "/career" ||
+    location.pathname === "/blocked-post" ||
+    location.pathname.startsWith("/profile/") ||
     location.pathname === "/request-details";
 
   if (loading) {
@@ -70,40 +80,43 @@ function MainLayout() {
   }
 
   return (
-    <div className="app-container">
-      {!hideNav && <Navbar />}
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/profile-edit" element={<ProfileEdit />} />
-        <Route path="/feeds" element={<Feeds />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/notification" element={<Notification />} />
-        <Route path="/calculator" element={<ZakatCalculator />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/status" element={<StatusPage />} />
-        <Route path="/zakat-history" element={<ZakatHistory />} />
-        <Route path="/zakat-payment" element={<ZakatPayment />} />
-        <Route path="/donation-request" element={<DonateReq />} />
-        <Route path="/request-details" element={<DonationReqDetail />} />
-        <Route path="/suggest" element={<Suggest />} />
-        <Route path="/add-feed" element={<AddFeeds />} />
-        <Route path="/wallet" element={<Wallet />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/term-and-conditions" element={<TermsAndConditions />} />
-        <Route path="/return-refund" element={<ReturnRefund />} />
-        <Route path="/career" element={<Career />} />
-        <Route path="/adhan" element={<Mashjid />} />
-        <Route path="/userlisten" element={<UserListen />} />
-      </Routes>
-      {!hideNav && <Pnav />}
-    </div>
+    <ContextState>
+      <div className="app-container">
+        {!hideNav && <Navbar />}
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile-edit" element={<ProfileEdit />} />
+          <Route path="/feeds" element={<Feeds />} />
+          <Route path="/blocked-post" element={<BlockedPosts />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/calculator" element={<ZakatCalculator />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/status" element={<StatusPage />} />
+          <Route path="/zakat-history" element={<ZakatHistory />} />
+          <Route path="/zakat-payment" element={<ZakatPayment />} />
+          <Route path="/donation-request" element={<DonateReq />} />
+          <Route path="/request-details" element={<DonationReqDetail />} />
+          <Route path="/suggest" element={<Suggest />} />
+          <Route path="/add-feed" element={<AddFeeds />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/term-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/return-refund" element={<ReturnRefund />} />
+          <Route path="/career" element={<Career />} />
+          <Route path="/adhan" element={<Mashjid />} />
+          <Route path="/userlisten" element={<UserListen />} />
+        </Routes>
+        {!hideNav && <Pnav />}
+      </div>
+    </ContextState>
   );
 }
 

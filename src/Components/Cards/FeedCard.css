@@ -7,6 +7,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   overflow: hidden;
+  position: relative;
 }
 
 .feedcard-header {
@@ -14,6 +15,7 @@
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
+  position: relative;
 }
 
 .avatar {
@@ -102,4 +104,208 @@
 
 .feedcard-carousel .slick-dots {
     bottom: -3% !important;
+}
+
+.icon {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.icon:active {
+  transform: scale(1.2);
+}
+
+.comment-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-header button{
+  border: none;
+  background-color: transparent;
+  border-radius: 50px;
+  /* color: white; */
+}
+
+.comment-modal {
+  background: #e7f0dc;
+  width: 90%;
+  max-height: 70vh;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.modal-comments {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+}
+
+.comment-modal-box{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.comment-modal-box .reply-btn{
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.comment-modal-box .reply-btn svg{
+  width: 20px;
+  height: 20px;
+}
+.comment-modal-box img{
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+
+/* .comment-item {
+  margin-bottom: 10px;
+} */
+.comment-item p{
+  margin: 0;
+  font-size: 14px;
+  margin-right: 4rem;
+}
+
+.comment-item strong {
+  display: block;
+  font-weight: 600;
+  font-size: 12px;
+  margin: 0;
+}
+
+.no-comments {
+  color: #888;
+  text-align: center;
+}
+
+.modal-input {
+  display: flex;
+  border-top: 1px solid #d0d0d0;
+  padding: 15px;
+}
+
+.modal-input input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 6px 8px;
+}
+
+.modal-input button {
+  margin-left: 8px;
+  background: #597445;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+
+.feedcard-moreitems{
+  position: absolute;
+  right: 2%;
+}
+
+.feedcard-options-modal {
+  position: absolute;
+  top: 40px; /* adjust based on header */
+  right: 10px;
+  background: #fff;
+  border-radius: 20px;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.feedcard-options-modal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.feedcard-options-modal li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.feedcard-options-modal li svg{
+  width: 15px;
+  height: 15px;
+}
+
+.reply-item img{
+     width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50px;
+}
+.replies{
+  padding-left: 2rem;
+  margin-bottom: 10px;
+}
+.reply-item{
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     
+}
+.reply-item strong{ 
+     display: block;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0;
+}
+.reply-item p{ 
+         margin: 0;
+    font-size: 14px;
+}
+
+.reply-input{
+  display: flex;
+}
+.reply-input input{
+  flex: 1 1;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding: 6px 8px;
+    margin-left: 2rem;
+    margin-bottom: 5px;
+}
+.reply-input button{
+  margin-left: 8px;
+    background: #597445;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 6px 12px;
+    cursor: pointer;
 }

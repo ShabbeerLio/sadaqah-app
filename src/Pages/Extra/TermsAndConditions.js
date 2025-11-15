@@ -1,13 +1,20 @@
-import { AppWindow, Mail, Phone, TicketCheck } from 'lucide-react'
+import { AppWindow, ChevronLeft, Mail, Phone, TicketCheck } from 'lucide-react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const PrivacyPolicy = () => {
+  const navigate = useNavigate();
   return (
-    <div className="Home">
+    <div className="Home other">
       <div className="Home-main">
+        <div className="profile-header other" style={{ marginTop: "1rem" }}>
+                  <button className="back-button" onClick={() => navigate(-1)}>
+                    <ChevronLeft />
+                  </button>
+                  <h2>Terms and Conditions</h2>
+                </div>
         <div className="notification-box">
-          <h5>Terms and Conditions</h5>
+          {/* <h5>Terms and Conditions</h5> */}
           <div className="about-box">
             <p> <span>Effective Date:</span>  August 04, 2025</p>
             <p>Welcome to Sadaqah App (“we”, “our”, “us”). These Terms and Conditions govern your use of our mobile application, website, and related services (collectively referred to as the “App”). By using our App, you agree to abide by these Terms.</p>

@@ -1,245 +1,230 @@
-import React, { useState, useEffect } from "react";
-import "./DonateForm.css"
+import React, { useState } from "react";
+import axios from "axios";
+import "./DonateForm.css";
+import Host from "../../Host";
 
-const DonateForm = ({ onSubmit, instituteData }) => {
-    const [formData, setFormData] = useState({
-        instituteType: "",
-        donationPurpose: "",
-        title: "",
-        description: "",
-        amount: "",
+const DonateForm = ({ getAllDonationsRequests, handleCloseDonet }) => {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+  });
+
+  const [newItem, setNewItem] = useState({
+    title: "",
+    description: "",
+    quantity: "",
+    unit: "pcs",
+    price: "",
+  });
+
+  const [items, setItems] = useState([]);
+
+  const itemUnits = ["pcs", "packets", "tons", "liters", "kg"];
+
+  const unitSuggestions = {
+    cement: "packets",
+    sand: "tons",
+    bricks: "pcs",
+    rice: "kg",
+    flour: "kg",
+    oil: "liters",
+    milk: "liters",
+    water: "liters",
+    book: "pcs",
+    fan: "pcs",
+    bulb: "pcs",
+    chair: "pcs",
+    bed: "pcs",
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleItemChange = (field, value) => {
+    let updated = { ...newItem, [field]: value };
+    if (field === "title") {
+      const suggestion = unitSuggestions[value.toLowerCase()];
+      if (suggestion) updated.unit = suggestion;
+    }
+    setNewItem(updated);
+  };
+
+  const addItem = () => {
+    if (!newItem.title || !newItem.quantity || !newItem.price) return;
+    setItems((prev) => [...prev, newItem]);
+    setNewItem({
+      title: "",
+      description: "",
+      quantity: "",
+      unit: "pcs",
+      price: "",
     });
+  };
 
-    const [newItem, setNewItem] = useState({
-        item: "",
-        quantity: "",
-        unit: "pcs",
-        rate: "",
-        description: "",
-    });
+  const removeItem = (index) => {
+    const updated = [...items];
+    updated.splice(index, 1);
+    setItems(updated);
+  };
 
-
-    const [requirements, setRequirements] = useState([]);
-
-    const purposeOptions = {
-        masjid: ["Construction", "Equipments", "Maintenance", "Electricity"],
-        madrasa: ["Construction", "Equipments", "Books", "Student Support"],
-        khanqah: ["Renovation", "Utility", "Events"],
-        kabristan: ["Land Purchase", "Maintenance", "Grave Diggers' Support"],
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("Adding Request...");
+    const payload = {
+      title: formData.title,
+      description: formData.description,
+      items,
     };
 
-    const itemUnits = ["pcs", "packets", "tons", "liters", "kg"];
+    try {
+      const response = await fetch(`${Host}/donation/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify(payload),
+      });
 
-    // Set instituteType from props on initial load
-    useEffect(() => {
-        if (instituteData?.instituteType) {
-            setFormData((prev) => ({
-                ...prev,
-                instituteType: instituteData.instituteType,
-            }));
-        }
-    }, [instituteData]);
+      const data = await response.json();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create donation request");
+      }
 
-        if (name === "donationPurpose") {
-            setRequirements([]); // reset requirements when changing purpose
-        }
-    };
+      setLoading(false);
+      setMessage("Request Added");
+      //   setMessage("✅ Donation request created successfully!");
+      await getAllDonationsRequests();
+      handleCloseDonet();
 
+      setFormData({ title: "", description: "" });
+      setItems([]);
+    } catch (error) {
+      console.error("Error creating donation request:", error);
+      //   setMessage("❌ " + error.message);
+    }
+  };
 
-    const addRequirement = () => {
-        if (!newItem.item || !newItem.quantity || !newItem.rate) return;
-
-        const total = parseFloat(newItem.quantity) * parseFloat(newItem.rate);
-        setRequirements((prev) => [
-            ...prev,
-            { ...newItem, total: Math.round(total) },
-        ]);
-        setNewItem({
-            item: "",
-            quantity: "",
-            unit: "pcs",
-            rate: "",
-            description: "",
-        });
-    };
-
-    const removeRequirement = (index) => {
-        const updated = [...requirements];
-        updated.splice(index, 1);
-        setRequirements(updated);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const totalAmount = requirements.reduce((sum, r) => sum + (r.total || 0), 0);
-        const finalData = {
-            ...formData,
-            amount: totalAmount,
-            requirements,
-        };
-        if (onSubmit) onSubmit(finalData);
-        console.log("Submitted Data:", finalData);
-    };
-
-    return (
+  return (
+    <>
+      {!loading ? (
         <form className="post-card addreq" onSubmit={handleSubmit}>
-            <label>Donation Purpose</label>
+          <label>Title</label>
+          <input
+            className="search__input"
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Donation Title"
+            required
+          />
+
+          <label>Description</label>
+          <textarea
+            className="search__input"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Describe the donation request..."
+            rows={3}
+            required
+          />
+
+          <label>Add Item</label>
+          <div className="requirement-row">
+            <input
+              className="search__input"
+              type="text"
+              placeholder="Item name (e.g. Cement)"
+              value={newItem.title}
+              onChange={(e) => handleItemChange("title", e.target.value)}
+            />
+            <input
+              className="search__input"
+              type="number"
+              placeholder="Qty"
+              value={newItem.quantity}
+              onChange={(e) => handleItemChange("quantity", e.target.value)}
+            />
             <select
-                className="search__input"
-                name="donationPurpose"
-                value={formData.donationPurpose}
-                onChange={handleChange}
-                required
+              className="search__input"
+              value={newItem.unit}
+              onChange={(e) => handleItemChange("unit", e.target.value)}
             >
-                <option value="">Select Purpose</option>
-                {purposeOptions[formData.instituteType]?.map((purpose) => (
-                    <option key={purpose} value={purpose}>
-                        {purpose}
-                    </option>
-                ))}
+              {itemUnits.map((u) => (
+                <option key={u} value={u}>
+                  {u}
+                </option>
+              ))}
             </select>
-
-            <label>Title</label>
             <input
-                className="search__input"
-                type="text"
-                name="title"
-                placeholder="Donation Title"
-                value={formData.title}
-                onChange={handleChange}
-                required
+              className="search__input"
+              type="number"
+              placeholder="Price ₹"
+              value={newItem.price}
+              onChange={(e) => handleItemChange("price", e.target.value)}
             />
-
-            <label>Description</label>
-            <textarea
-                className="search__input"
-                name="description"
-                placeholder="Describe the donation request..."
-                value={formData.description}
-                onChange={handleChange}
-                rows={3}
-                required
-            />
-
-            {formData.donationPurpose !== "" && (
-                <>
-                <label>Items Requirements</label>
-
-                    {/* Add New Item Inputs */}
-                    <div className="requirement-row">
-                        <input
-                            className="search__input"
-                            type="text"
-                            placeholder="Item name (e.g. Cement)"
-                            value={newItem.item || ""}
-                            onChange={(e) =>
-                                setNewItem({ ...newItem, item: e.target.value })
-                            }
-                            required
-                        />
-                        <input
-                            className="search__input"
-                            type="number"
-                            placeholder="Qty"
-                            value={newItem.quantity || ""}
-                            onChange={(e) =>
-                                setNewItem({ ...newItem, quantity: e.target.value })
-                            }
-                            required
-                        />
-                        <select
-                            className="search__input"
-                            value={newItem.unit || "pcs"}
-                            onChange={(e) =>
-                                setNewItem({ ...newItem, unit: e.target.value })
-                            }
-                        >
-                            {itemUnits.map((unit) => (
-                                <option key={unit} value={unit}>
-                                    {unit}
-                                </option>
-                            ))}
-                        </select>
-                        <input
-                            className="search__input"
-                            type="number"
-                            placeholder="Rate ₹"
-                            value={newItem.rate || ""}
-                            onChange={(e) =>
-                                setNewItem({ ...newItem, rate: e.target.value })
-                            }
-                            required
-                        />
-                        <input
-                            className="search__input"
-                            type="text"
-                            placeholder="Description"
-                            value={newItem.description || ""}
-                            onChange={(e) =>
-                                setNewItem({ ...newItem, description: e.target.value })
-                            }
-                        />
-                        <button className="post-button" type="button" onClick={addRequirement}>Add Items</button>
-                    </div>
-
-                    {/* Table of Added Items */}
-                    <div className="add-red-table">
-                        {requirements.length > 0 && (
-                            <table className="req-table">
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Qty</th>
-                                        <th>Unit</th>
-                                        <th>Rate</th>
-                                        <th>Total</th>
-                                        <th>Description</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {requirements.map((req, index) => (
-                                        <tr key={index}>
-                                            <td>{req.item}</td>
-                                            <td>{req.quantity}</td>
-                                            <td>{req.unit}</td>
-                                            <td>₹{req.rate}</td>
-                                            <td>₹{req.total}</td>
-                                            <td>{req.description}</td>
-                                            <td>
-                                                <button type="button" onClick={() => removeRequirement(index)}>
-                                                    ❌
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        )}
-                    </div>
-                </>
-            )}
-
-            <label>Total Amount Needed (₹)</label>
             <input
-                className="search__input"
-                type="number"
-                value={requirements.reduce((sum, r) => sum + (r.total || 0), 0)}
-                readOnly
+              className="search__input"
+              type="text"
+              placeholder="Description"
+              value={newItem.description}
+              onChange={(e) => handleItemChange("description", e.target.value)}
             />
-
-            <button className="post-button" type="submit">
-                Submit Request
+            <button className="post-button" type="button" onClick={addItem}>
+              Add
             </button>
+          </div>
+
+          {items.length > 0 && (
+            <div className="add-red-table">
+              <table className="req-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((it, i) => (
+                    <tr key={i}>
+                      <td>{it.title}</td>
+                      <td>{it.quantity}</td>
+                      <td>{it.unit}</td>
+                      <td>₹{it.price}</td>
+                      <td>{it.description}</td>
+                      <td>
+                        <button type="button" onClick={() => removeItem(i)}>
+                          ❌
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          <button className="post-button" type="submit">
+            Submit Request
+          </button>
         </form>
-    );
+      ):(
+        <p>{message}</p>
+      )}
+    </>
+  );
 };
 
 export default DonateForm;

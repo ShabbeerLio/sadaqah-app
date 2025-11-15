@@ -1,3 +1,7 @@
+.Home.other{
+margin-bottom: 0;
+}
+
 .notification-box h5 {
   color: #597445;
 }
@@ -198,7 +202,7 @@
   background-color: white;
   border-radius: 20px;
   padding: 1rem;
-  height: 78vh;
+  height: 90vh;
   overflow: auto;
 }
 .about-box a{
@@ -223,4 +227,9 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
+}
+
+
+.profile-header.other{
+margin: 0 15px ;
 }

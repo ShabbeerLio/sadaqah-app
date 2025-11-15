@@ -11,6 +11,19 @@
   padding: 10px 10px 0px 10px;
 }
 
+.institute-feed-btn{
+  width: 100%;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background-color: #fdb618;
+    border-radius: 25px;
+    color: white;
+    margin: 0;
+    border: none;
+}
 @media only screen and (max-width: 680px) {
   .Feeds-box {
     display: grid;

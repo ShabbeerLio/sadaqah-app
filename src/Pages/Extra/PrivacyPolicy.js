@@ -1,13 +1,20 @@
-import { AppWindow, Mail, Phone, TicketCheck } from 'lucide-react'
+import { AppWindow, ChevronLeft, Mail, Phone, TicketCheck } from 'lucide-react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const PrivacyPolicy = () => {
+  const navigate = useNavigate();
   return (
-    <div className="Home">
+    <div className="Home other">
       <div className="Home-main">
+        <div className="profile-header other" style={{ marginTop: "1rem" }}>
+                  <button className="back-button" onClick={() => navigate(-1)}>
+                    <ChevronLeft />
+                  </button>
+                  <h2>Privacy Policy</h2>
+                </div>
         <div className="notification-box">
-          <h5>Privacy Policy</h5>
+          {/* <h5>Privacy Policy</h5> */}
           <div className="about-box">
             <p> <span>Effective Date:</span>  August 04, 2025</p>
             <p>Sadaqah App (“we”, “our”, or “us”) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use our mobile application, website, or any related services (collectively, “Sadaqah App”).</p>

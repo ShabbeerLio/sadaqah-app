@@ -1,197 +1,256 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Mashjid.css";
-import CombinedFeedData from "../AppData"; // assuming it's relative path
 import Adhan from "../../Components/Adhan/Adhan";
 import Ads from "../../Components/Ads/Ads";
 import { useNavigate } from "react-router-dom";
-import TestApp from "./TestApp";
+import NoteContext from "../../Context/SadaqahContext";
+import Host from "../../Host";
 
 const Mashjid = () => {
-    const navigate = useNavigate();
-    const [selectedMasjid, setSelectedMasjid] = useState(null);
-    const [selectedAdhans, setSelectedAdhans] = useState([]);
+  const {
+    userDetail,
+    getAccountDetails,
+    institutefollowDetail,
+    getAllInstitutebyFollowing,
+  } = useContext(NoteContext);
+  const navigate = useNavigate();
+  const institutes = institutefollowDetail?.followingInstitutes;
+  const [selectedMasjid, setSelectedMasjid] = useState(null);
+  const [selectedAdhans, setSelectedAdhans] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    } else {
+      getAccountDetails();
+    }
+  }, [navigate]);
 
-    let [user, setUser] = useState("");
+  const user = userDetail;
+  const masjids = institutes;
 
-    useEffect(() => {
-        const authUser = JSON.parse(localStorage.getItem("authUser"));
-        if (!authUser) {
-            navigate("/login");
-        } else {
-            const findUser = CombinedFeedData.find((i) => i.id === authUser.id);
-            setUser(findUser || {});
-        }
-    }, []);
+  useEffect(() => {
+    if (user?.role === "institute") {
+      // For institute, use their own adhanTimes
+      setSelectedMasjid(user);
+    } else if (user?.role === "user" && user?.defaultInstitute) {
+      getAllInstitutebyFollowing();
+      const defaultMasjid = institutes?.find(
+        (inst) => String(inst._id) === String(user.defaultInstitute)
+      );
+      if (defaultMasjid) {
+        setSelectedMasjid(defaultMasjid);
+      }
+    }
+  }, [user, institutes]);
 
-    const masjids = CombinedFeedData.filter(
-        (item) => item.type === "institute" && item.instituteType === "masjid"
+  const handleCheckboxChange = (prayer) => {
+    setSelectedAdhans((prev) =>
+      prev.includes(prayer)
+        ? prev.filter((p) => p !== prayer)
+        : [...prev, prayer]
     );
+  };
 
-    const handleCheckboxChange = (prayer) => {
-        console.log(prayer, "prayer")
-        if (selectedAdhans.includes(prayer)) {
-            setSelectedAdhans(selectedAdhans.filter((p) => p !== prayer));
-        } else {
-            setSelectedAdhans([...selectedAdhans, prayer]);
-        }
+  const handlePlayAdhans = async () => {
+    setLoading(true);
+    const selectedMashjidId = selectedMasjid?._id;
+    const enabledTimes = {
+      Fajr: selectedAdhans.includes("Fajr"),
+      Dhuhr: selectedAdhans.includes("Dhuhr"),
+      Asr: selectedAdhans.includes("Asr"),
+      Maghrib: selectedAdhans.includes("Maghrib"),
+      Isha: selectedAdhans.includes("Isha"),
+      Jumma: selectedAdhans.includes("Jumma"),
     };
-
-    const handlePlayAdhans = () => {
-        if (selectedAdhans.length === 0) {
-            alert("Select at least one Adhan to hear");
-        } else {
-            alert(`Playing: ${selectedAdhans.map((a) => a.toUpperCase()).join(", ")}`);
-            // Here, you can add actual audio playback logic
+    try {
+      const res = await fetch(
+        `${Host}/auth/set-default-institute/${selectedMashjidId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({ enabledTimes }),
         }
-    };
+      );
 
-    // const [isBroadcasting, setIsBroadcasting] = useState(false);
-    // const wsRef = useRef(null);
-    // const recorderRef = useRef(null);
+      const data = await res.json();
+      if (data.success) {
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/");
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error, "error");
+    }
+  };
 
-    // const startBroadcast = async () => {
-    //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    //     wsRef.current = new WebSocket("https://structured-backend.onrender.com"); // or wss://yourdomain.com
+  // Inside the institute role block
+  const saveAdhanTimes = async () => {
+    try {
+      const res = await fetch(`${Host}/auth/add-adhan`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify(selectedMasjid.adhanTimes),
+      });
 
-    //     wsRef.current.binaryType = "arraybuffer";
+      const data = await res.json();
+      if (data.success) {
+        alert("✅ Adhan times updated successfully");
+      } else {
+        alert("❌ Failed to update Adhan times");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("❌ Something went wrong");
+    }
+  };
 
-    //     wsRef.current.onopen = () => {
-    //         wsRef.current.send(JSON.stringify({ type: "broadcaster" }));
+  useEffect(() => {
+    if (user?.adhanPreferences?.length > 0) {
+      const prefs = user.adhanPreferences[0];
+      if (prefs.enabledTimes) {
+        const truePrayers = Object.entries(prefs.enabledTimes)
+          .filter(([_, isEnabled]) => isEnabled)
+          .map(([prayer]) => prayer);
+        setSelectedAdhans(truePrayers);
+      }
+    }
+  }, [user]);
 
-    //         const recorder = new MediaRecorder(stream, {
-    //             mimeType: "audio/webm; codecs=opus"
-    //         });
+  const formatTo24Hour = (time12h) => {
+    if (!time12h) return "";
+    const [time, modifier] = time12h.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
 
-    //         recorderRef.current = recorder;
+    if (modifier === "PM" && hours !== 12) hours += 12;
+    if (modifier === "AM" && hours === 12) hours = 0;
 
-    //         recorder.ondataavailable = (event) => {
-    //             if (event.data.size > 0 && wsRef.current.readyState === WebSocket.OPEN) {
-    //                 wsRef.current.send(event.data); // send raw binary
-    //             }
-    //         };
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
-    //         recorder.start(500); // Send every 500ms
-    //         setIsBroadcasting(true);
-    //     };
-    // };
+  return (
+    <div className="Home">
+      <div className="Home-main">
+        <Adhan />
+        <div className="masjid-box">
+          {user.role === "institute" && user.instituteType === "masjid" ? (
+            <div className="post-card">
+              <label>Adhan Times</label>
 
-    // const stopBroadcast = () => {
-    //     recorderRef.current?.stop();
-    //     wsRef.current?.close();
-    //     setIsBroadcasting(false);
-    // };
+              {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha", "Jumma"].map(
+                (prayer) => (
+                  <div className="mashjid-adan-add" key={prayer}>
+                    <label>{prayer.toUpperCase()}: </label>
+                    <input
+                      className="search__input"
+                      type="time"
+                      value={formatTo24Hour(selectedMasjid?.adhanTimes?.[prayer] || "")}
+                      onChange={(e) => {
+                        const updatedAdhanTimes = {
+                          ...user.adhanTimes,
+                          [prayer]: e.target.value, // 24-hour string from input
+                        };
 
-    return (
-        <div className="Home">
-            <div className="Home-main">
-                <Adhan />
-                <div className="masjid-box">
-                    {user.type === "institute" && user.instituteType === "masjid" ? (
-                        <div className="post-card">
-                            {/* <button className="post-button" onClick={isBroadcasting ? stopBroadcast : startBroadcast}>
-                                {isBroadcasting ? "Stop Adhan" : "Start Adhan"}
-                            </button> */}
-                            <label>Adhan Times</label>
+                        // Update the selectedMasjid state to trigger re-render
+                        setSelectedMasjid({
+                          ...selectedMasjid,
+                          adhanTimes: updatedAdhanTimes,
+                        });
+                      }}
+                    />
+                  </div>
+                )
+              )}
 
-                            {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha", "Jumma"].map((prayer) => (
-                                <div className="mashjid-adan-add" key={prayer}>
-                                    <label>{prayer.toUpperCase()}: </label>
-                                    <input
-                                        className="search__input"
-                                        type="time"
-                                        value={
-                                            user.adhanTimes?.[prayer] || "" // safely get current value
-                                        }
-                                        onChange={(e) => {
-                                            const updatedAdhanTimes = {
-                                                ...user.adhanTimes, // copy existing
-                                                [prayer]: e.target.value, // update current prayer
-                                            };
-
-                                            // Update user state with new adhanTimes
-                                            const updatedUser = { ...user, adhanTimes: updatedAdhanTimes };
-                                            setUser(updatedUser); // trigger re-render
-                                        }}
-                                    />
-                                </div>
-                            ))}
-
-                            <button
-                                className="post-button"
-                                onClick={() => {
-                                    const index = CombinedFeedData.findIndex((m) => m.id === user.id);
-                                    if (index !== -1) {
-                                        CombinedFeedData[index].adhanTimes = user.adhanTimes;
-                                    }
-                                    localStorage.setItem("authUser", JSON.stringify(user)); // update localStorage
-                                    alert("Adhan times saved successfully.");
-                                }}
-                            >
-                                Save Adhan Times
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="post-card">
-                            <label>Select Mashjid</label>
-                            <select
-                                className="search__input"
-                                onChange={(e) => {
-                                    const masjid = masjids.find(
-                                        (m) => m.username === e.target.value
-                                    );
-                                    setSelectedMasjid(masjid);
-                                    setSelectedAdhans([]);
-                                }}
-                            >
-                                <option value="">Select Masjid</option>
-                                {masjids.map((m) => (
-                                    <option key={m.id} value={m.username}>
-                                        {m.username} ({m.location})
-                                    </option>
-                                ))}
-                            </select>
-
-                            {selectedMasjid && selectedMasjid.adhanTimes ? (
-                                <div className="adhan-times">
-                                    <label>Adhan Times of {selectedMasjid.username}</label>
-                                    <ul>
-                                        {Object.entries(selectedMasjid.adhanTimes).map(
-                                            ([prayer, time], index) => (
-                                                <li key={prayer}>
-                                                    <p>
-                                                        {prayer.toUpperCase()} - {time}
-                                                    </p>
-                                                    <div className="container-adhan">
-                                                        <input
-                                                            type="checkbox"
-                                                            className="checkbox"
-                                                            id={`adhan-toggle-${index}`}
-                                                            checked={selectedAdhans.includes(prayer)}
-                                                            onChange={() => handleCheckboxChange(prayer)}
-                                                        />
-                                                        <label className="switch" htmlFor={`adhan-toggle-${index}`}>
-                                                            <span className="slider"></span>
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            )
-                                        )}
-                                    </ul>
-                                    <button className="post-button" onClick={handlePlayAdhans} style={{ marginTop: "10px" }}>
-                                        Hear Adhans
-                                    </button>
-                                </div>
-                            ) : selectedMasjid ? (
-                                <p>No Adhan times set yet for {selectedMasjid.username}.</p>
-                            ) :
-                                <Ads />
-                            }
-                        </div>
-                    )}
-                </div>
+              <button className="post-button" onClick={saveAdhanTimes}>
+                Save Adhan Times
+              </button>
             </div>
+          ) : (
+            <div className="post-card">
+              <label>Select Mashjid</label>
+              <select
+                className="search__input"
+                value={selectedMasjid?.userName}
+                onChange={(e) => {
+                  const masjid = masjids.find(
+                    (m) => m.userName === e.target.value
+                  );
+                  setSelectedMasjid(masjid);
+                  setSelectedAdhans([]);
+                }}
+              >
+                <option value="">Select Masjid</option>
+                {masjids?.map((m) => (
+                  <option key={m._id} value={m.userName}>
+                    {m.userName} ({m.location})
+                  </option>
+                ))}
+              </select>
+
+              {selectedMasjid && selectedMasjid?.adhanTimes ? (
+                <div className="adhan-times">
+                  <label>Adhan Times of {selectedMasjid?.userName}</label>
+                  <ul>
+                    {Object.entries(selectedMasjid?.adhanTimes).map(
+                      ([prayer, time], index) => (
+                        <li key={prayer}>
+                          <p>
+                            {prayer.toUpperCase()} - {time}
+                          </p>
+                          <div className="container-adhan">
+                            <input
+                              type="checkbox"
+                              className="checkbox"
+                              id={`adhan-toggle-${index}`}
+                              checked={selectedAdhans.includes(prayer)}
+                              onChange={() => handleCheckboxChange(prayer)}
+                            />
+                            <label
+                              className="switch"
+                              htmlFor={`adhan-toggle-${index}`}
+                            >
+                              <span className="slider"></span>
+                            </label>
+                          </div>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                  {loading ? (
+                    <button className="post-button" disabled>
+                      Setting default mashjid and playing selected adhans...
+                    </button>
+                  ) : (
+                    <button
+                      className="post-button"
+                      onClick={handlePlayAdhans}
+                      style={{ marginTop: "10px" }}
+                    >
+                      Hear Adhans
+                    </button>
+                  )}
+                </div>
+              ) : selectedMasjid ? (
+                <p>No Adhan times set yet for {selectedMasjid.username}.</p>
+              ) : (
+                <Ads />
+              )}
+            </div>
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Mashjid;

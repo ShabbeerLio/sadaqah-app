@@ -1,13 +1,20 @@
-import { AppWindow, Mail, Phone, TicketCheck } from 'lucide-react'
+import { AppWindow, ChevronLeft, Mail, Phone, TicketCheck } from 'lucide-react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const PrivacyPolicy = () => {
+  const navigate = useNavigate();
   return (
-    <div className="Home">
+    <div className="Home other">
       <div className="Home-main">
+        <div className="profile-header other" style={{ marginTop: "1rem" }}>
+                  <button className="back-button" onClick={() => navigate(-1)}>
+                    <ChevronLeft />
+                  </button>
+                  <h2>Return and Refund</h2>
+                </div>
         <div className="notification-box">
-          <h5>Return and Refund</h5>
+          {/* <h5>Return and Refund</h5> */}
           <div className="about-box">
             <p> <span>Effective Date:</span>  August 04, 2025</p>
             <p>At Sadaqah App, we aim to build a trusted and transparent platform where users can confidently donate to verified institutions. However, since all donations made through our platform are voluntary contributions to religious and charitable causes, they are generally non-refundable.</p>

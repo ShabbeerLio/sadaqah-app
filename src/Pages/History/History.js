@@ -1,56 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./History.css";
 import nofund from "../../Assets/history2.png";
 import { useNavigate } from "react-router-dom";
 import HistoryCard from "../../Components/HistoryCard/HistoryCard";
 import Filters from "../../Components/Filters/Filters";
-import CombinedFeedData from "../AppData";
-import TransactionsData from "../TransationData";
+import NoteContext from "../../Context/SadaqahContext";
+import { ChevronLeft } from "lucide-react";
 
 const History = () => {
+  const { userDetail, getAccountDetails } = useContext(NoteContext);
   const navigate = useNavigate();
-  const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    } else {
+      getAccountDetails();
+      setLoading(false);
+    }
+  }, [navigate]);
+  const userData =
+    userDetail?.role === "user"
+      ? userDetail?.transactions || []
+      : userDetail?.wallet?.transactions || [];
   const [filterRange, setFilterRange] = useState({
     from: "",
     to: "",
     type: "",
   });
-  let [user, setUser] = useState("");
-
-  useEffect(() => {
-    const authUser = JSON.parse(localStorage.getItem("authUser"));
-    if (!authUser) {
-      navigate("/login");
-    } else {
-      const findUser = CombinedFeedData.find((i) => i.id === authUser.id);
-      setUser(findUser);
-      const hardcoded = findUser?.transactions || [];
-
-      const localTx =
-        JSON.parse(localStorage.getItem(`userTransactions-${authUser.id}`)) ||
-        [];
-      const zakatTx =
-        JSON.parse(localStorage.getItem(`userZakat-${authUser.id}`)) || [];
-
-      // Filter static Zakat if it's for this user
-      const staticZakatTx = TransactionsData.filter(
-        (tx) =>
-          tx.type === "Zakat" &&
-          tx.transactionsType === "Donated" &&
-          tx.name === authUser.username
-      );
-
-      const allTransactions = [
-        ...hardcoded,
-        ...localTx,
-        ...zakatTx,
-        ...staticZakatTx,
-      ];
-      setUserData(allTransactions);
-      setLoading(false);
-    }
-  }, [navigate]);
 
   const sortedTransactions = userData
     ? [...userData].sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -69,8 +47,8 @@ const History = () => {
   });
 
   const totalAmount = filteredTransactions
-  .filter((tx) => tx.type?.toLowerCase() === "payment")
-  .reduce((sum, tx) => sum + tx.amount, 0);
+    .filter((tx) => tx.status?.toLowerCase() === "accepted")
+    .reduce((sum, tx) => sum + (tx.amount || 0), 0);
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -84,13 +62,13 @@ const History = () => {
   });
 
   const thisMonthAmount = thisMonthTransactions
-  .filter((tx) => tx.type?.toLowerCase() === "payment")
-  .reduce((sum, tx) => sum + tx.amount, 0);
+    .filter((tx) => tx.type?.toLowerCase() === "payment")
+    .reduce((sum, tx) => sum + tx.amount, 0);
+
+  console.log(userData, "userData");
 
   if (!userData)
     return <div className="loading">Loading transaction history...</div>;
-
-  // console.log(filteredTransactions,"filteredTransactions")
 
   const handleCardClick = (tx) => {
     navigate("/status", {
@@ -109,15 +87,24 @@ const History = () => {
       },
     });
   };
+  // console.log(userData, "userData");
+  // console.log(sortedTransactions, "sortedTransactions");
+  // console.log(filteredTransactions, "filteredTransactions");
 
   return (
-    <div className="Home">
+    <div className="Home other">
       <div className="Home-main">
+        <div className="profile-header other" style={{ marginTop: "1rem" }}>
+          <button className="back-button" onClick={() => navigate(-1)}>
+            <ChevronLeft />
+          </button>
+          <h2>History</h2>
+        </div>
         <div className="history-box">
           <div className="history-left">
             <div className="history-left-card">
               <h1>₹{totalAmount}</h1>
-              {user?.type === "institute" ? (
+              {userDetail?.role === "institute" ? (
                 <span>Total Donations</span>
               ) : (
                 <span>Total Donated</span>
@@ -154,9 +141,10 @@ const History = () => {
                 ) : (
                   filteredTransactions.map((tx) => (
                     <HistoryCard
-                      key={tx.id}
+                      key={tx._id}
                       tx={tx}
                       onClick={handleCardClick}
+                      userDetail={userDetail}
                     />
                   ))
                 )}

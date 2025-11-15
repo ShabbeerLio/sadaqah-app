@@ -27,6 +27,9 @@
   color: white;
 }
 
+.collection-left-top-right{
+  text-align: end;
+}
 .collection-left-top {
   display: flex;
   justify-content: space-between;
@@ -223,6 +226,15 @@
   right: 0%;
 }
 
+.collection-institute-fund{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.collection-institute-fund img{
+  width: 50%;
+}
 @media screen and (min-width: 1200px) {
   .Banners-detail {
     max-width: 1080px;

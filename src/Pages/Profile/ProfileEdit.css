@@ -2,14 +2,16 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: black;
   cursor: pointer;
+  padding: 0;
+  color: #597445;
 }
 
 .profile-image-section {
   display: flex;
   align-items: center;
   margin-bottom: 24px;
+  margin-top: 1rem;
 }
 
 .profile-image {
@@ -44,6 +46,24 @@
 .field-value {
   text-align: right;
   white-space: pre-line;
+  border: none;
+  background-color: transparent;
+}
+.field-value:focus-visible {
+  border: none;
+  outline: none;
+}
+
+.update-btn{
+  background-color: #fdb618;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .bio .field-value {

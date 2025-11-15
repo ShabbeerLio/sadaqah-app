@@ -1,41 +1,83 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import FeedCard from "../../Components/Cards/FeedCard";
 import "./Feeds.css";
 import CombinedFeedData from "../AppData";
 import Searchbox from "../../Components/Searchbox/Searchbox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Filters from "../../Components/Filters/Filters";
-import { useLocation } from "react-router-dom";
-import { useRef } from "react";
+import NoteContext from "../../Context/SadaqahContext";
+import { Plus } from "lucide-react";
+import Host from "../../Host";
 
 const Feeds = () => {
+  const {
+    userDetail,
+    getAccountDetails,
+    postDetail,
+    getAllPosts,
+    instituteDetail,
+    getAllInstitute,
+  } = useContext(NoteContext);
+
+  const navigate = useNavigate();
   const location = useLocation();
+  const postRefs = useRef({});
+
   const queryParams = new URLSearchParams(location.search);
   const postIdFromQuery = queryParams.get("postId");
 
-  console.log(postIdFromQuery,"postIdFromQuery")
-  const postRefs = useRef({});
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("authUser"));
-  const [filterRange, setFilterRange] = useState({
-    from: "",
-    to: "",
-    type: "",
-  });
+  const [filterRange, setFilterRange] = useState({ from: "", to: "", type: "" });
+  const [institutePosts, setInstitutePosts] = useState([]);
 
+  const user = userDetail;
+  // ✅ Initial Data Fetch
   useEffect(() => {
-    const authUser = localStorage.getItem("authUser");
-    if (!authUser) {
+    if (!localStorage.getItem("token")) {
       navigate("/login");
+    } else {
+      getAccountDetails();
+      getAllPosts();
+      getAllInstitute();
     }
   }, [navigate]);
 
-  // Function to format how long ago the post was
+  // ✅ Fetch posts only for institute when logged in as institute
+  useEffect(() => {
+    if (userDetail?.role === "institute" && userDetail?._id) {
+      fetchPostByInstituteId(userDetail._id);
+    }
+  }, [userDetail]);
+
+  // ✅ Scroll to specific post if postId query is present
+  useEffect(() => {
+    if (postIdFromQuery && postRefs.current[postIdFromQuery]) {
+      postRefs.current[postIdFromQuery].scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [postIdFromQuery]);
+
+  // ✅ Fetch institute-specific posts
+  const fetchPostByInstituteId = async (id) => {
+    if (!id) return;
+    try {
+      const response = await fetch(`${Host}/posts/institute/${id}`, {
+        method: "GET",
+      });
+      const json = await response.json();
+      setInstitutePosts(json.posts || []);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  // console.log(institutePosts,"institutePosts")
+  // ✅ Helper: Format post time
   const getTimeAgo = (dateString) => {
     const postDate = new Date(dateString);
     const now = new Date();
-
     const diffTime = now - postDate;
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
@@ -53,92 +95,131 @@ const Feeds = () => {
     });
   };
 
-  // Flatten and enrich all posts with user info and relative date
-  const allPosts = CombinedFeedData
-    .filter((u) => {
-      if (user?.type === "institute") {
-        return u.username === user.username;
-      }
-      return u.type === "institute";
-    })
-    .flatMap((u) =>
-      u.posts.map((post) => ({
-        ...post,
-        username: u.username,
-        avatar: u.avatar,
-        followers: u.followers,
-        daysAgo: getTimeAgo(post.time),
-      }))
+  // ✅ Normalize institute list
+  const institutesArray = Array.isArray(instituteDetail)
+    ? instituteDetail
+    : instituteDetail?.institutes || [];
+
+  // ✅ Flatten + enrich post data
+  const allPosts = postDetail.map((post) => {
+    const institute = institutesArray.find(
+      (inst) => inst?._id === (post?.institute?._id || post?.institute)
     );
 
-  // Sort newest posts first
-  const sortedPosts = allPosts.sort(
-    (a, b) => new Date(b.time) - new Date(a.time)
+    return {
+      ...post,
+      userName: institute ? institute.userName : post?.userName,
+      avatar: institute ? institute.avatar : post?.avatar,
+      followers: institute ? institute.followers : post?.followers,
+      daysAgo: getTimeAgo(post?.createdAt),
+    };
+  });
+
+  // ✅ Normalize followed institute IDs
+  const followedInstituteIds = (userDetail?.followingInstitutes || []).map(
+    (inst) => (typeof inst === "string" ? inst : inst._id)
   );
 
-  // Search filter
-  // Apply institute filters (only if institute)
-  let filteredPosts = sortedPosts;
+  // ✅ Only show posts from followed institutes
+  const visiblePosts = allPosts.filter((post) =>
+    followedInstituteIds.includes(post?.institute?._id)
+  );
 
-  if (user?.type === "institute") {
-    filteredPosts = filteredPosts.filter((post) => {
-      const postDate = new Date(post.time);
+  // ✅ Sort by newest first
+  const sortedPosts = visiblePosts.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
+  // ✅ Filtering Logic
+  let filteredPosts = [];
+
+  if (user?.role === "institute") {
+    // Map institute posts to include daysAgo + username from userDetail
+    const enrichedInstitutePosts = institutePosts.map((post) => ({
+      ...post,
+      userName: userDetail?.userName || "Your Institute",
+      daysAgo: getTimeAgo(post?.createdAt),
+    }));
+
+    filteredPosts = enrichedInstitutePosts.filter((post) => {
+      const postDate = new Date(post.createdAt);
       const fromDate = filterRange.from ? new Date(filterRange.from) : null;
       const toDate = filterRange.to ? new Date(filterRange.to) : null;
 
       const matchesDate =
-        (!fromDate || postDate >= fromDate) &&
-        (!toDate || postDate <= toDate);
+        (!fromDate || postDate >= fromDate) && (!toDate || postDate <= toDate);
 
       const matchesType =
-        !filterRange.type || post.type?.toLowerCase() === filterRange.type.toLowerCase();
+        !filterRange.type ||
+        post.type?.toLowerCase() === filterRange.type.toLowerCase();
 
       return matchesDate && matchesType;
     });
   } else {
-    // For users, apply search filtering
-    filteredPosts = filteredPosts.filter((post) => {
+    filteredPosts = sortedPosts.filter((post) => {
       const terms = searchTerm.toLowerCase().split(" ");
-      const combined = `${post.username} ${post.location}`.toLowerCase();
+      const combined = `${post?.userName} ${post?.location}`.toLowerCase();
       return terms.every((term) => combined.includes(term));
     });
   }
 
-  useEffect(() => {
-    if (postIdFromQuery && postRefs.current[postIdFromQuery]) {
-      postRefs.current[postIdFromQuery].scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [postIdFromQuery, filteredPosts]);
+  // console.log(filteredPosts, "filteredPosts");
 
   return (
     <div className="Home">
       <div className="Home-main">
-        {user?.type === "institute" ? (
-          <div className="institute-feeds-box">
-            <h5>Your Feeds</h5>
-            <div className="institute-feeds-filter">
-              <Filters onFilterChange={setFilterRange} />
-            </div>
-          </div>
+        {/* ✅ If no posts */}
+        {!filteredPosts || filteredPosts.length === 0 ? (
+          <>
+            {user?.role === "institute" ? (
+              <div className="institute-feeds-box">
+                <h5>Your Posts</h5>
+                <p>Add your posts so users can get all your updates.</p>
+                <button
+                  onClick={() => navigate("/add-feed")}
+                  className="institute-feed-btn"
+                >
+                  <Plus /> Add Post
+                </button>
+              </div>
+            ) : (
+              <div className="institute-feeds-box">
+                <p>Follow your institute from Search to get its updates!</p>
+              </div>
+            )}
+          </>
         ) : (
-          <Searchbox value={searchTerm} setSearch={setSearchTerm} />
-        )}
+          <>
+            {/* ✅ Header Section */}
+            {user?.role === "institute" ? (
+              <div className="institute-feeds-box">
+                <h5>Your Feeds</h5>
+                {/* <div className="institute-feeds-filter">
+                  <Filters onFilterChange={setFilterRange} />
+                </div> */}
+              </div>
+            ) : (
+              <Searchbox value={searchTerm} setSearch={setSearchTerm} />
+            )}
 
-        <div className="Feeds-box">
-          {filteredPosts.map((post, index) => (
-            <FeedCard
-              key={index}
-              ref={(el) => {
-                if (el) postRefs.current[post.id] = el;
-              }}
-              post={post}
-              user={user}
-            />
-          ))}
-        </div>
+            {/* ✅ Feed Grid */}
+            <div className="Feeds-box">
+              {filteredPosts.map((post) => (
+                <FeedCard
+                  key={post._id}
+                  ref={(el) => {
+                    if (el) postRefs.current[post._id] = el;
+                  }}
+                  post={post}
+                  user={user}
+                  instituteDetail={instituteDetail}
+                  getAllPosts={getAllPosts}
+                  getAccountDetails={getAccountDetails}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

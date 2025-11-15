@@ -26,7 +26,7 @@ const StaticTickets = [
         message: "Some reply...",
         attachments: null,
         timestamp: "2025-08-04T15:49:00",
-      }
+      },
     ],
     description:
       "Team Ansar – Community Connectors Inspired by the Ansar of Madinah, this team works on the ground to connect and enroll Islamic institutions like mosques and madrasas into the Sadaqah App. They build trust, spread awareness, and grow our verified network with dedication and care.",
@@ -51,7 +51,7 @@ const StaticTickets = [
         message: "Some reply...",
         attachments: null,
         timestamp: "2025-08-04T15:49:00",
-      }
+      },
     ],
     description:
       "Team Rahmah – Compassion in Action Rooted in the value of Rahmah (mercy and compassion), this team focuses on guiding users, resolving concerns, and offering heartfelt support. They ensure every interaction on the Sadaqah App feels warm, respectful, and caring.",
@@ -76,7 +76,7 @@ const StaticTickets = [
         message: "Some reply...",
         attachments: null,
         timestamp: "2025-08-04T15:49:00",
-      }
+      },
     ],
     description:
       "Team Amanah – Trust & Verification Inspired by the Islamic principle of Amanah (trust), this team is responsible for verifying every institution, donor, and transaction. They ensure transparency, safety, and credibility across the Sadaqah App platform.",
@@ -101,7 +101,7 @@ const StaticTickets = [
         message: "Some reply...",
         attachments: null,
         timestamp: "2025-08-04T15:49:00",
-      }
+      },
     ],
     description:
       "Team Fikr – Thoughtful Planning & Vision Inspired by the word Fikr (deep thought and concern), this team is responsible for strategy, planning, and continuous improvement. They think ahead to ensure the app grows with purpose and impact.",
@@ -130,7 +130,9 @@ const Help = () => {
       const updated = parsed.map((t, index) => ({
         id: StaticTickets.length + index + 1,
         status: t.status || "On Going",
-        ticket: t.ticket || `#${Math.random().toString(36).substring(2, 9).toUpperCase()}`,
+        ticket:
+          t.ticket ||
+          `#${Math.random().toString(36).substring(2, 9).toUpperCase()}`,
         postedBy: t.name || "User",
         date: t.date,
         lastUpdate: t.lastUpdate || t.date,
@@ -181,7 +183,10 @@ const Help = () => {
       return;
     }
 
-    const uniqueTicketId = `#${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+    const uniqueTicketId = `#${Math.random()
+      .toString(36)
+      .substring(2, 9)
+      .toUpperCase()}`;
     const newApp = {
       id: StaticTickets.length + applications.length + 1,
       status: "On Going",
@@ -240,8 +245,14 @@ const Help = () => {
   };
 
   return (
-    <div className="Home">
+    <div className="Home other">
       <div className="Home-main">
+        <div className="profile-header other" style={{ marginTop: "1rem" }}>
+          <button className="back-button" onClick={() => navigate(-1)}>
+            <ChevronLeft />
+          </button>
+          <h2>Help and Support</h2>
+        </div>
         <div className="notification-box">
           <div className="page-heading">
             <h5>
@@ -256,7 +267,6 @@ const Help = () => {
                   <ChevronLeft />
                 </button>
               )}
-              Help and Support
             </h5>
             <span onClick={handleFormOpen}>
               <SquarePlus />
@@ -269,11 +279,17 @@ const Help = () => {
               {applications.concat(StaticTickets).map((pos) => (
                 <div
                   key={pos.id}
-                  className={`help-ticket-box ${selectedPosition === pos.id ? "selected" : ""}`}
+                  className={`help-ticket-box ${
+                    selectedPosition === pos.id ? "selected" : ""
+                  }`}
                   onClick={() => handlePositionSelect(pos.id)}
                 >
-                  <h6>{pos.ticket} - {pos.title}</h6>
-                  <p className={`help application-status ${pos.status}`}>{pos.status}</p>
+                  <h6>
+                    {pos.ticket} - {pos.title}
+                  </h6>
+                  <p className={`help application-status ${pos.status}`}>
+                    {pos.status}
+                  </p>
                   <p>Last Updated : {pos.lastUpdate}</p>
                 </div>
               ))}
@@ -306,32 +322,30 @@ const Help = () => {
                     <h5>{selectedTicket?.ticket}</h5>
                     <h5>Subject : {selectedTicket?.title}</h5>
                     <h6>
-                      Posted By : {selectedTicket?.postedBy} On {selectedTicket?.date}
+                      Posted By : {selectedTicket?.postedBy} On{" "}
+                      {selectedTicket?.date}
                     </h6>
                     <p>{selectedTicket?.description}</p>
                   </div>
                   {ticketReplies[selectedPosition]?.length > 0 && (
                     <>
-                      {
-                        ticketReplies[selectedPosition].map((msg, index) => (
-                          <div className="help-detail-box post-card">
-                            <h5>Subject : {msg.title}</h5>
-                            <h6>
-                              Posted By : {selectedTicket?.postedBy} On{" "}
-                              {new Date(msg.timestamp).toLocaleString("en-GB", {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                hour12: true,
-                              })}
-                            </h6>
-                            <p>{msg.message}</p>
-                          </div>
-
-                        ))
-                      }
+                      {ticketReplies[selectedPosition].map((msg, index) => (
+                        <div className="help-detail-box post-card">
+                          <h5>Subject : {msg.title}</h5>
+                          <h6>
+                            Posted By : {selectedTicket?.postedBy} On{" "}
+                            {new Date(msg.timestamp).toLocaleString("en-GB", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            })}
+                          </h6>
+                          <p>{msg.message}</p>
+                        </div>
+                      ))}
                     </>
                   )}
                   {selectedTicket?.status !== "Closed" && (
@@ -397,6 +411,5 @@ const Help = () => {
     </div>
   );
 };
-
 
 export default Help;

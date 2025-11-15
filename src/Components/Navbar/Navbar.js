@@ -1,20 +1,29 @@
 import "./Navbar.css";
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
-import dosadaqa from "../../Assets/payment.png"
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import dosadaqa from "../../Assets/payment.png";
 import CombinedFeedData from "../../Pages/AppData";
 import Sidebar from "./Sidebar";
 import { Bell, CircleQuestionMark, WalletMinimal } from "lucide-react";
-
+import NoteContext from "../../Context/SadaqahContext";
 
 const Navbar = () => {
+  const { userDetail, getAccountDetails } = useContext(NoteContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    } else {
+      getAccountDetails();
+    }
+  }, [navigate]);
+
   const sideRef = useRef(null);
-  const user = JSON.parse(localStorage.getItem("authUser"));
   const location = useLocation();
   const currentPath = location.pathname;
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const [sideactive, setSideactive] = useState("")
+  const [sideactive, setSideactive] = useState("");
 
   const handleSidebar = () => {
     setSideactive("active");
@@ -22,7 +31,6 @@ const Navbar = () => {
   const handleCloseSidebar = () => {
     setSideactive("");
   };
-
 
   // Handle scroll to toggle "isScrolled"
   useEffect(() => {
@@ -33,9 +41,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!user) return null;
-
-  const data = CombinedFeedData.find((item) => item.username === user.username);
+  if (!userDetail) return null;
 
   return (
     <div className="navbar">
@@ -43,10 +49,17 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid nav-name">
             <Link className="navbar-brand" onClick={handleSidebar}>
-              <img src={data?.avatar} alt="" />
+              <img
+                src={
+                  userDetail.avatar
+                    ? userDetail.avatar
+                    : "https://static.vecteezy.com/system/resources/previews/068/013/243/large_2x/muslim-male-character-free-vector.jpg"
+                }
+                alt={userDetail?.userName}
+              />
               <div className="navbar-title">
                 <h5>Assalamu Alaikum</h5>
-                <span>{user?.username}</span>
+                <span>{userDetail?.userName}</span>
               </div>
             </Link>
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -75,7 +88,7 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="help">
-                {user.type === "user" ? (
+                {userDetail?.role === "user" ? (
                   <Link to={"/help"}>
                     <CircleQuestionMark />
                     <p>Help</p>
@@ -88,7 +101,7 @@ const Navbar = () => {
                 )}
               </div>
               {/* Show Pay Now only on / */}
-              {currentPath === "/" && user.type === "user" && (
+              {currentPath === "/" && userDetail?.role === "user" && (
                 <div className={`nav-pay-now ${isScrolled ? "scrolled" : ""}`}>
                   <Link to="/payment">
                     <img className="pay-imag" src={dosadaqa} alt="" />
@@ -97,9 +110,13 @@ const Navbar = () => {
                   </Link>
                 </div>
               )}
-
             </div>
-            <Sidebar sideactive={sideactive} sideRef={sideRef} handleCloseSidebar={handleCloseSidebar} />
+            <Sidebar
+              sideactive={sideactive}
+              sideRef={sideRef}
+              handleCloseSidebar={handleCloseSidebar}
+              userDetail={userDetail}
+            />
           </div>
         </nav>
       </div>

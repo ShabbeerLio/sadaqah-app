@@ -357,6 +357,10 @@
   flex-direction: column;
   gap: 1rem;
 }
+.donate-card-right img{
+  width: 50%;
+  object-fit: cover;
+}
 
 
 .confirmation-box .Ads{

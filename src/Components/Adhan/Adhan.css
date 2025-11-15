@@ -2,7 +2,7 @@
   display: flex;
   gap: 1rem;
   height: 120px;
-  align-items: flex-end;
+  align-items: center;
   margin-top: 2.8rem !important;
   position: relative;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@
 
 .adhan-left p {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   color: white;
 }
 .adhan-left h2 {
@@ -104,15 +104,18 @@
   margin-bottom: 5px;
   color: #e7f0dc;
 }
-.next-time p {
+.next-time p{
+  margin: 0;
+  margin-top: 10px;
+}
+.next-time p a{
   margin: 0;
   font-size: 12px;
-  /* line-height: 0.2; */
-  margin-top: 5px;
   background-color: #fdb618;
   color: black;
   border-radius: 25px;
   padding: 8px 20px;
+  text-decoration: none;
 }
 .next-time span {
   font-size: 10px;

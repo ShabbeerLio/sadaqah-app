@@ -1,108 +1,102 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./DonateReq.css";
 import avtar from "../../Assets/Posts/hadith.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowBack, IoIosClose, IoIosAdd } from "react-icons/io";
 import DonateCard from "../../Components/DonateCard/DonateCard";
-import DonateData from "../DonateData";
-import CombinedFeedData from "../AppData";
-import TransactionsData from "../TransationData";
 import HistoryCard from "../../Components/HistoryCard/HistoryCard";
 import nofund from "../../Assets/history2.png";
 import DonateForm from "../../Components/DonateCard/DonateForm";
+import NoteContext from "../../Context/SadaqahContext";
+import avatar2 from "../../Assets/avtar2.jpg";
 
 const DonateReq = () => {
+  const {
+    donationDetail,
+    getAllDonationsRequests,
+    userDetail,
+    getAccountDetails,
+  } = useContext(NoteContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    } else {
+      getAllDonationsRequests();
+      getAccountDetails();
+    }
+  }, [navigate]);
+
   const donateRef = useRef(null);
 
   const [donateActive, setDonateActive] = useState("");
   const [donateBoxMode, setDonateBoxMode] = useState(""); // "form" or "list"
 
-  const [user, setUser] = useState(null);
-  const [instituteData, setInstituteData] = useState();
-  const userLocation = instituteData?.location;
-  const [donationType, setDonationType] = useState("");
+  const user = userDetail;
+  const [donationType, setDonationType] = useState("following");
 
-useEffect(() => {
-  if (instituteData?.location && user?.type === "user") {
-    setDonationType(instituteData.location); // ✅ Set default to "Your Location"
-  }
-}, [instituteData, user]);
-
-  const [userData, setUserData] = useState();
-  const [loading, setLoading] = useState(true);
+  const userData = userDetail?.wallet?.transactions;
   const [filterRange, setFilterRange] = useState({
     from: "",
     to: "",
     type: "",
   });
-  useEffect(() => {
-    const authUser = JSON.parse(localStorage.getItem("authUser"));
-    if (!authUser) {
-      navigate("/login");
-    } else {
-      const findUser = CombinedFeedData.find((i) => i.id === authUser.id);
-      setInstituteData(findUser);
-      const hardcoded = findUser?.transactions || [];
 
-      const localTx =
-        JSON.parse(localStorage.getItem(`userTransactions-${authUser.id}`)) ||
-        [];
-      const zakatTx =
-        JSON.parse(localStorage.getItem(`userZakat-${authUser.id}`)) || [];
+  const [selectedDonationId, setSelectedDonationId] = useState(null);
 
-      // Filter static Zakat if it's for this user
-      const staticZakatTx = TransactionsData.filter(
-        (tx) =>
-          tx.type === "Zakat" &&
-          tx.transactionsType === "Donated" &&
-          tx.name === authUser.username
-      );
-
-      const allTransactions = [
-        ...hardcoded,
-        ...localTx,
-        ...zakatTx,
-        ...staticZakatTx,
-      ];
-      setUserData(allTransactions);
-      setLoading(false);
-    }
-  }, [navigate]);
-
-  const handleDonet = (mode) => {
+  const handleDonet = (mode, donationId = null) => {
     setDonateBoxMode(mode); // "form" or "list"
     setDonateActive("active");
+    setSelectedDonationId(donationId); // store the specific donation id
   };
+
+  // console.log(selectedDonationId, "selectedDonationId")
   const handleCloseDonet = () => {
     setDonateActive("");
   };
 
-  useEffect(() => {
-    const authUser = localStorage.getItem("authUser");
-    if (!authUser) {
-      navigate("/login");
-    } else {
-      setUser(JSON.parse(authUser));
-    }
-  }, [navigate]);
-
-//   console.log(instituteData, "data");
-
   if (!user) return null; // Don't render until user is loaded
 
-  let filteredDonation = [];
-  if (user.type === "user") {
-    filteredDonation = DonateData;
+  let filteredDonation = donationDetail?.donations ?? [];
+
+  if (user?.role === "user") {
     filteredDonation = filteredDonation.filter((i) => {
-      if (donationType === userLocation) {
-        return i.location === userLocation;
+      const isFollowing = user?.followingInstitutes?.includes(i?.institute?._id);
+      if (donationType === "following") {
+        return isFollowing;
       } else {
-        return i.location !== userLocation;
+        return !isFollowing;
       }
     });
+  } else if (user?.role === "institute") {
+    filteredDonation = (donationDetail?.donations ?? []).filter(
+      (i) =>
+        i?.institute?._id === user?._id ||
+        i?.institute?.userName === user?.userName
+    );
   } else {
-    filteredDonation = DonateData.filter((i) => i.username === user.username);
+    // Institute view → only donations created by this institute
+    filteredDonation = (donationDetail?.donations ?? []).filter(
+      (i) => i?.institute?._id === user?._id
+    );
+  }
+
+  let activeDonations = [];
+  let completedDonations = [];
+
+  if (user?.role === "user") {
+    // Only show donations that are not fully funded
+    activeDonations = filteredDonation.filter(
+      (i) => i.amountReceived < i.totalPrice
+    );
+  } else if (user?.role === "institute") {
+    // Institute sees all donations, but completed ones at the bottom
+    activeDonations = filteredDonation.filter(
+      (i) => i.amountReceived < i.totalPrice
+    );
+    completedDonations = filteredDonation.filter(
+      (i) => i.amountReceived >= i.totalPrice
+    );
   }
 
   const sortedTransactions = userData
@@ -110,21 +104,31 @@ useEffect(() => {
     : [];
 
   const filteredTransactions = sortedTransactions.filter((tx) => {
+    // Only Donation transactions
+    const isDonation = tx.type && tx.type.toLowerCase() === "donation";
+
+    // Match by selected donation ID if provided
+    const matchesDonation =
+      !selectedDonationId ||
+      (tx.donationRequestId && tx.donationRequestId === selectedDonationId);
+
     const inDateRange =
-      (!filterRange.from || tx.date >= filterRange.from) &&
-      (!filterRange.to || tx.date <= filterRange.to);
+      (!filterRange.from || new Date(tx.date) >= new Date(filterRange.from)) &&
+      (!filterRange.to || new Date(tx.date) <= new Date(filterRange.to));
 
     const typeMatch =
       !filterRange.type ||
       (tx.type && tx.type.toLowerCase() === filterRange.type.toLowerCase());
 
-    return inDateRange && typeMatch;
+    return isDonation && matchesDonation && inDateRange && typeMatch;
   });
 
   const totalAmount = filteredTransactions.reduce(
     (sum, tx) => sum + tx.amount,
     0
   );
+
+  // console.log(activeDonations,"activeDonations")
 
   return (
     <div className="Home">
@@ -133,31 +137,27 @@ useEffect(() => {
           <div className="donate-boxes">
             <div className="donate-top">
               <div className="donate-top-head">
-                {user.type === "user" ? (
+                {user.role === "user" ? (
                   <>
                     <h4>Donation Requests</h4>
                     <div className="radio-options">
                       <label
-                        className={`radio-label ${
-                          donationType === instituteData?.location
-                            ? "purple"
-                            : ""
-                        }`}
+                        className={`radio-label ${donationType === "following"
+                          ? "purple"
+                          : ""
+                          }`}
                       >
                         <input
                           type="radio"
-                          value="Delhi"
-                          checked={donationType === instituteData?.location}
-                          onChange={() =>
-                            setDonationType(instituteData?.location)
-                          }
+                          value="following"
+                          checked={donationType === "following"}
+                          onChange={() => setDonationType("following")}
                         />
                         Your Location
                       </label>
                       <label
-                        className={`radio-label ${
-                          donationType === "others" ? "blue" : ""
-                        }`}
+                        className={`radio-label ${donationType === "others" ? "blue" : ""
+                          }`}
                       >
                         <input
                           type="radio"
@@ -181,16 +181,36 @@ useEffect(() => {
               {/* <IoIosClose onClick={handleCloseDonet} /> */}
             </div>
             <div className="donate-card-box">
-              {filteredDonation.map((i, index) => (
-                <DonateCard
-                  key={index}
-                  user={user}
-                  i={i}
-                  donationType={donationType}
-                  handleCloseDonet={handleCloseDonet}
-                  handleDonet={handleDonet}
-                />
-              ))}
+              {activeDonations.length > 0 ? (
+                activeDonations.map((i, index) => (
+                  <DonateCard
+                    key={index}
+                    user={user}
+                    i={i}
+                    donationType={donationType}
+                    handleCloseDonet={handleCloseDonet}
+                    handleDonet={handleDonet}
+                  />
+                ))
+              ) : (
+                <p>No Active Donations</p>
+              )}
+
+              {user?.role === "institute" && completedDonations.length > 0 && (
+                <div className="completed-donations">
+                  <h5>Completed Donations</h5>
+                  {completedDonations.map((i, index) => (
+                    <DonateCard
+                      key={index}
+                      user={user}
+                      i={i}
+                      donationType={donationType}
+                      handleCloseDonet={handleCloseDonet}
+                      handleDonet={handleDonet}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -202,7 +222,11 @@ useEffect(() => {
                   {donateBoxMode === "form" ? (
                     <h4>Add your donation request</h4>
                   ) : (
-                    <h4>List of user donated</h4>
+                    <h4>
+                      {selectedDonationId
+                        ? `Transactions for Donation #${selectedDonationId.slice(-6)}`
+                        : "All Donation Transactions"}
+                    </h4>
                   )}
                   <IoIosClose onClick={handleCloseDonet} />
                 </div>
@@ -210,31 +234,22 @@ useEffect(() => {
             </div>
             <div className="donate-card-box">
               {donateBoxMode === "form" ? (
-                <DonateForm instituteData={instituteData} />
+                <DonateForm getAllDonationsRequests={getAllDonationsRequests} handleCloseDonet={handleCloseDonet} />
               ) : (
                 <div
-                  className={`donate-card-right ${
-                    totalAmount === 0 ? "empty" : ""
-                  }`}
+                  className={`donate-card-right ${totalAmount === 0 ? "empty" : ""
+                    }`}
                 >
-                  {loading === true ? (
-                    <div className="loading">
-                      Loading transaction history...
-                    </div>
-                  ) : (
+                  {totalAmount === 0 ? (
                     <>
-                      {totalAmount === 0 ? (
-                        <>
-                          <img src={nofund} alt="No Transactions" />
-                          <h5>No Transactions Found</h5>
-                          <p>No transactions in this date range.</p>
-                        </>
-                      ) : (
-                        filteredTransactions.map((tx) => (
-                          <HistoryCard key={tx.id} tx={tx} />
-                        ))
-                      )}
+                      <img src={nofund} alt="No Transactions" />
+                      <h5>No Transactions Found</h5>
+                      <p>No transactions in this date range.</p>
                     </>
+                  ) : (
+                    filteredTransactions.map((tx) => (
+                      <HistoryCard key={tx.id} tx={tx} userDetail={userDetail} />
+                    ))
                   )}
                 </div>
               )}
